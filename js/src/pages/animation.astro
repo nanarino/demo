@@ -1,0 +1,29 @@
+---
+import Layout from "src/layout.astro"
+---
+
+<Layout title="tag">
+    <p>
+        <span class="tag"> #elixir </span>
+    </p>
+    
+</Layout>
+<style>
+    p { vertical-align: baseline;}
+    .tag {
+        display: inline-flex;
+        box-sizing: border-box;
+        color: plum;
+        font-size: 18px;
+        line-height: 24px;
+        height: 32px;
+        background-color: blueviolet;
+        outline-color: blueviolet;
+        background-clip: padding-box;
+        border-radius: 8px;
+        padding: 4px .5em 4px;
+        &:hover{
+            padding: 0 .5em 8px;
+        }
+    }
+</style>

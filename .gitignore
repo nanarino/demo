@@ -1,0 +1,37 @@
+# macOS-specific files
+.DS_Store
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+.env.production
+
+# build output
+dist/
+
+# local style source
+*.css.map
+
+# node
+node_modules
+
+# Erlang
+erl_crash.dump
+
+# kotlin
+META-INF
+*.class
+*.jar
+!gradle-wrapper.jar
+.gradle
+build
+.idea
+
+# c/cpp
+*.exe
+
+# generated types
+.astro/

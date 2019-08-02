@@ -1,0 +1,87 @@
+---
+import type { page, menu } from "../types";
+interface Props {
+    menu: Array<page | menu>;
+    base?: string;
+}
+const { menu } = Astro.props;
+const base = Astro.props.base ?? "";
+const getName = (path: string) => path?.match?.(/[^/]*$/)?.[0];
+---
+
+<nav>
+    {
+        menu.map((item) => {
+            /**
+             * 当前菜单
+             */
+            if (
+                Array.isArray((item as menu).children) &&
+                (item as menu).children.length > 0
+            ) {
+                return (
+                    <details
+                        name="menu"
+                        open={RegExp(`^${base}${item.path}`).test(
+                            Astro.url.pathname,
+                        )}
+                    >
+                        <summary>{getName(item.path)}</summary>
+                        <Astro.self
+                            menu={(item as menu).children}
+                            base={base}
+                        />
+                    </details>
+                );
+            }
+            /**
+             * 当前页面
+             */
+            if (RegExp(`^${base}${item.path}\/?$`).test(Astro.url.pathname)) {
+                return (
+                    <!--
+                        <li
+                            style={{
+                                textIndent: "1em",
+                                color: "red",
+                                order: getName(item.path) ? "unset" : -1,
+                            }}
+                        >
+                            {getName(item.path) || "index"}
+                        </li>
+                    -->
+                );
+            }
+            /**
+             * 其他页面
+             */
+            return (
+                <li style={{ textIndent: "1em" }}>
+                    <a
+                        href={base + item.path}
+                        style={{ order: getName(item.path) ? "unset" : -1 }}
+                    >
+                        {getName(item.path) || "index"}
+                    </a>
+                </li>
+            );
+        })
+    }
+</nav>
+
+<style>
+    nav {
+        & summary {
+            cursor: pointer;
+            &:hover {
+                background-color: chartreuse;
+            }
+        }
+        & li {
+            list-style: none;
+            &:hover {
+                background-color: lawngreen;
+            }
+        }
+    }
+</style>

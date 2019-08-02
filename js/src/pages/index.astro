@@ -1,0 +1,40 @@
+---
+import Layout from "src/layout.astro"
+import Menu from "../components/menu.astro"
+import fs from "fs"
+import path from "path"
+import { promisify } from "util"
+import type { page, menu } from "../types"
+
+const stat = promisify(fs.stat)
+const readDir = promisify(fs.readdir)
+const getMenu = async (
+    currentDir: string,
+    rootDir: string = currentDir
+): Promise<(page | menu)[]> => {
+    const children: (page | menu)[] = []
+    if ((await stat(path.resolve(currentDir))).isFile()) return []
+    for (const fileName of await readDir(currentDir)) {
+        if (fileName?.[0] === ".") continue
+        const filePath = path.join(currentDir, fileName)
+        const isFile = (await stat(filePath)).isFile()
+        if (isFile && fileName.slice(-6) !== ".astro") continue
+        children.push({
+            path: path
+                .relative(rootDir, filePath)
+                .split(path.sep)
+                .join(path.posix.sep)
+                .replace(/index\.astro$/i, "")
+                .replace(/\.astro$/i, ""),
+            ...(isFile ? null : { children: await getMenu(filePath, rootDir) }),
+        })
+    }
+    return children
+}
+
+const menu = await getMenu("./src/pages")
+---
+
+<Layout title="索引">
+    <Menu menu={menu} />
+</Layout>

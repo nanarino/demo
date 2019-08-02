@@ -1,0 +1,347 @@
+---
+import Layout from "src/layout.astro"
+---
+
+<Layout title="問卷">
+    <script>
+        import "@ui5/webcomponents/dist/Toast.js"
+        import "@ui5/webcomponents-icons/dist/AllIcons.js"
+        import "@ui5/webcomponents/dist/Button.js"
+        import "@ui5/webcomponents/dist/Input.js"
+        import "@ui5/webcomponents/dist/Label.js"
+        import "@ui5/webcomponents/dist/CheckBox.js"
+        import "@ui5/webcomponents/dist/TextArea.js"
+        import "@ui5/webcomponents/dist/RadioButton.js"
+        import "@ui5/webcomponents/dist/RatingIndicator.js"
+    </script>
+    <ui5-toast id="toast"></ui5-toast>
+    <div style="display:flex; padding:16px;">
+        <form onsubmit="return false">
+            <div
+                style="height:290px;background-image:linear-gradient(84deg, #ff6aac,#f3a461,#acd995)"
+            >
+            </div>
+            <div class="title">
+                <h1 style="font-weight:400">
+                    河北华洋钢管有限公司 客户满意度调查问卷
+                </h1>
+                <p style="color:#999;">
+                    您的建议会让我们做得更好，感谢您的配合！
+                </p>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q0"
+                    for="input-q0"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    你对我公司产品的整体满意度是? What is your overall
+                    satisfaction with Huayang?
+                </ui5-label>
+                <div style="margin:auto">
+                    <ui5-rating-indicator id="input-q0"></ui5-rating-indicator>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q1"
+                    for="input-q1"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    和您的其它供商对比，华洋的产品是否提高了您的生产效率?
+                    Compared with your other suppliers, does Huayang's product
+                    improve your productivity?
+                </ui5-label>
+                <div
+                    id="input-q1"
+                    style="display:grid;gap:4px;margin:var(--_ui5_rating_indicator_component_spacing)"
+                >
+                    <ui5-radio-button
+                        wrapping-type="Normal"
+                        name="select-option-group-q1"
+                        style="background-color:#eee;border-radius:12px"
+                        text="有帮助，朗显提高了效率/ Yes, it does. It significantly improves efficiency"
+                        checked></ui5-radio-button>
+                    <ui5-radio-button
+                        wrapping-type="Normal"
+                        name="select-option-group-q1"
+                        style="background-color:#eee;border-radius:12px"
+                        text="有一些帮助，提高了一些效率/ There is some help, some efficlency"
+                    >
+                    </ui5-radio-button>
+                    <ui5-radio-button
+                        wrapping-type="Normal"
+                        name="select-option-group-q1"
+                        style="background-color:#eee;border-radius:12px"
+                        text="和之前差不多，没有明显变化/ Pretty much the same as before, no significant changes"
+                    ></ui5-radio-button>
+                    <ui5-radio-button
+                        wrapping-type="Normal"
+                        name="select-option-group-q1"
+                        style="background-color:#eee;border-radius:12px"
+                        text="不如之前，降低了我的工作效率/ It's not as good as it used to be. It makes me less productive"
+                    ></ui5-radio-button>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q2"
+                    for="input-q2"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    对华洋产品最满意的地方是? What is the most satisfactory for
+                    the products of Huayang?
+                </ui5-label>
+                <div
+                    id="input-q2"
+                    style="display:grid;margin:var(--_ui5_rating_indicator_component_spacing)"
+                >
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品化学成份稳定/ The chemical composition of the product is stable"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品机械性能稳定/ The mechanical properties of the product is stable"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品尺寸公差精确/ The product has accurate dimensional tolerances"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品包装美观/ Beautiful product packaging"
+                    ></ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="其他"
+                        id="input-q2-other"></ui5-checkbox>
+                    <div style="padding:0 11px">
+                        <ui5-input
+                            id="input-q2-other-ref"
+                            disabled
+                            placeholder="请输入"
+                            style="background:#eee;width:100%"
+                        >
+                        </ui5-input>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q3"
+                    for="input-q3"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    对华洋产品哪些地方还不够满意? What's the dissatisfactory for
+                    the products of Huayang
+                </ui5-label>
+                <div
+                    id="input-q3"
+                    style="display:grid;margin:var(--_ui5_rating_indicator_component_spacing)"
+                >
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品化学成份不稳定/ The chemical composition of the product is unstable"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品机械性能不稳定/ The mechanical properties of the product are unstable"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品尺寸公差控制不稳定/ Product dimensional tolerance control is unstable"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="产品包装不稳定/ The product packaging is unstable"
+                    ></ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="其他"
+                        id="input-q3-other"></ui5-checkbox>
+                    <div style="padding:0 11px">
+                        <ui5-input
+                            id="input-q3-other-ref"
+                            disabled
+                            placeholder="请输入"
+                            style="background:#eee;width:100%"
+                        >
+                        </ui5-input>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q4"
+                    for="input-q4"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    对华洋销售服务最满意的地方是? What is the most satisfactory
+                    for sales service of Huayang?
+                </ui5-label>
+                <div
+                    id="input-q4"
+                    style="display:grid;margin:var(--_ui5_rating_indicator_component_spacing)"
+                >
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="报价及时有效率/ Timely and efficient quotation"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="按合同约定及时交货/ Timely delivery as agreed In the contract"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="为客户提供国内政策及价格指导/ Provide domestic policy and pricing guidance to customers"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="帮客户解决各类问题/ Help clients solve all kinds of problems"
+                    >
+                    </ui5-checkbox>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q5"
+                    for="input-q5"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    对华洋服务不满意的地方有哪些? What's the dissatisfactory for
+                    the sales service of Huayang?
+                </ui5-label>
+                <div
+                    id="input-q5"
+                    style="display:grid;margin:var(--_ui5_rating_indicator_component_spacing)"
+                >
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="报价不及时/ Quotation not in time"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="合同跟进不及时/ The contract is not followed up in time"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="晚交期/ Late delivery time"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="业务人员不专业/ unprotessional for Sales man"
+                    >
+                    </ui5-checkbox>
+                    <ui5-checkbox
+                        wrapping-type="Normal"
+                        text="异议处理不满意/ Quality objection handling is not satisfactory"
+                    >
+                    </ui5-checkbox>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q6"
+                    for="input-q6"
+                    required
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    你华洋钢管客户服务的综合评价是? What is your comprehensive
+                    evaluation of customer service for Huayang?
+                </ui5-label>
+                <div style="margin:auto">
+                    <ui5-rating-indicator id="input-q6"></ui5-rating-indicator>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <ui5-label
+                    id="label-q7"
+                    for="input-q7"
+                    show-colon
+                    wrapping-type="Normal"
+                >
+                    对华洋钢管有什么想说的? What do you want to say about
+                    HuaYang?
+                </ui5-label>
+                <div
+                    style="margin:var(--_ui5_rating_indicator_component_spacing)"
+                >
+                    <ui5-textarea
+                        id="input-q7"
+                        placeholder="请输入"
+                        style="--sapField_Background:#eee"></ui5-textarea>
+                </div>
+            </div>
+
+            <div style="margin:auto">
+                <ui5-button design="Emphasized"> 提交 </ui5-button>
+            </div>
+            <br />
+        </form>
+    </div>
+</Layout>
+
+<style>
+    form {
+        width: 100%;
+        max-width: 1250px;
+        margin: auto;
+        display: grid;
+        gap: 50px;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow:
+            14px 0px 40px 12px rgba(0, 0, 0, 0.03),
+            10px 0px 28px 0px rgba(0, 0, 0, 0.05),
+            6px 0px 14px -6px rgba(0, 0, 0, 0.07);
+    }
+
+    .title {
+        margin: 0 50px;
+        text-align: center;
+    }
+
+    .form-item {
+        margin: 0 50px;
+        display: grid;
+    }
+
+    .form-item ui5-label {
+        font-weight: 600;
+        font-size: 16px;
+    }
+</style>

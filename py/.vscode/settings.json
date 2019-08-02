@@ -1,0 +1,6 @@
+{
+    "python.defaultInterpreterPath": "${workspaceFolder}/.env/Scripts/python.exe",
+    "code-runner.executorMap": {
+        "python": "set PYTHONIOENCODING=utf8 && py"
+    }
+}

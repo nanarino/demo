@@ -1,0 +1,10 @@
+{
+    "code-runner.executorMap": {
+        "javascript": "node",
+        "typescript": "npx tsx"
+    },
+    "editor.tabSize": 4,
+    "files.associations": {
+        ".prettierrc": "yaml"
+    }
+}
