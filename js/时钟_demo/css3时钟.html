@@ -1,0 +1,86 @@
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .timeb {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        margin: 5px;
+        display: inline-block;
+        background-color: salmon;
+        color: navy;
+        text-align: center;
+        font-size: large;
+    }
+
+    #piec {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background-color: skyblue;
+        position: relative;
+        margin: 5px;
+    }
+
+    #hour-hand {
+        height: 30px;
+        width: 3px;
+        background-color: brown;
+        position: absolute;
+        top: 30px;
+        left: 59px;
+        transform-origin: center bottom;
+    }
+
+    #minute-hand {
+        height: 50px;
+        width: 2px;
+        background-color: brown;
+        position: absolute;
+        top: 10px;
+        left: 59.5px;
+        transform-origin: center bottom;
+    }
+
+    #second-hand {
+        height: 70px;
+        width: 1px;
+        background-color: brown;
+        position: absolute;
+        top: 4px;
+        left: 60px;
+        transform-origin: 50% 80%;
+    }
+</style>
+<div id="piec">
+    <div id="hour-hand">
+    </div>
+    <div id="minute-hand">
+    </div>
+    <div id="second-hand">
+    </div>
+</div>
+<div class="timeb"></div>
+<div class="timeb"></div>
+<div class="timeb"></div>
+<script>
+    function PrefixInteger(num, n) {
+        return (Array(n).join(0) + num).slice(-n);
+    }
+    setInterval(function () {
+        var nowtime = new Date();
+        var timeb = document.getElementsByClassName('timeb');
+        var hour = document.getElementById('hour-hand');
+        var minute = document.getElementById('minute-hand');
+        var second = document.getElementById('second-hand');
+        timeb[0].innerHTML = PrefixInteger(nowtime.getHours(), 2);
+        timeb[1].innerHTML = PrefixInteger(nowtime.getMinutes(), 2);
+        timeb[2].innerHTML = PrefixInteger(nowtime.getSeconds(), 2);
+        hour.style.cssText = "transform:rotate(" + nowtime.getHours() / 12 + "turn);"
+        minute.style.cssText = "transform:rotate(" + nowtime.getMinutes() / 60 + "turn);"
+        second.style.cssText = "transform:rotate(" + nowtime.getSeconds() / 60 + "turn);"
+    }, 1000);
+</script>

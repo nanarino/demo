@@ -1,0 +1,164 @@
+<canvas ref="canvas" width="72" height="72" id="canvas"></canvas>
+
+<script>
+    //Array contained pixel point color data
+    //像素点类数组类
+    class Pxpoint extends Array {
+        constructor(rgbaArray) {
+            if (rgbaArray.length === 1) {
+                super(1).fill(...rgbaArray)
+            } else {
+                super(...rgbaArray)
+            }
+        }
+        //create Pxpoint(RGBA[...all 0-255]) from HSLA[H:360*n deg, S:0-100%, L:0-100%, alpha:0-255]
+        //静态方法，将HSL数组转化为RGBA数组形式的像素点对象
+        static from(hslaArray) {
+            hslaArray[0] %= 360
+            const [h, s, l, a] = hslaArray.map((v, i) => (v / [360, 100, 100, 255][i]))
+            let r, g, b
+            if (s == 0) {
+                r = g = b = l;//achromatic
+            } else {
+                const hue2rgb = (p, q, t) => {
+                    if (t < 0) t += 1;
+                    if (t > 1) t -= 1;
+                    if (t < 1 / 6) return p + (q - p) * 6 * t;
+                    if (t < 1 / 2) return q;
+                    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+                    return p;
+                }
+                let q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+                let p = 2 * l - q;
+                r = hue2rgb(p, q, h + 1 / 3);
+                g = hue2rgb(p, q, h);
+                b = hue2rgb(p, q, h - 1 / 3);
+            }
+            return new Pxpoint([r, g, b, a].map(v => Math.round(255 * v)))
+        }
+    }
+
+    //Canvas Pixel Serialized Tools Class
+    //像素序列化器类
+    class PxSerializer extends Array {
+        constructor(uint8ClampedArray, width, height) {
+            //get Uint8ClampedArray data and reshape
+            //将Uint8ClampedArray（或其他类数组）以矩阵（三维数组）呈现
+            super(...Array.from(uint8ClampedArray)
+                .reduce((a, v, point) => (point % 4 ? a[a.length - 1].push(v) : a.push(new Pxpoint([v])), a), [])
+                .reduce((a, v, row) => (row % width ? a[a.length - 1].push(v) : a.push([v]), a), [])
+            )
+            Object.defineProperty(this, "width", {
+                value: width,
+                writable: false,
+                enumerable: false,
+            });
+            Object.defineProperty(this, "height", {
+                value: height,
+                writable: false,
+                enumerable: false,
+            });
+        }
+        //flatten and ceateImageData
+        //将像素序列化对象转换为ImageData对象，
+        //经常使用.call(矩阵,宽,高)使其他符合矩阵格式（三维数组）转换
+        toImageData(width = this.width, height = this.height) {
+            return new ImageData(Uint8ClampedArray.from(this.toString().split(',').map(v => +v)), width, height)
+        }
+    }
+    //PxPainter
+    //像素画工具类
+    class PxPainter {
+        constructor(context, width = context.canvas.getAttribute('width'), height = context.canvas.getAttribute('height'), limitWidth = 0, limitHeight = 0) {
+            this.org = context;
+            this.data = new PxSerializer(context.getImageData(limitWidth, limitHeight, limitWidth + width, limitHeight + height).data, width, height);
+        }
+        //putImageData
+        //将ImageData对象渲染到画布，默认渲染的是对象本身的data
+        save(imageData, limitWidth = 0, limitHeight = 0) {
+            if (!imageData) {
+                imageData = this.data.toImageData()
+                this.org.putImageData(imageData, limitWidth, limitHeight)
+            } else {
+                this.org.putImageData(imageData, limitWidth, limitHeight)
+                //如果渲染的是外来的ImageData对象,渲染后将重新获取一次data
+                const width = this.org.canvas.getAttribute('width')
+                const height = this.org.canvas.getAttribute('height')
+                this.data = new PxSerializer(this.org.getImageData(limitWidth, limitHeight, limitWidth + width, limitHeight + height).data, width, height);
+            }
+        }
+    }
+    const c = canvas.getContext("2d");//画布对象
+    const px = new PxPainter(c)//像素画对象
+
+
+    let data = px.data //像素矩阵格式的ImageData
+
+    /**
+     *   //基本用法：在左下角画一条横线
+     *  px.data[67][9]=[0,0,0,255]
+     *  px.data[67][10]=[0,0,0,255]
+     *  px.data[67][11]=[0,0,0,255]
+     *  px.data[67][12]=[0,0,0,255]
+     *  px.data[67][13]=[0,0,0,255]
+     *  px.data[67][14]=[0,0,0,255]
+     *  px.save();
+     *
+     **/
+
+
+    /**
+     *  ①  常规for循环   
+     *      **注意：在for i in中 i是字符串**
+     *  for(let row in data){
+     *     for(let col in data[row]){
+     *          data[row][col] = Pxpoint.from([2*row+2*col,62-row/3,62-col/3,255]);
+     *      }
+     *  }
+     *  px.save();
+     *
+     **/
+
+    /**
+     *   ② 循环 toImageData外用 save渲染外来data 与①方法差不多
+     *  newData = data.toImageData.call(data.map((v,row)=>v.map((v,col)=>Pxpoint.from([2*row+2*col,62-row/3,62-col/3,255]))),72,72)
+     *  px.save(newData);
+     *
+     */
+
+
+    //结合requestAnimationFrame来使用
+    let i = 0, j = 7.5
+    const ani = time => {
+        i += 0.03
+        j *= 0.99
+        for (let row in data) {
+            for (let col in data[row]) {
+                data[row][col] = Pxpoint.from([i * row + j * col, 68 - row / 2, 68 - col / 2, 255]);
+            }
+        }
+        px.data[17 + 3 * i | 0][~~j + 9] = [0, 0, 0, 255]
+        px.data[17 + 3 * i | 0][~~j + 10] = [0, 0, 0, 255]
+        px.data[17 + 3 * i | 0][~~j + 11] = [0, 0, 0, 255]
+        px.data[16 + 3 * i | 0][~~j + 10] = [0, 0, 0, 255]
+        px.save();
+        if (time > 5000) {
+            cancelAnimationFrame(ani)
+        } else {
+            requestAnimationFrame(ani)
+        }
+    }
+    ani()
+
+
+</script>
+
+<style>
+    canvas {
+        max-width: 100%;
+        height: 280px;
+        display: block;
+        margin: 3rem auto 1.5rem;
+        image-rendering: pixelated
+    }
+</style>

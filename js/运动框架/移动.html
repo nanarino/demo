@@ -1,0 +1,19 @@
+<style>
+    .box {
+        width: 100px;
+        height: 200px;
+        background-color: red;
+        position: absolute;
+    }
+</style>
+<script src="./运动框架.js"></script>
+<div id="box1" class="box"></div>
+<script>
+    function run1() {
+        animation(box1, { marginLeft: '300px' }, 2000, run2)
+    }
+    function run2() {
+        animation(box1, { marginLeft: '0px' }, 2000, run1)
+    }
+    run1()
+</script>

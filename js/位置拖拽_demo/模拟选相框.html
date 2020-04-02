@@ -1,0 +1,249 @@
+<style>
+    #imgbox {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        margin: 50px auto;
+        background-color: palevioletred;
+    }
+
+    #imgsorech {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 1px dashed white;
+        background-color: transparent;
+    }
+
+    .muki {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: white;
+    }
+
+    .muki:hover {
+        cursor: move;
+    }
+
+    #migishita {
+        right: -3px;
+        bottom: -3px;
+    }
+
+    #hibarikami {
+        top: -3px;
+        left: -3px;
+    }
+
+    #migikami {
+        right: -3px;
+        top: -3px;
+    }
+
+    #hibarishita {
+        left: -3px;
+        bottom: -3px;
+    }
+
+    #ennSeiyaku {
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        border: 1px solid white;
+        border-radius: 50%;
+    }
+</style>
+<script>
+    window.onload = function () {
+        let minX = 0
+        let minY = 0
+        let minwidth = 50
+        let minheight = 50
+
+        imgsorech.onmousedown = function (eve) {  //拖动
+            eve = eve || window.event
+            let imaX = eve.clientX
+            let imaY = eve.clientY
+            let imawidth = imgsorech.offsetWidth
+            let imaheight = imgsorech.offsetHeight
+            let schX = imgsorech.offsetLeft
+            let schY = imgsorech.offsetTop
+            let maxX = imgbox.clientWidth + minX - imawidth
+            let maxY = imgbox.clientHeight + minY - imaheight
+            imgsorech.style.bottom = ''
+            imgsorech.style.right = ''
+            imgsorech.style.left = schX + 'px'
+            imgsorech.style.top = schY + 'px'
+            document.onmousemove = function (eve) {
+                eve = eve || window.event
+                let miraiX = eve.clientX
+                let miraiY = eve.clientY
+                let schleft = schX + (miraiX - imaX)
+                let schtop = schY + (miraiY - imaY)
+                schleft = Math.max(schleft, minX)
+                schleft = Math.min(schleft, maxX)
+                schtop = Math.max(schtop, minY)
+                schtop = Math.min(schtop, maxY)
+                imgsorech.style.left = schleft + 'px'
+                imgsorech.style.top = schtop + 'px'
+            }
+        }
+
+        document.onmouseup = function () {
+            document.onmousemove = null
+        }
+
+        migishita.onmousedown = function (eve) {  //右下角
+            eve = eve || window.event
+            if (eve.stopPropagation) {
+                eve.stopPropagation()
+            } else {
+                eve.cancelBubble = true
+            }
+            let imaX = eve.clientX
+            let imaY = eve.clientY
+            let imawidth = imgsorech.offsetWidth
+            let imaheight = imgsorech.offsetHeight
+            let schX = imgsorech.offsetLeft
+            let schY = imgsorech.offsetTop
+            let maxwidth = imgbox.clientWidth - schX - 2
+            let maxheight = imgbox.clientHeight - schY - 2
+            imgsorech.style.bottom = ''
+            imgsorech.style.right = ''
+            imgsorech.style.left = schX + 'px'
+            imgsorech.style.top = schY + 'px'
+            document.onmousemove = function (eve) {
+                eve = eve || window.event
+                let miraiX = eve.clientX
+                let miraiY = eve.clientY
+                let schwidth = imawidth + (miraiX - imaX)
+                let schheight = imaheight + (miraiY - imaY)
+                schwidth = Math.min(schwidth, maxwidth)
+                schwidth = Math.max(schwidth, minwidth)
+                schheight = Math.min(schheight, maxheight)
+                schheight = Math.max(schheight, minheight)
+                let seihoukeiSize = Math.min(schwidth, schheight)
+                imgsorech.style.width = seihoukeiSize + 'px'
+                imgsorech.style.height = seihoukeiSize + 'px'
+            }
+        }
+
+        hibarikami.onmousedown = function (eve) {  //左上角
+            eve = eve || window.event
+            if (eve.stopPropagation) {
+                eve.stopPropagation()
+            } else {
+                eve.cancelBubble = true
+            }
+            let imaX = eve.clientX
+            let imaY = eve.clientY
+            let imawidth = imgsorech.offsetWidth
+            let imaheight = imgsorech.offsetHeight
+            let schX = imgbox.clientWidth - imawidth - imgsorech.offsetLeft
+            let schY = imgbox.clientHeight - imaheight - imgsorech.offsetTop
+            let maxwidth = imgbox.clientWidth - schX - 2
+            let maxheight = imgbox.clientHeight - schY - 2
+            imgsorech.style.left = ''
+            imgsorech.style.top = ''
+            imgsorech.style.right = schX + 'px'
+            imgsorech.style.bottom = schY + 'px'
+            document.onmousemove = function (eve) {
+                let miraiX = eve.clientX
+                let miraiY = eve.clientY
+                let schwidth = imawidth - (miraiX - imaX)
+                let schheight = imaheight - (miraiY - imaY)
+                schwidth = Math.min(schwidth, maxwidth)
+                schwidth = Math.max(schwidth, minwidth)
+                schheight = Math.min(schheight, maxheight)
+                schheight = Math.max(schheight, minheight)
+                let seihoukeiSize = Math.min(schwidth, schheight)
+                imgsorech.style.width = seihoukeiSize + 'px'
+                imgsorech.style.height = seihoukeiSize + 'px'
+            }
+        }
+
+        migikami.onmousedown = function (eve) { //右上角
+            eve = eve || window.event
+            if (eve.stopPropagation) {
+                eve.stopPropagation()
+            } else {
+                eve.cancelBubble = true
+            }
+            let imaX = eve.clientX
+            let imaY = eve.clientY
+            let imawidth = imgsorech.offsetWidth
+            let imaheight = imgsorech.offsetHeight
+            let schX = imgsorech.offsetLeft
+            let schY = imgbox.clientHeight - imaheight - imgsorech.offsetTop
+            let maxwidth = imgbox.clientWidth - schX - 2
+            let maxheight = imgbox.clientHeight - schY - 2
+            imgsorech.style.right = ''
+            imgsorech.style.top = ''
+            imgsorech.style.left = schX + 'px'
+            imgsorech.style.bottom = schY + 'px'
+            document.onmousemove = function (eve) {
+                let miraiX = eve.clientX
+                let miraiY = eve.clientY
+                let schwidth = imawidth + (miraiX - imaX)
+                let schheight = imaheight - (miraiY - imaY)
+                schwidth = Math.min(schwidth, maxwidth)
+                schwidth = Math.max(schwidth, minwidth)
+                schheight = Math.min(schheight, maxheight)
+                schheight = Math.max(schheight, minheight)
+                let seihoukeiSize = Math.min(schwidth, schheight)
+                imgsorech.style.width = seihoukeiSize + 'px'
+                imgsorech.style.height = seihoukeiSize + 'px'
+            }
+        }
+
+        hibarishita.onmousedown = function (eve) { //左下角
+            eve = eve || window.event
+            if (eve.stopPropagation) {
+                eve.stopPropagation()
+            } else {
+                eve.cancelBubble = true
+            }
+            let imaX = eve.clientX
+            let imaY = eve.clientY
+            let imawidth = imgsorech.offsetWidth
+            let imaheight = imgsorech.offsetHeight
+            let schX = imgbox.clientWidth - imawidth - imgsorech.offsetLeft
+            let schY = imgsorech.offsetTop
+            let maxwidth = imgbox.clientWidth - schX - 2
+            let maxheight = imgbox.clientHeight - schY - 2
+            imgsorech.style.left = ''
+            imgsorech.style.bottom = ''
+            imgsorech.style.right = schX + 'px'
+            imgsorech.style.top = schY + 'px'
+            document.onmousemove = function (eve) {
+                let miraiX = eve.clientX
+                let miraiY = eve.clientY
+                let schwidth = imawidth - (miraiX - imaX)
+                let schheight = imaheight + (miraiY - imaY)
+                schwidth = Math.min(schwidth, maxwidth)
+                schwidth = Math.max(schwidth, minwidth)
+                schheight = Math.min(schheight, maxheight)
+                schheight = Math.max(schheight, minheight)
+                let seihoukeiSize = Math.min(schwidth, schheight)
+                imgsorech.style.width = seihoukeiSize + 'px'
+                imgsorech.style.height = seihoukeiSize + 'px'
+            }
+        }
+    }
+</script>
+<div id="imgbox">
+    <div id="imgsorech">
+        <div id="ennSeiyaku">
+        </div>
+        <div id="migishita" class="muki">
+        </div>
+        <div id="hibarikami" class="muki">
+        </div>
+        <div id="migikami" class="muki">
+        </div>
+        <div id="hibarishita" class="muki">
+        </div>
+    </div>
+</div>
