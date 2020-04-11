@@ -1,4 +1,4 @@
-from .base import Generic_db_base, fetch_Mixin
+from .base import Generic_db_base, Return_cur_Mixin
 import sqlite3, pymssql
 
 
@@ -11,7 +11,7 @@ class log(Generic_db_base):
     db_type = sqlite3
 
 
-class org(fetch_Mixin, Generic_db_base):
+class org(Return_cur_Mixin, Generic_db_base):
     """主数据库：Microsoft SQL Server数据库
 
         参数同Generic_db_base类，info参数如下

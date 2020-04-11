@@ -112,8 +112,9 @@ class Generic_db_base(metaclass=ABCMeta):
         self.conn.commit()
 
 
-class fetch_Mixin():
-    """混入需要fetch方法才能获取查询结果的类"""
+class Return_cur_Mixin():
+    """对于游标execute不返回本身的数据库类型进行同构的类"""
     def execute(self, sql):
         self.cur.execute(sql)
-        return self.cur.fetchall()
+        return self.cur
+    
