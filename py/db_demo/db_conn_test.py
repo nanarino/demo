@@ -1,24 +1,16 @@
 import db
 
-log = db.conn.log()
-
-qs = log.execute(r'''select * from "main"."stdupc"''')
-
-print(list(qs))
-
-log.close()
-
-org = db.conn.org({
-    "host": '192.168.10.1\\cbp',
+org_db_info = {
+    "host": '192.168.10.1\\***',
     "user": "sa",
-    "database": "race",
-    "password": "xf67680"
-})
+    "database": "demo_project",
+    "password": "******"
+}
 
-qs = org.execute(r'''select top 1 * from orgdoc''')
-
-print(list(qs))
-
-org.close()
+with db.conn.log() as log, db.conn.org(org_db_info) as org:
+    qs = log.execute(r'''select * from "main"."stdupc"''')
+    print(list(qs))
+    qs = org.execute(r'''select top 1 * from orgdoc''')
+    print(list(qs))
 
 input()

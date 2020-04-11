@@ -16,7 +16,7 @@ class org(fetch_Mixin, Generic_db_base):
 
         参数同Generic_db_base类，info参数如下
         {
-            "host": '192.168.10.1\\cbp',
+            "host": '192.168.10.1\\***',
             "user": "sa",
             "database": "demo_project",
             "password": "********"

@@ -9,10 +9,7 @@ class __cur_vc(metaclass=ABCMeta):
         pass
 
     def execute(self, sql:str):
-        """执行SQL语句
-
-            未实现
-        """
+        """执行SQL语句"""
         raise NotImplementedError
 
     def executemany(self, sql:str, args:list):
@@ -21,25 +18,16 @@ class __cur_vc(metaclass=ABCMeta):
             self.execute(sql%i)
 
     def fetchone(self):
-        """吐出执行SQL语句的结果的第一条（下一条）数据
-
-            未实现
-        """
+        """返回执行SQL语句的结果的第一条（下一条）数据"""
         raise NotImplementedError
 
     def fetchall(self):
-        """吐出执行SQL语句的结果的全部数据
-
-            但是已被fetchone吐出的数据不会再出现
-        """
+        """返回执行SQL语句的结果的全部（剩余）数据"""
         while data_row:=self.fetchone():
             yield tuple(data_row)
 
     def callproc(self, proc_name:str, args:tuple):
-        """执行存储过程
-        
-            未实现
-        """
+        """执行存储过程"""
         raise NotImplementedError
 
 
@@ -73,6 +61,7 @@ class db_vmodule(metaclass=ABCMeta):
         内部方法不要求实现
     """
     def connect(self,*args,**kwargs):
+        """创建连接"""
         return __conn_vc(*args,**kwargs)
 
 
@@ -84,19 +73,13 @@ class Generic_db_base(metaclass=ABCMeta):
             info: 数据库连接信息，包含hosts，password等
 
         Attributes:
-            db_type：数据库模块，实例化前缺省值
-            default_args：数据库连接信息，实例化前缺省值
+            db_type：数据库模块缺省值
+            default_args：数据库连接信息缺省值
     """
     default_args = dict()
     db_type = db_vmodule
 
     def __init__(self, info:dict=dict(), db_type=None):
-        """实例化数据库基类
-        
-            Args:
-                db_type: 数据库模块
-                info: 数据库连接信息，包含hosts，password等
-        """
         if info:
             self.default_args = info
         if db_type:
@@ -105,13 +88,27 @@ class Generic_db_base(metaclass=ABCMeta):
         self.conn = conn
         self.cur = conn.cursor()
 
+    def __enter__(self):
+        """上下文管理 进入"""
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        """上下文管理 退出"""
+        if exc_type:
+            print(exc_type)
+            #print(exc_value)
+            #print(traceback)
+
     def close(self):
+        """关闭连接"""
         self.conn.close()
 
     def execute(self, sql):
+        """执行SQL语句"""
         return self.cur.execute(sql)
 
     def commit(self):
+        """提交修改"""
         self.conn.commit()
 
 
