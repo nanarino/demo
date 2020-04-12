@@ -1,4 +1,5 @@
-from abc import ABCMeta#, abstractmethod
+from abc import ABCMeta  #, abstractmethod
+
 
 class __cur_vc(metaclass=ABCMeta):
     """游标虚拟类
@@ -8,25 +9,29 @@ class __cur_vc(metaclass=ABCMeta):
     def __init__(self, *args, **kwargs):
         pass
 
-    def execute(self, sql:str):
+    def __next__(self):
+        pass
+
+    def execute(self, sql: str):
         """执行SQL语句"""
         raise NotImplementedError
 
-    def executemany(self, sql:str, args:list):
+    def executemany(self, sql: str, args: list):
         """执行多条嵌入了模板的SQL语句"""
+        all_sql = ''
         for i in args:
-            self.execute(sql%i)
+            all_sql += (sql % i + ';')
+        return self.execute(all_sql)
 
     def fetchone(self):
         """返回执行SQL语句的结果的第一条（下一条）数据"""
-        raise NotImplementedError
+        return next(self)
 
     def fetchall(self):
         """返回执行SQL语句的结果的全部（剩余）数据"""
-        while data_row:=self.fetchone():
-            yield tuple(data_row)
+        return list(self)
 
-    def callproc(self, proc_name:str, args:tuple):
+    def callproc(self, proc_name: str, args: tuple):
         """执行存储过程"""
         raise NotImplementedError
 
@@ -36,14 +41,13 @@ class __conn_vc(metaclass=ABCMeta):
 
         内部方法不要求实现
     """
-    
     def close(self):
         """关闭连接
 
             未实现
         """
         raise NotImplementedError
-    
+
     def commit(self):
         """提交修改
 
@@ -60,9 +64,9 @@ class db_vmodule(metaclass=ABCMeta):
     
         内部方法不要求实现
     """
-    def connect(self,*args,**kwargs):
+    def connect(self, *args, **kwargs):
         """创建连接"""
-        return __conn_vc(*args,**kwargs)
+        return __conn_vc(*args, **kwargs)
 
 
 class Generic_db_base(metaclass=ABCMeta):
@@ -79,7 +83,7 @@ class Generic_db_base(metaclass=ABCMeta):
     default_args = dict()
     db_type = db_vmodule
 
-    def __init__(self, info:dict=dict(), db_type=None):
+    def __init__(self, info: dict = dict(), db_type=None):
         if info:
             self.default_args = info
         if db_type:
@@ -117,4 +121,3 @@ class Return_cur_Mixin():
     def execute(self, sql):
         self.cur.execute(sql)
         return self.cur
-    
