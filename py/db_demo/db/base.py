@@ -1,7 +1,7 @@
 from abc import ABCMeta  #, abstractmethod
 
 
-class __cur_vc(metaclass=ABCMeta):
+class _cur_vc(metaclass=ABCMeta):
     """游标虚拟类
 
         内部方法不要求实现
@@ -36,7 +36,7 @@ class __cur_vc(metaclass=ABCMeta):
         raise NotImplementedError
 
 
-class __conn_vc(metaclass=ABCMeta):
+class _conn_vc(metaclass=ABCMeta):
     """连接虚拟类
 
         内部方法不要求实现
@@ -56,7 +56,7 @@ class __conn_vc(metaclass=ABCMeta):
         raise NotImplementedError
 
     def cursor(self, *args, **kwargs):
-        return __cur_vc(*args, **kwargs)
+        return _cur_vc(*args, **kwargs)
 
 
 class db_vmodule(metaclass=ABCMeta):
@@ -66,7 +66,7 @@ class db_vmodule(metaclass=ABCMeta):
     """
     def connect(self, *args, **kwargs):
         """创建连接"""
-        return __conn_vc(*args, **kwargs)
+        return _conn_vc(*args, **kwargs)
 
 
 class Generic_db_base(metaclass=ABCMeta):
@@ -107,7 +107,7 @@ class Generic_db_base(metaclass=ABCMeta):
         """关闭连接"""
         self.conn.close()
 
-    def execute(self, sql):
+    def execute(self, sql: str) -> _cur_vc:
         """执行SQL语句"""
         return self.cur.execute(sql)
 
@@ -118,6 +118,7 @@ class Generic_db_base(metaclass=ABCMeta):
 
 class Return_cur_Mixin():
     """对于游标execute不返回本身的数据库类型进行同构的类"""
-    def execute(self, sql):
+    def execute(self, sql: str) -> _cur_vc:
+        """执行SQL语句"""
         self.cur.execute(sql)
         return self.cur
