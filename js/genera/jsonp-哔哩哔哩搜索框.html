@@ -20,9 +20,15 @@
         function mycallback(data) {
             let ql = ''
             for (let i of Object.values(data)) {
-                ql += `<li><a href = https://search.bilibili.com/all?keyword='${i.value}'>${i.value}<a/></li>`
+                ql += `<li><a href = https://search.bilibili.com/all?keyword=${i.value}>${i.value}<a/></li>`
             }
             li.innerHTML = ql
+        }
+
+        input.onkeypress = function (e) {
+            if (e.key == "Enter") {
+                window.location.href = `https://search.bilibili.com/all?keyword=${e.target.value}`
+            }
         }
     </script>
 </body>
