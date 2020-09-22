@@ -1,7 +1,7 @@
 import json
 import csv
 csvFile = open("990717024543786.csv", "w", encoding='gbk', newline='')
-writer = csv.writer(csvFile)
+writer = csv.writer(csvFile)# https://h5.waimai.meituan.com/waimai/mindex/menu?utm_source=5913&mtShopId=990717024543786
 fileHeader = ("spuName", "spuId", "tag", "saleVolume", "originPrice", "currentPrice", "sellStatus", "skuId", "spec", "soldStatus", "realStock", "skuPromotionInfo")
 writer.writerow(fileHeader)
 table = []
