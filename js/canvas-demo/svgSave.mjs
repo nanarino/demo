@@ -5,7 +5,7 @@
  * @param magnification 生成的图片宽高的放大倍数 （svg是矢量图放大不糊）
  * @param type 生成的图片后缀默认png
  */
-export const svgSave = (svg, name, magnification = 1, type = 'png') => {
+export default function (svg, name, magnification = 1, type = 'png') {
     let serializer = new XMLSerializer()
     let source = '<?xml version="1.0" standalone="no"?>\r\n' + serializer.serializeToString(svg)
     let image = new Image()
