@@ -1,4 +1,5 @@
-const url = require("url"),
+const port = 27016,
+    url = require("url"),
     fs = require("fs"),
     http = require("http"),
     path = require("path");
@@ -42,10 +43,16 @@ http.createServer((req, res) => {
                 res.end(data);
             });
         } else {
-            res.writeHead(404, { "Content-Type": "text/html" });
-            res.end("<h1>404 Not Found</h1>");
+            res.writeHead(200, { "Content-Type": "text/html" });
+            fs.readFile('404.html', function (err, data) {
+                if(err){
+                    res.writeHead(404, { "Content-Type": "text/html" });
+                    res.end("<h1>404 Not Found</h1>");
+                }
+                res.end(data);
+            });
         }
     });
-}).listen(27016, "127.0.0.1");
+}).listen(port, "127.0.0.1");
 
-console.log("Server running at http://127.0.0.1:27016/");
+console.log(`Server running at http://127.0.0.1:${port}/`);
