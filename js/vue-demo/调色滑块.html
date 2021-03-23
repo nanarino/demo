@@ -33,10 +33,10 @@
     }
 </style>
 <div id="app" :style="{backgroundColor:'hsl('+ h + ',' + s + '%,' + l + '%)'}">
-    <div class="box"><span title="色调" ref="h" :style="{top:(h + offset)+'px'}" @mousedown="hmd($event)"></span></div>
-    <div class="box"><span title="纯度" ref="s" :style="{top:(3.6*s + offset)+'px'}" @mousedown="smd($event)"></span>
+    <div class="box"><span title="色相" ref="h" :style="{top:(h + offset)+'px'}" @mousedown="hmd($event)"></span></div>
+    <div class="box"><span title="饱和" ref="s" :style="{top:(3.6*s + offset)+'px'}" @mousedown="smd($event)"></span>
     </div>
-    <div class="box"><span title="亮度" ref="l" :style="{top:(3.6*l + offset)+'px'}" @mousedown="lmd($event)"></span>
+    <div class="box"><span title="明度" ref="l" :style="{top:(3.6*l + offset)+'px'}" @mousedown="lmd($event)"></span>
     </div>
     <div id="cr">
         <p>{{this.rgb}}</p>
@@ -60,7 +60,6 @@
                 let imaY = e.clientY
                 let schY = this.$refs.h.offsetTop
                 document.onmousemove = eve => {
-                    console.log(1)
                     let miraiY = eve.clientY
                     this.h = schY + (miraiY - imaY) - this.offset
                     this.h = Math.min(360, Math.max(this.h, 0))
@@ -111,7 +110,7 @@
                     g = hue2rgb(p, q, h);
                     b = hue2rgb(p, q, h - 1 / 3);
                 }
-                return '#' + [r, g, b].map(v => Math.round(255 * v).toString(16)).join('')
+                return '#' + [r, g, b].map(v => ('0' + Math.round(255 * v).toString(16)).slice(-2)).join('')
             }
         },
         created: function () {
