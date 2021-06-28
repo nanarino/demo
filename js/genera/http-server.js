@@ -75,7 +75,6 @@ try {
     }
 } catch (e) {
     console.log(e);
-    localWlanHost = '127.0.0.1';
 }
 
 const readline = createInterface({
@@ -85,7 +84,7 @@ const readline = createInterface({
 
 readline.question('input port:', input => {
     let port = Number.parseInt(input) || 80;
-    server.listen(port, "127.0.0.1");
+    server.listen(port);
     console.log(`Server running at \x1b[36mhttp://${localWlanHost}:${port}/\x1b[39m`);
     readline.close();
 })
