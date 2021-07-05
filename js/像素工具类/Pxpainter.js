@@ -1,23 +1,32 @@
 //base64toUint8Array
 const base64toUint8Array = base64 => {
-  const raw = window.atob(base64);
-  const arr = new Uint8Array(new ArrayBuffer(raw.length));
-  return arr.map((v,i) => raw.charCodeAt(i))
+    const raw = window.atob(base64);
+    const arr = new Uint8Array(new ArrayBuffer(raw.length));
+    return arr.map((v, i) => raw.charCodeAt(i))
 }
 
 //uint8ArrayToBase64
-const uint8ArrayToBase64 = uint8Array => window.btoa([].map.call(uint8Array,v=>String.fromCharCode(v)).join(''));
+const uint8ArrayToBase64 = uint8Array => window.btoa([].map.call(uint8Array, v => String.fromCharCode(v)).join(''));
 
 
 //Array contained pixel point color data
 //像素点类数组类
 class Pxpoint extends Array {
-    constructor(rgbaArray) {
-        if (rgbaArray.length === 1) {
-            super(1).fill(...rgbaArray)
-        } else {
-            super(...rgbaArray)
-        }
+    constructor(...args) {
+        super(...args)
+    }
+    //web安全色
+    toWebSafeColor() {
+        return this.map(
+            (v, i) => {
+                if (i >= 3) return v
+                if (v < 26) return 0
+                if (v < 77) return 51
+                if (v < 179) return 153
+                if (v < 230) return 204
+                return 255
+            }
+        )
     }
     //create Pxpoint(RGBA[...all 0-255]) from HSLA[H:360*n deg, S:0-100%, L:0-100%, alpha:0-255]
     //静态方法，将HSL数组转化为RGBA数组形式的像素点对象
@@ -42,7 +51,7 @@ class Pxpoint extends Array {
             g = hue2rgb(p, q, h);
             b = hue2rgb(p, q, h - 1 / 3);
         }
-        return new Pxpoint([r, g, b, a].map(v => Math.round(255 * v)))
+        return new Pxpoint(...([r, g, b, a].map(v => Math.round(255 * v))))
     }
 }
 
@@ -61,12 +70,12 @@ class PxSerializer extends Array {
         )
         Object.defineProperty(this, "width", {
             value: width,
-            writable: false,
+            writable: true,
             enumerable: false,
         });
         Object.defineProperty(this, "height", {
             value: height,
-            writable: false,
+            writable: true,
             enumerable: false,
         });
     }
@@ -77,11 +86,11 @@ class PxSerializer extends Array {
         return new ImageData(Uint8ClampedArray.from(this.toString().split(',').map(v => +v)), width, height)
     }
     //将像素序列化对象转换为无压缩的base64
-    toRawBase64(){
+    toRawBase64() {
         return uint8ArrayToBase64(Uint8ClampedArray.from(this.toString().split(',').map(v => +v)))
     }
     //以无压缩的base64构造像素序列化对象
-    static fromRawBase64(base64, width, height){
+    static fromRawBase64(base64, width, height) {
         return new PxSerializer(base64toUint8Array(base64), width, height)
     }
 }
@@ -96,12 +105,12 @@ class PxPainter {
         this.org = context;
         Object.defineProperty(this, "width", {
             value: width || context.canvas.getAttribute('width'),
-            writable: false,
+            writable: true,
             enumerable: false,
         });
         Object.defineProperty(this, "height", {
             value: height || context.canvas.getAttribute('height'),
-            writable: false,
+            writable: true,
             enumerable: false,
         });
         this.data = new PxSerializer(context.getImageData(
@@ -129,6 +138,11 @@ class PxPainter {
     //转base64 参数默认是'image/png'
     toDataURL(...args) {
         return this.org.canvas.toDataURL(args)
+    }
+    saveToWebSafeColors() {
+        this.data = this.data.map(row => row.map(p => Pxpoint.prototype.toWebSafeColor.call(p)))
+        this.data.width = this.width
+        this.save()
     }
     //从base64转img异步渲染 渲染后将重新获取一次data
     fromDataURL(src, limitWidth = 0, limitHeight = 0) {

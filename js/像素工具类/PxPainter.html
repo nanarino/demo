@@ -14,13 +14,13 @@
                 data[row][col] = Pxpoint.from([i * row + j * col, 68 - row / 2, 68 - col / 2, 255]);
             }
         }
-        px.data[17 + 3 * i | 0][~~j + 9] = [0, 0, 0, 255]
         px.data[17 + 3 * i | 0][~~j + 10] = [0, 0, 0, 255]
         px.data[17 + 3 * i | 0][~~j + 11] = [0, 0, 0, 255]
         px.data[16 + 3 * i | 0][~~j + 10] = [0, 0, 0, 255]
         px.save();
-        if (time > 5000) {
+        if (time > 2000) {
             cancelAnimationFrame(ani)
+            px.saveToWebSafeColors()
         } else {
             requestAnimationFrame(ani)
         }
