@@ -7,11 +7,11 @@ function rangeAll(a, b, step) {  // rangeAll(5,3)-> Array([3,4,5])
     return rangeArray
 }
 var beforeMomentIsShiftKey = 0; //上次单击时是否按下shift
-var fromRow = 0; //上次单击的行
+var fromRow = 0; //上次单击的行（行号）
 function gridClick(grid) {
     document.body.click()//调用单击事件
     if (beforeMomentIsShiftKey) {
-        if (fromRow && grid.CurrentRow) {//将上次单击的行到现在shift的行选中或取消
+        if (fromRow) {//将上次单击的行到现在shift的行选中或取消
             var v = grid.Marked(fromRow);
             var rg = rangeAll(fromRow, grid.CurrentRow);
             for (var i in rg) {

@@ -66,8 +66,8 @@ const server = http.createServer((req, res) => {
 
 try {
     const ifaces = networkInterfaces();
-    for (let dev in ifaces) {
-        ifaces[dev].forEach((details, alias) => {
+    for (let lans of Object.values(ifaces)) {
+        lans.forEach(details => {
             if (details.family === 'IPv4' && details.address !== '127.0.0.1' && !details.internal) {
                 localWlanHost = details.address;
             }
