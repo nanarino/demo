@@ -3,12 +3,11 @@ from requests_toolbelt.utils import dump
 from hashlib import md5
 
 key = "6key_cibaifanyicjbysdlove1"
-q = input("请输入你要输入的单词::")
+q = input("请输入你要翻译的单词::")
 key += q
 s_md5 = md5()
 s_md5.update(key.encode(encoding='utf-8'))
 sign = s_md5.hexdigest()[:16]
-print(sign)
 params = {
     'c': 'trans',
     'm': 'fy',

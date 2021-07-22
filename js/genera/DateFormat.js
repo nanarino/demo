@@ -9,13 +9,29 @@
 
 
 /**
- * @desc 日期格式化 不改变原对象
- * @param connchar 分隔符如"-"，如果不传则什么也不会做
- * @return -> 参数如上的返回值将是 '2004-06-18'
+ * @desc 日期格式化 不改变原对象 
+ *       原版格式中 YYYY-MM-DD[*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]]
+ *       只会支持日期 YYYY-MM-DD ，时分秒时区将不做处理
+ * @param date_string 格式字符串中的"YYYY"，'mm'，'dd'将会被替换
+ * @return -> 返回格式如 '2004-06-18'
  */
-Date.prototype.format = function (connchar) {
-    if (!connchar) return this;
-    return [this.getFullYear(), ("0" + (this.getMonth() + 1)).slice(-2), ("0" + this.getDate()).slice(-2)].join(connchar)
+Date.prototype.format = function (date_string) {
+    return (date_string
+        .replace(/YYYY/ig, this.getFullYear())
+        .replace(/MM/ig, ("0" + (this.getMonth() + 1)).slice(-2))
+        .replace(/DD/ig, ("0" + this.getDate()).slice(-2))
+    )
+
+}
+
+
+/**
+ * @desc 日期按分隔符拼接 不改变原对象
+ * @param connchar 分隔符 默认'-'
+ * @return -> 返回格式如 '2004-06-18'
+ */
+Date.prototype.join = function (connchar) {
+    return [this.getFullYear(), ("0" + (this.getMonth() + 1)).slice(-2), ("0" + this.getDate()).slice(-2)].join(connchar || "-")
 }
 
 
@@ -33,6 +49,7 @@ Date.from = function (dateStr) {
     return _newDate
 }
 
+
 /**
  * @desc 判断日期是否符合格式
  * @param -> string 待检验的日期字符串dateStr
@@ -47,19 +64,18 @@ Date.isDateStr = function (dateStr) {
     return true
 }
 
+
 /**
  * @desc 日期区间计算及格式化 静态方法
- * @param start  字符串如'2004-06-18'或[date]对象
- * @param stop  字符串如'2004-06-20'或[date]对象
- * @param connchar  分隔符如"-" , 如果不传则返回[date]对象构成的区间
- * @return -> 参数如上的返回值将是 ['2002-06-18','2004-06-19']
+ * @param start  [object Date]对象，起点
+ * @param stop  [object Date]对象，终点
+ * @param step  正整数，默认1，步长
+ * @return -> Array<[object Date]>
  */
-Date.dateRange = function (start, stop, connchar) {
-    if ({}.toString.call(start) != "[object Date]") { start = this.from(start) }
-    if ({}.toString.call(stop) != "[object Date]") { stop = this.from(stop) }
+Date.dateRange = function (start, stop, step) {
     var _dateRange = [];
-    for (var i = start.getTime(); i < stop.getTime(); i += 86400000) {
-        _dateRange.push(new Date(i).format(connchar));
+    for (var i = start.getTime(); i < stop.getTime(); i += 86400000 * (step || 1)) {
+        _dateRange.push(new Date(i));
     }
     return _dateRange
 }
