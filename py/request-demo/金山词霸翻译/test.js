@@ -16,7 +16,7 @@ const input = question => {
     })
 }
 
-const main = async () => {
+void async function main(){
     let q
     try {
         q = await input(`请输入你要翻译的单词::`)
@@ -49,6 +49,4 @@ const main = async () => {
     } catch (err) {
         console.log(`请求失败：${err}`)
     }
-}
-
-main()
+}()

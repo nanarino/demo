@@ -1,7 +1,7 @@
 /**
  *
  *本文件只针对日期格式做兼容IE7的处理
- *如"Y/m/d" "Y-m-d"  而不处理时刻
+ *如"y/M/d" "y-M-d"  而不处理时刻
  *
  *注意 本文件的代码会污染Date的原型链
  *按需引入时需要注意调用关系
@@ -10,9 +10,10 @@
 
 /**
  * @desc 日期格式化 不改变原对象 
- *       原版格式中 YYYY-MM-DD[*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]]
- *       只会支持日期 YYYY-MM-DD ，时分秒时区将不做处理
- * @param date_string 格式字符串中的"YYYY"，'mm'，'dd'将会被替换
+ *       原版格式中 yyyy-MM-dd[*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]]
+ *       只会支持日期 yyyy-MM-dd ，时分秒时区将不做处理
+ * @param date_string 格式字符串中的"yyyy"，'MM'，'dd'将会被替换；
+ *                    注意，不区分大小写。即使MM写成了mm也不会被替换成分钟而是月份
  * @return -> 返回格式如 '2004-06-18'
  */
 Date.prototype.format = function (date_string) {
