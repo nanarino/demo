@@ -13,6 +13,11 @@ app.add_middleware(
 )
 
 
+class Item(BaseModel):
+    title: str = '无题'
+    content: str
+
+
 @app.get('/item/{id}')
 async def get_item(id: int):
     return {"id": id}
@@ -23,18 +28,22 @@ async def get_items(limit: Optional[int] = None, offset: Optional[int] = None):
     return {"limit": limit, "offset": offset}
 
 
-class Item(BaseModel):
-    title: str
-    content: str
-    user: int
-
-
 @app.post('/item')
 async def create_item(item: Item):
     return item
+
+
+@app.put('/item/{id}')
+async def update_item(id: int, item: Item):
+    return {"id": id, "item": item}
+
+
+@app.delete('/item/{id}')
+async def delete_item(id: int, item: Item):
+    return {"id": id, "item": item}
 
 if __name__ == '__main__':
     import os
     os.system('')
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8080)
+    uvicorn.run(app, host="0.0.0.0", port=80)
