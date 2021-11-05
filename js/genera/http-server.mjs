@@ -1,13 +1,13 @@
 import fs from "fs"
 import http from "http"
 import path from "path"
-import {networkInterfaces} from "os"
-import {createInterface} from "readline"
+import { networkInterfaces } from "os"
+import { createInterface } from "readline"
 
 let localWlanHost = '127.0.0.1';
 
 const server = http.createServer((req, res) => {
-    let pathname = path.join(process.cwd(), decodeURIComponent(req.url))
+    let pathname = path.join(process.cwd(), decodeURIComponent(req.url.split("?")[0]))
     if (path.extname(pathname) == "") {
         pathname += "/";
     }

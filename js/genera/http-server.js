@@ -7,7 +7,7 @@ const fs = require("fs"),
 let localWlanHost = '127.0.0.1';
 
 const server = http.createServer((req, res) => {
-    let pathname = path.resolve(__dirname, '.' + decodeURIComponent(req.url))
+    let pathname = path.resolve(__dirname, '.' + decodeURIComponent(req.url.split("?")[0]))
     if (path.extname(pathname) == "") {
         pathname += "/";
     }
