@@ -1,36 +1,26 @@
-<!DOCTYPE html>
-<html>
+<meta charset="utf-8">
+<style>b{color:red}</style>
+<input id='input' type='input'>
+<button onclick="enter()">搜索</button>
+<ul id='li'></ul>
+<script>
+    input.oninput = ()=>{
+        let script = document.createElement("script")
+        script.src = `https://s.search.bilibili.com/main/suggest?jsoncallback=mycallback&term=${input.value}`
+        document.body.appendChild(script)
+        script.onload = () => document.body.removeChild(script)
+    }
 
-<head>
-    <meta charset="UTF-8">
-</head>
+    function mycallback(data) {
+        li.innerHTML = Object.values(data).reduce((html, v) => html + `
+            <li><a href = https://search.bilibili.com/all?keyword=${v.value}>${v.name}<a/></li>
+        `, '')
+    }
 
-<body>
-    <input id='input' type='input' />
-    <ul id='li'></ul>
-    <script>
-        input.oninput = function () {
-            let script = document.createElement("script")
-            let url = `https://s.search.bilibili.com/main/suggest?jsoncallback=mycallback&term=${input.value}`
-            script.src = url
-            document.body.appendChild(script)
-            script.onload = () => document.body.removeChild(script)
-        }
+    function enter() {
+        location.href = `https://search.bilibili.com/all?keyword=${input.value}`
+    }
 
-        function mycallback(data) {
-            let ql = ''
-            for (let i of Object.values(data)) {
-                ql += `<li><a href = https://search.bilibili.com/all?keyword=${i.value}>${i.value}<a/></li>`
-            }
-            li.innerHTML = ql
-        }
+    input.onkeypress = e => (e.key == "Enter") && enter()
 
-        input.onkeypress = function (e) {
-            if (e.key == "Enter") {
-                window.location.href = `https://search.bilibili.com/all?keyword=${e.target.value}`
-            }
-        }
-    </script>
-</body>
-
-</html>
+</script>

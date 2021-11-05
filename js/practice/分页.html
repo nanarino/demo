@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        ul#list span,ul#list img{display: table-cell}
+        ul#list img{margin:0 22px;width: 18px}
+        ul#list li{display: table-row;line-height: 2;text-align: center}
+        ul#list{display: table;width: 40vw;margin: auto}
+        ul#page li{list-style: none;padding: 3px;background-color: aqua}
+        ul#page{width: 40vw;display: flex;margin: auto;justify-content: space-between;}
+        ul#page>#ld,ul#page>#rd{background-color: azure;}
+    </style>
+</head>
+<body>
+    <ul id='list'></ul>
+    <ul id='page'>
+        <li id='first'>首页</li>
+        <li id='prev'>上页</li>
+        <li id='next'>下页</li>
+        <li id='last'>尾页</li>
+    </ul>
+    <script>
+        function range(s,e){
+            if(s>e) return []
+            let arr = []
+            for(let i=s;i<e;i++){
+                arr.push(i)
+            }
+            return arr
+        }
+
+
+        void async function main(){
+            let limit = 20
+            let index, offset, total, length
+            let isInited = false
+
+            const req = async function(){    
+                index = location.hash.substr(1) * 1 || 1
+                offset = (index-1)*limit
+                let search = new URLSearchParams()
+                search.append("limit",limit)
+                search.append("offset",offset)
+                let res = await fetch(`http://127.0.0.1:8080/goods?${search}`)
+                let data = await res.json()
+                list.innerHTML = data.slice_data.reduce((html, v) => html + `
+                    <li><span>${v.name}</span><img src='/img/${v.img_url}'></li>
+                `,'')
+                total = data.total
+                length = Math.ceil(total/limit)
+            }
+
+            await req()
+
+            window.onhashchange = async ()=>{
+                if(location.hash === ''){
+                    location.hash = '#1'
+                    return
+                }
+                if(!isInited){
+                    isInited = true
+                    return
+                }
+                await req()
+            }
+            window.onhashchange()
+
+            let pagebtn = []
+
+            for(let i of range(0, length)){
+                let btn = document.createElement("li")
+                btn.onclick = function(){
+                    if(i==0){
+                        prev.style.backgroundColor=`gray`
+                        first.style.backgroundColor=`gray`
+                    }else{
+                        prev.style.backgroundColor=`aqua`
+                        first.style.backgroundColor=`aqua`         
+                    }
+                    if(i==length-1){
+                        next.style.backgroundColor=`gray`
+                        last.style.backgroundColor=`gray`
+                    }else{
+                        next.style.backgroundColor=`aqua`
+                        last.style.backgroundColor=`aqua`         
+                    }
+                    pagebtn[index-1].style.backgroundColor = `aqua`
+                    location.hash = `#` + (1*i+1)
+                    btn.style.backgroundColor = `red`
+                    omit(1*i+1)
+                }
+                btn.className = 'page'
+                btn.innerHTML = i+1
+                page.insertBefore(btn,next)
+                pagebtn.push(btn)
+            }
+            let ld = document.createElement("li")
+            let rd = document.createElement("li")
+            ld.style.display = 'none'
+            rd.style.display = 'none'
+            ld.id = 'ld'
+            rd.id = 'rd'
+            ld.innerHTML = '...'
+            rd.innerHTML = '...'
+            page.insertBefore(ld, pagebtn[1])
+            page.insertBefore(rd, pagebtn[length-1])
+            function omit(i){
+                for(let i of pagebtn){
+                    i.style.display = `block`
+                }
+                let arr
+                arr = range(2,i-1)
+                if(arr.length){
+                    for(let i of arr){
+                        pagebtn[i-1].style.display = `none`
+                    }
+                    ld.style.display = 'block'
+                }else{
+                    ld.style.display = 'none'
+                }
+                arr = range(i+2,length)
+                if(arr.length){
+                    for(let i of arr){
+                        pagebtn[i-1].style.display = `none`
+                    }
+                    rd.style.display = 'block'
+                }else{
+                    rd.style.display = 'none'
+                }
+            }
+            pagebtn[index-1].click()
+            prev.onclick = function(){
+                pagebtn[Math.max(0,index-2)].onclick()
+            }
+            next.onclick = function(){
+                pagebtn[Math.min(length-1,index)].onclick()
+            }
+            first.onclick = function(){
+                pagebtn[0].onclick()
+            }
+            last.onclick = function(){
+                pagebtn[length-1].onclick()
+            }
+
+        }()
+    </script>
+</body>
+</html>
