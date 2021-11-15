@@ -32,19 +32,20 @@
         ul#page>#rd {background-color: #00000002}
         #pagenum, #pageto{height: 28px;outline:none;border: 1px solid #ddd;padding: 0}
         input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none
-        }
+        input::-webkit-inner-spin-button {-webkit-appearance: none}
         #btnlist span{display: inline-block;width: 74px;height: 34px;text-align: center;line-height: 34px}
         #b{background-color:#e8f4ff;color:#1890ff;border: 1px solid #1890ff}
-        #g{background-color:#e7faf0;color:#13ce66;border: 1px solid #13ce66}
+        #g{background-color:#e7faf0;color:#13ce66;border: 1px solid #13ce66;filter: contrast(70%)}
         #r{background-color:#ffeded;color:#ff4949;border: 1px solid #ff4949}
         #mark{background-color:#00000052;position:fixed;inset:0;}
-        #markform{padding: 36px;position: fixed;z-index:2147;width: 250px;height: 180px;inset:0;background-color:#fff}
-        #markform li{height:40px;}
-        #markform input[type="text"]{height:28px;float: right;}
-        #markform label{line-height: 34px;}
-        #subm{color:#fff;width: 180px;height: 36px;display: inline-block;margin: 30px auto;background-color: #409eff}
+        #markform{padding: 20px;position: fixed;z-index:2147;inset:0;background-color:#fff;width: 400px;height: 325px}
+        #markform li{height:45px;padding:0 30px}
+        #markform input[type="text"]{height:28px;float: right;width: 250px;border:1px solid #606266;outline-color: #1890ff;}
+        #markform label{line-height: 34px}
+        #g.l{filter: contrast(100%)}
+        #markform input[type="submit"]{width: 90px;height: 36px;float:right;margin: 30px 5px;}
+        #subc{outline:none;border:1px solid #409eff;background-color: #fff;margin-right: 0 !important;}
+        #subm{color:#fff;background-color: #409eff;outline:none;border: 0}
     </style>
 </head>
 
@@ -75,11 +76,15 @@
     </div>
     <div id="mark" style="display:none">
         <ul id="markform" class="auto radius">
+            <li style="padding-bottom: 12px;"><h2 id='formtitle'></h2></li>
             <li><label>字典名称</label></label><input type="text" id='markform_1'></li>
             <li><label>字典类型</label><input type="text" id='markform_2'></li>
             <li><label>字典备注</label><input type="text" id='markform_3'></li>
-            <li class="fit auto"><input id='subm' type="submit"></li>
-        </ul>
+            <li>
+                <input id='subc' type="submit" value="取消">
+                <input id='subm' type="submit" value="确定">
+            </li>
+        </ul>    
     </div>
     <script>
         function range(s, e) {
@@ -113,7 +118,11 @@
                     el_all.src = '/增加.svg'
                     el_all.dataset['check'] = '1'
                 }
-                
+            }
+            if(els.filter(el=>el.dataset['check'] === '1').map(el=>el.dataset['id']).length===1){
+                g.classList.add('l')
+            }else{
+                g.classList.remove('l')
             }
         }
 
@@ -135,6 +144,7 @@
                     el.src = '/已选.svg'
                 })
             }
+            g.classList.remove('l')
         }
         async function delone(id){
             let res = await fetch(`http://127.0.0.1:8080/dicts`,{
@@ -208,7 +218,7 @@
             let res = await fetch(`http://127.0.0.1:8080/dict/${id}`)
             let data = await res.json()
             console.log(data);
-            subm.value = "修改"
+            formtitle.innerHTML = "修改"
             markform_1.value = data.name
             markform_2.value = data.type
             markform_3.value = data.mark
@@ -240,7 +250,7 @@
             }
         }
         function create(){
-            subm.value = "创建"
+            formtitle.innerHTML = "创建"
             mark.style.display="block"
             subm.onclick = async function (){
                 let res = await fetch(`http://127.0.0.1:8080/dict`,{
@@ -269,7 +279,7 @@
             }
         }
         mark.onclick=function(e){
-            if(e.target.id!='mark') return
+            if(e.target.id!='mark' && e.target.id!='subc') return
             markform_1.value = ''
             markform_2.value = ''
             markform_3.value = ''
@@ -281,6 +291,7 @@
             let isInited = false
 
             window.req = async function () {
+                //console.log(1);
                 index = location.hash.substr(1) * 1 || 1
                 offset = (index - 1) * limit
                 let search = new URLSearchParams()
@@ -345,7 +356,7 @@
                     isInited = true
                     return
                 }
-                await req()
+                req()
             }
             window.onhashchange()
 
