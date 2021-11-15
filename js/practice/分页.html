@@ -9,7 +9,7 @@
         .fit{width: fit-content}
         .auto{margin: auto}
         .shadow:hover {box-shadow: 0 0 20px 1px #ebebeb}
-        #main{border: 1pt solid #eaeefb;padding:24px;transform: translateY(2vh)}
+        #main{border: 1pt solid #eaeefb;padding:24px;transform: translateY(2vh);}
         ul {padding: 0;list-style: none}
         ul#list span{display: table-cell;padding: 12px 10px;border-bottom:1px solid #ebeef5;text-align: center}
         ul#list .th, .page{font-weight:bold}
@@ -281,6 +281,7 @@
             let isInited = false
 
             window.req = async function () {
+                console.log(1);
                 index = location.hash.substr(1) * 1 || 1
                 offset = (index - 1) * limit
                 let search = new URLSearchParams()
@@ -291,6 +292,7 @@
                 total = data.total
                 length = Math.ceil(total / limit)
                 allnum.innerHTML = total
+            if(total){
                 if(index<1){
                     index = 1
                     location.hash = '#1'
@@ -319,6 +321,18 @@
                         <span><b>创建时间</b></span>
                         <span><b>操作</b></span>
                 </li>`)
+            }else{
+                list.innerHTML = `<li>
+                    <span><img class='img_all' onclick="checkAll()" data-check='0' src='/未选.svg'></span>
+                    <span><b>编号</b></span>
+                    <span><b>字典名称</b></span>
+                    <span><b>字典类型</b></span>
+                    <span><b>备注</b></span>
+                    <span><b>创建时间</b></span>
+                    <span><b>操作</b></span>
+                </li>` + `<li><span></span><span></span><span></span><span>暂无数据</span><span></span><span></span><span></span></li>`
+            }
+                
             }
 
             await req()
@@ -409,6 +423,7 @@
             btninit()
 
             pagenum.onchange = async function(){
+                console.log(2)
                 pagebf = index/length//%
                 limit = Number.parseInt(this.value)
                 if(Number.isNaN(limit)) limit = 10
