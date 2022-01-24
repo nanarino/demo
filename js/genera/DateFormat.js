@@ -10,7 +10,7 @@
 
 /**
  * @desc 日期格式化 不改变原对象 
- *       原版格式中 yyyy-MM-dd[*HH[:MM[:SS[.fff[fff]]]][+HH:MM[:SS[.ffffff]]]]
+ *       原版格式中 yyyy-MM-dd[*HH[:mm[:ss[.fff[fff]]]][+HH:mm[:ss[.ffffff]]]]
  *       只会支持日期 yyyy-MM-dd ，时分秒时区将不做处理
  * @param date_string 格式字符串中的"yyyy"，'MM'，'dd'将会被替换；
  *                    注意，不区分大小写。即使MM写成了mm也不会被替换成分钟而是月份
