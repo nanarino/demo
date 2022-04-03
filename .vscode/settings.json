@@ -1,0 +1,117 @@
+{
+    "git.ignoreMissingGitWarning": true,
+    "workbench.colorTheme": "Default Light+",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "python.defaultInterpreterPath": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "security.workspace.trust.startupPrompt": "never",
+    "http.proxySupport": "on",
+    "http.proxyStrictSSL": false,
+    "code-runner.clearPreviousOutput": true,
+    //"code-runner.runInTerminal": true,
+    "code-runner.executorMap": {
+        "javascript": "node",
+        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "php": "php",
+        "python": "set PYTHONIOENCODING=utf8 && python",
+        "perl": "perl",
+        "perl6": "perl6",
+        "ruby": "ruby",
+        "go": "go run",
+        "lua": "lua",
+        "groovy": "groovy",
+        "powershell": "powershell -ExecutionPolicy ByPass -File",
+        "bat": "cmd /c",
+        "shellscript": "bash",
+        "fsharp": "fsi",
+        "csharp": "scriptcs",
+        "vbscript": "cscript //Nologo",
+        "typescript": "ts-node",
+        "coffeescript": "coffee",
+        "scala": "scala",
+        "swift": "swift",
+        "julia": "julia",
+        "crystal": "crystal",
+        "ocaml": "ocaml",
+        "r": "Rscript",
+        "applescript": "osascript",
+        "clojure": "lein exec",
+        "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+        "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+        "racket": "racket",
+        "scheme": "csi -script",
+        "ahk": "autohotkey",
+        "autoit": "autoit3",
+        "dart": "dart",
+        "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+        "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+        "haskell": "runhaskell",
+        "nim": "nim compile --verbosity:0 --hints:off --run",
+        "lisp": "sbcl --script",
+        "kit": "kitc --run",
+        "v": "v run",
+        "sass": "sass --style expanded",
+        "scss": "scss --style expanded",
+        "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css"
+    },
+    "stylusSupremacy.insertColons": false, // 是否插入冒号
+    "stylusSupremacy.insertSemicolons": false, // 是否插入分好
+    "stylusSupremacy.insertBraces": false, // 是否插入大括号
+    "stylusSupremacy.insertNewLineAroundImports": false, // import之后是否换行
+    "stylusSupremacy.insertNewLineAroundBlocks": false, // 两个选择器中是否换行
+    "editor.renderControlCharacters": true,
+    "editor.fontFamily": "'Fira Code', 'Microsoft Yahei UI'",
+    "editor.fontLigatures": true,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+
+    // Causes the debug view to automatically appear when a breakpoint is hit. This
+	// setting is global and not configurable per-language.
+	"debug.openDebug": "openOnDebugBreak",
+
+	"[dart]": {
+		// Automatically format code on save and during typing of certain characters
+		// (like `;` and `}`).
+		//"editor.formatOnSave": true,
+		//"editor.formatOnType": true,
+
+		// Draw a guide line at 80 characters, where Dart's formatting will wrap code.
+		//"editor.rulers": [80],
+
+		// Disables built-in highlighting of words that match your selection. Without
+		// this, all instances of the selected text will be highlighted, interfering
+		// with Dart's ability to highlight only exact references to the selected variable.
+		"editor.selectionHighlight": false,
+
+		// By default, VS Code prevents code completion from popping open when in
+		// "snippet mode" (editing placeholders in inserted code). Setting this option
+		// to `false` stops that and allows completion to open as normal, as if you
+		// weren't in a snippet placeholder.
+		"editor.suggest.snippetsPreventQuickSuggestions": false,
+
+		// By default, VS Code will pre-select the most recently used item from code
+		// completion. This is usually not the most relevant item.
+		//
+		// "first" will always select top item
+		// "recentlyUsedByPrefix" will filter the recently used items based on the
+		//     text immediately preceding where completion was invoked.
+		"editor.suggestSelection": "first",
+
+		// Allows pressing <TAB> to complete snippets such as `for` even when the
+		// completion list is not visible.
+		"editor.tabCompletion": "onlySnippets",
+
+		// By default, VS Code will populate code completion with words found in the
+		// current file when a language service does not provide its own completions.
+		// This results in code completion suggesting words when editing comments and
+		// strings. This setting will prevent that.
+		"editor.wordBasedSuggestions": false,
+	}
+}
