@@ -1,4 +1,7 @@
 import tkinter
+from decimal import Decimal
+from typing import Union
+from re import sub
 root = tkinter.Tk()
 root.geometry('280x500')
 root.resizable(0,0)
@@ -50,19 +53,21 @@ btnequ.place(x = 210,y = 395,width = 70,height = 110)
 btnper = tkinter.Button(root,text = '%',font = ('微软雅黑',20),fg = ('#4F4F4F'),bd = 0.5,command = lambda:onclick('%'))
 btnper.place(x = 0,y = 450,width = 70,height = 55)
 is_error = 1
-def brief_num(num_str):
-    return str('{:.8g}'.format(float(num_str)))
-def computed(numA,numB,sym):
+def brief_num(n:Union[int, float, Decimal]):
+    return '{:.8g}'.format(float(n))
+def computed(numA:str,numB:str,sym:str):
     if sym == '＋':
-        return float(numA) + float(numB)
+        return Decimal(numA) + Decimal(numB)
     elif sym == '－':
-        return float(numA) - float(numB)
+        return Decimal(numA) - Decimal(numB)
     elif sym == '×':
-        return float(numA) * float(numB)
+        return Decimal(numA) * Decimal(numB)
     elif sym == '÷':
-        return float(numA) / float(numB)
-def evaluation(arr):
-    arr = arr[0:len(arr)]
+        return Decimal(numA) / Decimal(numB)
+    else :
+        return Decimal(0)
+def evaluation(arr:list[str]):
+    arr = arr[:]
     multiplication_list = list(filter((lambda z : z == '×' or z == '÷'),arr))  
     addition_list = list(filter((lambda z : z == '＋'or z == '－'),arr))
     while 1:
@@ -77,7 +82,7 @@ def evaluation(arr):
         res = computed(arr[idx-1],arr[idx+1],sym=first)
         arr[idx-1:idx+2]=[res]
     return arr.pop(0)
-def onclick(target):
+def onclick(target:str):
     global is_error
     if is_error:
         if target =='←':
@@ -85,7 +90,7 @@ def onclick(target):
         elif target =='%':
             history_screen.set(str(main_screen.get())+'×100%') 
             try:
-                main_screen.set(brief_num(float(main_screen.get())*100)+'%')
+                main_screen.set(brief_num(Decimal(main_screen.get())*100)+'%')
             except:
                 is_error = 0
                 main_screen.set("ERROR")
@@ -101,12 +106,12 @@ def onclick(target):
         is_error = 1
 def equal_onclick():
     history_screen.set(str(main_screen.get()))
-    eq = str(main_screen.get()).replace("＋",",＋,").replace("－",',－,').replace("×",",×,").replace("÷",',÷,')
+    eq = sub(r'(?P<sym>[＋－×÷])', lambda _: f',{_.group("sym")},', main_screen.get())
     if eq[0] == ',':
         eq = '0' + eq
     try:
         result = brief_num(evaluation(arr=eq.split(',')))
-    except:
+    except Exception:
         global is_error
         is_error = 0
         result = "ERROR"
