@@ -1,4 +1,8 @@
 """秒合
+如果没有ffmpeg的环境变量可以用imageio的ffmpeg, get_ffmpeg_exe获取路径
+>>> import imageio_ffmpeg
+>>> imageio_ffmpeg.get_ffmpeg_exe()
+'C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python39\\lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win64-v4.2.2.exe'
 """
 
 import json
