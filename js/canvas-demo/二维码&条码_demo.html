@@ -1,55 +1,28 @@
 <script src="https://cdn.bootcss.com/jsbarcode/3.11.0/barcodes/JsBarcode.code128.min.js"></script>
 <script src="https://cdn.bootcss.com/qrcode-generator/1.4.4/qrcode.min.js"></script>
 <style>
-    body {
-        margin: 0
-    }
-
-    img,
-    canvas {
-        image-rendering: pixelated
-    }
-
-    #sT {
-        font-size: 90px;
-        text-align: center
-    }
-
-    #qr {
-        width: 60vw;
-        margin: 20px 20vw
-    }
-
-    header,
-    #sT,
-    #br,
-    footer {
-        width: 60vw;
-        padding: 20px 20vw
-    }
-
-    header * {
-        font-size: 60px
-    }
-
-    footer * {
-        font-size: 40px
-    }
+body {margin:0}
+img,canvas {image-rendering:pixelated}
+#sT {font-size:90px;text-align:center}
+#qr {width:60vw;margin:20px 20vw}
+header,#sT,#br,footer {width:60vw;padding:20px 20vw}
+header * {font-size: 60px}
+footer * {font-size: 40px}
 </style>
 <header>
-    <h1>XXXX</h1>
+  <h1>XXXX</h1>
 </header>
 <canvas id="qr"></canvas>
 <img id="br" />
 <div id="sT"></div>
 <footer>
-    <h2>使用说明</h2>
-    <ul>
-        <li>本券为消费满20元立减5元</li>
-        <li>使用时直接出示此截图</li>
-        <li>本券有效期至2020年1月20日</li>
-        <li>最终解释权由XXXX所有</li>
-        <ul>
+  <h2>使用说明</h2>
+  <ul>
+    <li>本券为消费满20元立减5元</li>
+    <li>使用时直接出示此截图</li>
+    <li>本券有效期至2020年1月20日</li>
+    <li>最终解释权由XXXX所有</li>
+  <ul>
 </footer>
 <script>
     //未封装渲染行为的二维码库https://github.com/kazuhikoarase/qrcode-generator/tree/master/js
@@ -65,36 +38,30 @@
         //window.onhashchange中sText && qrcode.makeCode(sText);
     **/
     window.onhashchange = () => {
-        const sText = window.location.hash && decodeURIComponent(window.location.hash).replace('#', '');
-        if (sText) {
-            qrdata.addData(sText);
-            qrdata.make();
-            const qrimg = new Image
-            qrimg.src = qrdata.createDataURL()
-            qrimg.style.display = 'none'
-            document.body.appendChild(qrimg)
-            qrimg.onload = () => {
-                const { width, height } = qrimg
-                Object.assign(qr, { width, height })
-                const c = qr.getContext("2d")
-                c.fillStyle = c.createPattern(qrimg, "repeat")
-                c.rect(0, 0, width, height)
-                c.fill()
-                /**
-                 *像素操作
-                const px = c.getImageData(0, 0, width, height)
-                for(let i = 0; i < px.data.length; i += 4) {
-                   px.data[i] += 0      //红
-                   px.data[i+1] += 0    //绿
-                   px.data[i+2] += 0    //蓝
-                   //透明度 px.data[i+3]
-                }
-                c.putImageData(px, 0, 0)
-                **/
-            }
-        }//条形码库https://github.com/lindell/JsBarcode
-        sText && JsBarcode('#br', sText, { lineColor: "#0aa", displayValue: false });
-        sT.innerHTML = sText || '参数缺少，请在地址栏中锚点'
+      const sText = window.location.hash && decodeURIComponent(window.location.hash).replace('#', '');
+      if (sText) {
+        qrdata.addData(sText);
+        qrdata.make();
+        const qrimg = new Image
+        qrimg.src = qrdata.createDataURL()
+        qrimg.style.display = 'none'
+        document.body.appendChild(qrimg)
+        qrimg.onload = () => {
+          const { width, height } = qrimg
+          Object.assign(qr, { width, height })
+          const c = qr.getContext("2d")
+          c.fillStyle = c.createPattern(qrimg, "repeat")
+          c.rect(0, 0, width, height)
+          c.fill()
+          /**
+            const px = c.getImageData(0, 0, width, height)
+            //TODO...像素操作
+            c.putImageData(px, 0, 0)
+          **/
+        }
+      }//条形码库https://github.com/lindell/JsBarcode
+      sText && JsBarcode('#br', sText, { lineColor: "#0aa", displayValue: false });
+      sT.innerHTML = sText || '参数缺少，请在地址栏中锚点'
     };
     window.onhashchange();
 </script>
