@@ -45,8 +45,6 @@ async def main():
     # 元类构造器sqlalchemy.orm.sessionmaker在作为依赖导出时推荐使用
 
 if __name__ == "__main__":
-    # loop.run_until_complete() / asyncio.run(main())
-    # 大概率提前关闭导致报错时使用以下代码在另一个线程启动
     from threading import Thread
     import asyncio
 
