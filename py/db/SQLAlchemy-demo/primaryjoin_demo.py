@@ -1,8 +1,8 @@
 from sqlalchemy import Column, Table
-from sqlalchemy.sql.expression import select, join
+from sqlalchemy.sql.expression import select
 from sqlalchemy.types import Integer, String
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import registry
+from sqlalchemy.orm import registry, relationship, selectinload
 
 
 url = "mysql+aiomysql://root:123456@127.0.0.1:3306/demodemo"
@@ -32,6 +32,8 @@ class Card(mapper_to_dict_able_mixin, Base):
     username = Column(String(63))
     password = Column(String(63))
     is_active = Column(Integer)
+    bindinfo = relationship(
+        'Card_bindinfo', primaryjoin='Card.id == foreign(Card_bindinfo.cid)')
 
 
 class Card_bindinfo(mapper_to_dict_able_mixin, Base):
@@ -63,12 +65,11 @@ class Card_bindinfo(mapper_to_dict_able_mixin, Base):
 async def main():
     async with AsyncSession(async_egn) as session:
         result = await session.execute(
-            select(Card)
-                .select_from(join(Card, Card_bindinfo, Card.id == Card_bindinfo.cid))
-                .where(Card_bindinfo.id == 1)
+            select(Card).options(selectinload(Card.bindinfo))
         )
+
         for i in result.scalars():
-            print(dict(i))
+            print(dict(i), [dict(info) for info in i.bindinfo])
 
 
 if __name__ == "__main__":
