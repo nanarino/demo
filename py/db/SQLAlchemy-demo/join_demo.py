@@ -20,7 +20,7 @@ class mapper_to_dict_able_mixin:
     '''混合继承用，转dict需要至少实现的方法'''
 
     def keys(self):
-        return map(lambda row: row.key, self.__table__.columns)
+        return map(lambda c: c.key, table(self).columns)
 
     def __getitem__(self, key):
         return getattr(self, key)
@@ -64,8 +64,8 @@ async def main():
     async with AsyncSession(async_egn) as session:
         result = await session.execute(
             select(Card)
-                .select_from(join(Card, Card_bindinfo, Card.id == Card_bindinfo.cid))
-                .where(Card_bindinfo.id == 1)
+            .select_from(join(Card, Card_bindinfo, Card.id == Card_bindinfo.cid))
+            .where(Card_bindinfo.id == 1)
         )
         for i in result.scalars():
             print(dict(i))

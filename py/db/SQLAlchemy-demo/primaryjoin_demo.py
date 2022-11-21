@@ -20,7 +20,7 @@ class mapper_to_dict_able_mixin:
     '''混合继承用，转dict需要至少实现的方法'''
 
     def keys(self):
-        return map(lambda row: row.key, self.__table__.columns)
+        return map(lambda c: c.key, table(self).columns)
 
     def __getitem__(self, key):
         return getattr(self, key)

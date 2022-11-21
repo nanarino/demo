@@ -9,11 +9,16 @@ mapper_registry = registry()
 Base = mapper_registry.generate_base()
 
 
+def table(mapper: Base) -> Table:
+    """表映射 转 表对象"""
+    return mapper.__table__
+
+
 class mapper_to_dict_able_mixin:
     '''混合继承用，转dict需要至少实现的方法'''
 
     def keys(self):
-        return map(lambda row: row.key, self.__table__.columns)
+        return map(lambda c: c.key, table(self).columns)
 
     def __getitem__(self, key):
         return getattr(self, key)
@@ -24,11 +29,6 @@ class Demo(mapper_to_dict_able_mixin, Base):
     __tablename__ = 'demotable'
     id = Column(Integer, primary_key=True)
     name = Column(String(30))
-
-
-def table(mapper: Base) -> Table:
-    """表映射 转 表对象"""
-    return mapper.__table__
 
 
 async def main():
