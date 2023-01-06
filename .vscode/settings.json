@@ -4,7 +4,7 @@
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
-    "python.defaultInterpreterPath": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "python.defaultInterpreterPath": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
@@ -75,7 +75,6 @@
     // Causes the debug view to automatically appear when a breakpoint is hit. This
 	// setting is global and not configurable per-language.
 	"debug.openDebug": "openOnDebugBreak",
-    "[html]": { "editor.tabSize": 2 },
 	"[dart]": {
 		// Automatically format code on save and during typing of certain characters
 		// (like `;` and `}`).
@@ -113,5 +112,19 @@
 		// This results in code completion suggesting words when editing comments and
 		// strings. This setting will prevent that.
 		"editor.wordBasedSuggestions": false,
-	}
+	},
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features",
+        "editor.tabSize": 2
+    },
+    "[svelte]": {
+        "editor.tabSize": 2
+    },
+    "[vue]": {
+        "editor.tabSize": 2
+    },
+    "hexeditor.columnWidth": 16,
+    "hexeditor.showDecodedText": true,
+    "hexeditor.defaultEndianness": "little",
+    "hexeditor.inspectorType": "aside"
 }
