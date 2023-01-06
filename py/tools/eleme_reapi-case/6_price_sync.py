@@ -77,7 +77,7 @@ def price_sync(shop_list):
 
 if __name__ == "__main__":
     p = Pool(4)
-    input('长坂坡大药房饿了么商品价格同步,请按回车键开始...')
+    input('请按回车键开始...')
     shop_list = (
         '32267603639',
         '32267603636',

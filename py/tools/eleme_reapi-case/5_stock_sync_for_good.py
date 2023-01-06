@@ -72,7 +72,7 @@ def stock_sync(shop_list):# 清空缓存 truncate table E_eleme_stock
             sleep()
 
 if __name__ == "__main__":
-    input('xx大药房饿了么商品库存同步,请按回车键开始...')
+    input('请按回车键开始...')
     shop_list = (
         '32267603639',
         '32267603636',
