@@ -71,7 +71,7 @@ async def main():
             在不使用relationship的情况下 纯粹的join并不好用😥
         """
         for i in result.scalars():
-            print(dict(i))
+            print(dict(i))  # 拿着i.cid去查询Card罢😥
 
 
 if __name__ == "__main__":

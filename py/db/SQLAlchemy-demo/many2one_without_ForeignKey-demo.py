@@ -1,8 +1,8 @@
-from sqlalchemy import Column, Table, ForeignKey
+from sqlalchemy import Column, Table  # , ForeignKey
 from sqlalchemy.sql.expression import select
 from sqlalchemy.types import Integer, String
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import registry, relationship, joinedload
+from sqlalchemy.orm import registry, relationship, joinedload, foreign
 
 
 url = "mysql+aiomysql://root:123456@127.0.0.1:3306/demodemo"
@@ -37,8 +37,10 @@ class Card(mapper_to_dict_able_mixin, Base):
 class Card_bindinfo(mapper_to_dict_able_mixin, Base):
     __tablename__ = "card_bindinfo"
     id = Column(Integer, primary_key=True)
-    cid = Column(ForeignKey(Card.id))
-    card = relationship(Card)
+    cid = Column(Integer)
+    # cid = Column(ForeignKey(Card.id))
+    # 如果不在模型上定义ForeignKey字段 则关系字段无需设置primaryjoin
+    card = relationship(Card, primaryjoin=cid == foreign(Card.id))
     tbr_name = Column(String(255))
     tbr_id_type = Column(String(255))
     tbr_id_num = Column(String(255))
@@ -69,19 +71,15 @@ async def main():
             ).where(Card_bindinfo.id == 1)
         )
 
-        for i in result.scalars():
-            print(dict(i), dict(i.card))
-
-        """ # 也可以使用select.join_from方法，但似乎必须在模型上定义ForeignKey字段
-            # 官方文档：https://docs.sqlalchemy.org/en/14/tutorial/orm_related_objects.html#tutorial-orm-related-objects
-            
-            result = await session.execute(
-                select(Card).join_from(Card, Card_bindinfo).where(Card_bindinfo.id == 1)
-            )
-
-            for i in result.scalars():
-                print(dict(i))
-        """
+        for i in result.scalars().unique():
+            """
+                如果不在模型上定义ForeignKey字段 则结果集需要使用.unique()
+                when an ORM query is compiled, if it contains any joinedload() or contains_eager() of collections (not many-to-one or one-to-one), it will be required that .unique() is called on the result before iterating. 
+                an error will be raised otherwise; this is because the uniquing is needed in order to get the expected objects back when joined eager loading of collections is used. this will prevent confusion over the uniquing not occurring for a joined eager load collection result.
+            """
+            print(dict(i))
+            # 如果不在模型上定义ForeignKey字段 会访问关系字段会变成序列 哪怕是多对一
+            print(dict(i.card[0]))
 
 
 if __name__ == "__main__":

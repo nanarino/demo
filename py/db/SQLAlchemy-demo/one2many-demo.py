@@ -60,7 +60,8 @@ class Card(mapper_to_dict_able_mixin, Base):
     is_active = Column(Integer)
     # bindinfo = relationship('Card_bindinfo', primaryjoin='Card.id == foreign(Card_bindinfo.cid)') # 使用字符串
     bindinfo = relationship(
-        'Card_bindinfo', primaryjoin=id == foreign(Card_bindinfo.cid))  # 使用引用，需要注意模型声明顺序
+        'Card_bindinfo', primaryjoin=id == foreign(Card_bindinfo.cid)  # 使用引用，需要注意模型声明顺序
+    )
 
 # relationship 官方文档：https://docs.sqlalchemy.org/en/14/orm/join_conditions.html#relationship-custom-foreign
 # 题外：多对多自关联：https://stackoverflow.com/questions/19598578/how-do-primaryjoin-and-secondaryjoin-work-for-many-to-many-relationship-in-s
@@ -69,12 +70,13 @@ class Card(mapper_to_dict_able_mixin, Base):
 async def main():
     async with AsyncSession(async_egn) as session:
         result = await session.execute(
-            select(Card).options(selectinload(Card.bindinfo))
+            select(Card).options(selectinload(Card.bindinfo)).where(Card.id == 1)
             # selectinload 官方文档：https://docs.sqlalchemy.org/en/14/tutorial/orm_related_objects.html#tutorial-orm-related-objects
         )
 
         for i in result.scalars():
-            print(dict(i), [dict(info) for info in i.bindinfo])
+            print(dict(i))
+            print([dict(info) for info in i.bindinfo])
 
 
 if __name__ == "__main__":
