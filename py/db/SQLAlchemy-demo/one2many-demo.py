@@ -2,7 +2,7 @@ from sqlalchemy import Column, Table
 from sqlalchemy.sql.expression import select
 from sqlalchemy.types import Integer, String
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import registry, relationship, selectinload
+from sqlalchemy.orm import registry, relationship, selectinload, foreign
 
 
 url = "mysql+aiomysql://root:123456@127.0.0.1:3306/demodemo"
@@ -24,16 +24,6 @@ class mapper_to_dict_able_mixin:
 
     def __getitem__(self, key):
         return getattr(self, key)
-
-
-class Card(mapper_to_dict_able_mixin, Base):
-    __tablename__ = 'card'
-    id = Column(Integer, primary_key=True)
-    username = Column(String(63))
-    password = Column(String(63))
-    is_active = Column(Integer)
-    bindinfo = relationship(
-        'Card_bindinfo', primaryjoin='Card.id == foreign(Card_bindinfo.cid)')
 
 
 class Card_bindinfo(mapper_to_dict_able_mixin, Base):
@@ -62,10 +52,25 @@ class Card_bindinfo(mapper_to_dict_able_mixin, Base):
     effect_date = Column(String(255))
 
 
+class Card(mapper_to_dict_able_mixin, Base):
+    __tablename__ = 'card'
+    id = Column(Integer, primary_key=True)
+    username = Column(String(63))
+    password = Column(String(63))
+    is_active = Column(Integer)
+    # bindinfo = relationship('Card_bindinfo', primaryjoin='Card.id == foreign(Card_bindinfo.cid)') # 使用字符串
+    bindinfo = relationship(
+        'Card_bindinfo', primaryjoin=id == foreign(Card_bindinfo.cid))  # 使用引用，需要注意模型声明顺序
+
+# relationship 官方文档：https://docs.sqlalchemy.org/en/14/orm/join_conditions.html#relationship-custom-foreign
+# 题外：多对多自关联：https://stackoverflow.com/questions/19598578/how-do-primaryjoin-and-secondaryjoin-work-for-many-to-many-relationship-in-s
+
+
 async def main():
     async with AsyncSession(async_egn) as session:
         result = await session.execute(
             select(Card).options(selectinload(Card.bindinfo))
+            # selectinload 官方文档：https://docs.sqlalchemy.org/en/14/tutorial/orm_related_objects.html#tutorial-orm-related-objects
         )
 
         for i in result.scalars():

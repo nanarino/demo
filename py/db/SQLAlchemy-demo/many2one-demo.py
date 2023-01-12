@@ -1,8 +1,8 @@
-from sqlalchemy import Column, Table
-from sqlalchemy.sql.expression import select, join
+from sqlalchemy import Column, Table, ForeignKey
+from sqlalchemy.sql.expression import select
 from sqlalchemy.types import Integer, String
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import registry
+from sqlalchemy.orm import registry, relationship, joinedload
 
 
 url = "mysql+aiomysql://root:123456@127.0.0.1:3306/demodemo"
@@ -37,7 +37,8 @@ class Card(mapper_to_dict_able_mixin, Base):
 class Card_bindinfo(mapper_to_dict_able_mixin, Base):
     __tablename__ = "card_bindinfo"
     id = Column(Integer, primary_key=True)
-    cid = Column(Integer)
+    cid = Column(ForeignKey(Card.id))
+    card = relationship(Card)
     tbr_name = Column(String(255))
     tbr_id_type = Column(String(255))
     tbr_id_num = Column(String(255))
@@ -63,15 +64,24 @@ class Card_bindinfo(mapper_to_dict_able_mixin, Base):
 async def main():
     async with AsyncSession(async_egn) as session:
         result = await session.execute(
-            select(Card)
-            .select_from(join(Card, Card_bindinfo, Card.id == Card_bindinfo.cid))
-            .where(Card_bindinfo.id == 1)
+            select(Card_bindinfo).options(
+                joinedload(Card_bindinfo.card, innerjoin=True)
+            ).where(Card_bindinfo.id == 1)
         )
-        """
-            在不使用relationship的情况下 纯粹的join并不好用😥
-        """
+
         for i in result.scalars():
-            print(dict(i))
+            print(dict(i), dict(i.card))
+
+        """ # 也可以使用select.join_from。他们都需要在模型上定义ForeignKey字段
+            # 官方文档：https://docs.sqlalchemy.org/en/14/tutorial/orm_related_objects.html#tutorial-orm-related-objects
+            
+            result = await session.execute(
+                select(Card).join_from(Card, Card_bindinfo).where(Card_bindinfo.id == 1)
+            )
+
+            for i in result.scalars():
+                print(dict(i))
+        """
 
 
 if __name__ == "__main__":
