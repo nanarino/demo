@@ -13,6 +13,12 @@ git命令
     # 配置仓库用户名邮箱
     git config --local user.name "☘☘"
     git config --local user.email "☘☘☘☘☘☘☘☘☘☘☘☘☘☘"
+    # 全局代理
+    git config --global http.proxy http://127.0.0.1:7890
+    git config --global https.proxy http://127.0.0.1:7890
+    # 取消全局代理：
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
 
 
 
