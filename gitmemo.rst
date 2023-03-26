@@ -51,7 +51,10 @@ git命令
 
 
 提交::
-
+    # 暂存更改
+    git add .
+    # 提交（--no-verify ：绕过规则）
+    git commit -m 'fix' --no-verify
     # 获取分支最新
     git pull
     # 推送所有分支提交
