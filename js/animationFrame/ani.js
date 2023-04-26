@@ -3,8 +3,8 @@ function getStyle(ele) {
 }
 
 //简单的解决兼容问题
-window.requestAnimationFrame = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 1000 / 60) }
-window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
+//window.requestAnimationFrame = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 1000 / 60) }
+//window.cancelAnimationFrame = window.cancelAnimationFrame || clearTimeout
 
 function animation(ele, data = {}, time = 500, cb) {
   /*
