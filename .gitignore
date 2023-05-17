@@ -1,5 +1,9 @@
-/.idea
-*/.idea
-*/.vscode
-*/dist
-*.pyc
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# local style source
+*.css.map
