@@ -7,3 +7,6 @@ ENV/
 
 # local style source
 *.css.map
+
+# node
+node_modules
