@@ -12,10 +12,10 @@
             "request": "launch",
             "program": "${workspaceFolder}/odoo-bin",
             "args": "-c ${workspaceFolder}/odoo/conf/openserver.conf",
-            //"args": "-c ${workspaceFolder}/odoo/conf/openserver.conf -u jl_base",
+            //"args": "-c ${workspaceFolder}/odoo/conf/openserver.conf -u base",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "envFile": "${workspaceFolder}/.py39env"
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
