@@ -11,24 +11,7 @@
 		}
 	],
 	"settings": {
-		"git.ignoreMissingGitWarning": true,
-		"workbench.colorTheme": "Default Light+",
-		"workbench.editorAssociations": {
-			"*.ipynb": "jupyter-notebook"
-		},
-		"notebook.cellToolbarLocation": {
-			"default": "right",
-			"jupyter-notebook": "left"
-		},
-		"stylusSupremacy.insertColons": false,
-		"stylusSupremacy.insertSemicolons": false,
-		"stylusSupremacy.insertBraces": false,
-		"stylusSupremacy.insertNewLineAroundImports": false,
-		"stylusSupremacy.insertNewLineAroundBlocks": false,
-		"debug.openDebug": "openOnDebugBreak",
-		"hexeditor.columnWidth": 16,
-		"hexeditor.showDecodedText": true,
-		"hexeditor.defaultEndianness": "little",
-		"hexeditor.inspectorType": "aside"
+		// inherited .vscode/settings.json and override
+		// [folders]/.vscode/settings.json can override again
 	}
 }
