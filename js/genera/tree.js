@@ -30,7 +30,7 @@ export function del(tree, id) {
   }
 }
 
-export const getTAncestors = (tree, nodeId) => {
+export const getAncestors = (tree, nodeId) => {
   const getIds = flatArray => {
     let ids = [nodeId]
     let child = flatArray.find(_ => _["id"] === nodeId)
