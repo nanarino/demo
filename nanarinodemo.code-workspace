@@ -4,10 +4,13 @@
 			"path": "c"
 		},
 		{
-			"path": "py"
+			"path": "ex"
 		},
 		{
 			"path": "js"
+		},
+		{
+			"path": "py"
 		}
 	],
 	"settings": {
