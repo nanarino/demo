@@ -14,7 +14,7 @@
 		}
 	],
 	"settings": {
-		// inherited .vscode/settings.json and override
 		// [folders]/.vscode/settings.json can override again
+		// 在工作区内的设置可以再次覆盖
 	}
 }

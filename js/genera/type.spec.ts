@@ -1,4 +1,4 @@
-import type from './type.mjs';
+import type from './type';
 
 console.log(type(1));
 console.log(type(true));
@@ -11,5 +11,5 @@ console.log(type(new Set()));
 console.log(type(new Map()));
 console.log(type(new Date()));
 console.log(type(/(.*)/));
-console.log(type(()=>{}));
-console.log(type(async function*(){}));
+console.log(type(() => { }));
+console.log(type(async function* () { }));

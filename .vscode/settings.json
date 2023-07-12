@@ -1,5 +1,6 @@
 {
     // own global settings
+    // 自用全局设置 并不是这个项目的设置
     "git.ignoreMissingGitWarning": true,
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
