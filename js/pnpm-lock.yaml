@@ -1,30 +1,34 @@
-lockfileVersion: 5.4
+lockfileVersion: '6.0'
 
-specifiers:
-  '@types/node': ^20.2.5
-  node-ts: ^6.0.1
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
 
 devDependencies:
-  '@types/node': 20.2.5
-  node-ts: 6.0.1
+  '@types/node':
+    specifier: ^20.2.5
+    version: 20.2.5
+  node-ts:
+    specifier: ^6.0.1
+    version: 6.0.1
 
 packages:
 
-  /@rauschma/stringio/1.4.0:
+  /@rauschma/stringio@1.4.0:
     resolution: {integrity: sha512-3uor2f/MXZkmX5RJf8r+OC3WvZVzpSme0yyL0rQDPEnatE02qRcqwEwnsgpgriEck0S/n4vWtUd6tTtrJwk45Q==}
     dependencies:
       '@types/node': 10.17.60
     dev: true
 
-  /@types/node/10.17.60:
+  /@types/node@10.17.60:
     resolution: {integrity: sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==}
     dev: true
 
-  /@types/node/20.2.5:
+  /@types/node@20.2.5:
     resolution: {integrity: sha512-JJulVEQXmiY9Px5axXHeYGLSjhkZEnD+MDPDGbCbIAbMslkKwmygtZFy1X6s/075Yo94sf8GuSlFfPzysQrWZQ==}
     dev: true
 
-  /node-ts/6.0.1:
+  /node-ts@6.0.1:
     resolution: {integrity: sha512-nxFz4tJYv9Yu6u4e3B1rmfh45Zmge7rD/MlTA5V98+Q5eFsqzCWTWDYvbrNEPGtnzhkqNLk4E2r3C6VSfNoZNQ==}
     engines: {node: '>=18.0.0'}
     dependencies:
