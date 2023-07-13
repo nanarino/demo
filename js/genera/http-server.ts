@@ -6,8 +6,8 @@ import { createInterface } from "readline"
 
 let localWlanHost = '127.0.0.1';
 
-const server = http.createServer((req, res) => {
-    let pathname = path.join(process.cwd(), decodeURIComponent(req.url.split("?")[0]))
+const server = http.createServer((req: http.IncomingMessage, res) => {
+    let pathname = path.join(process.cwd(), decodeURIComponent((req.url ?? '').split("?")[0]))
     if (path.extname(pathname) == "") {
         pathname += "/";
     }
@@ -15,7 +15,7 @@ const server = http.createServer((req, res) => {
         pathname += "index.html";
     }
 
-    fs.readFile(pathname, (err, data) => {
+    fs.readFile(pathname, (err, data: Buffer) => {
         if (err) {
             res.writeHead(404, { "Content-Type": "text/html" });
             fs.readFile('./404.html', (err, data) => {
@@ -67,11 +67,13 @@ const server = http.createServer((req, res) => {
 try {
     const ifaces = networkInterfaces();
     for (let lans of Object.values(ifaces)) {
-        lans.forEach(details => {
-            if (details.family === 'IPv4' && details.address !== '127.0.0.1' && !details.internal) {
-                localWlanHost = details.address;
-            }
-        });
+        if (lans && lans.length) {
+            lans.forEach(details => {
+                if (details.family === 'IPv4' && details.address !== '127.0.0.1' && !details.internal) {
+                    localWlanHost = details.address;
+                }
+            });
+        }
     }
 } catch (e) {
     console.log(e);
@@ -82,8 +84,8 @@ const readline = createInterface({
     output: process.stdout
 })
 
-readline.question('input port:', input => {
-    let port = Number.parseInt(input) || 80;
+readline.question('input port:', (input: string) => {
+    let port: number = Number.parseInt(input) || 80;
     server.listen(port);
     console.log(`Server running at \x1b[36mhttp://${localWlanHost}:${port}/\x1b[39m`);
     readline.close();

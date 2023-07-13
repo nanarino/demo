@@ -1,9 +1,16 @@
-import deepCopy from './deepCopy';
+import deepCopy from './deepCopy'
 
 const KEY = Symbol('☘')
 
-console.log(deepCopy({
+const o1 = {
     [KEY]: 1,
-    name: 'test'
-}));
+    name: 'test',
+    arr: [1, 2, 3]
+}
+
+const o2 = deepCopy(o1)
+
+console.log(Reflect.has(o1, KEY))
+console.log(Reflect.has(o2, KEY))
+console.log(Reflect.get(o1, 'arr') === Reflect.get(o2, 'arr'))
 
