@@ -26,5 +26,5 @@ const treeData = [
 
 console.log(find<nodeData>({ id: 0, children: treeData }, 2)?.name)
 console.log(del<nodeData>({ id: 0, children: treeData }, 1))
-console.dir(flat<nodeData>({ id: 0, children: treeData }), { depth: Infinity })
+console.log(flat<nodeData>({ id: 0, children: treeData }))
 console.log(getAncestors<nodeData>({ id: 0, children: treeData }, 4))
