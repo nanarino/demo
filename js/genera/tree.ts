@@ -53,9 +53,10 @@ export function getAncestors<nodeData>(tree: treeNode<nodeData> | treeRoot<nodeD
   const getIds = (flatArray: treeNode<nodeData>[]) => {
     let ids = [id]
     let child = flatArray.find(_ => _.id === id)
-    while (child && child.parentId) {
+    let hasChild: number | undefined
+    while (hasChild = (child && child.parentId)) {
       ids = [child.parentId, ...ids]
-      child = flatArray.find(_ => (child && child.parentId) === _.id)
+      child = flatArray.find(_ => hasChild === _.id)
     }
     return ids
   }
