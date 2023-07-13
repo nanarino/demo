@@ -4,19 +4,18 @@
 #imgsorech {position:absolute;width:200px;height:200px;background:palegreen}
 </style>
 <script>
+  // 放开注释的代码即为有边界的拖拽
   window.onload = function () {
     // let minX = 0
     // let minY = 0
     // let maxX = imgbox.clientWidth+minX-imgsorech.clientWidth
     // let maxY = imgbox.clientHeight+minY-imgsorech.clientHeight
     imgsorech.onmousedown = function (eve) {
-      eve = eve || window.event
       let imaX = eve.clientX
       let imaY = eve.clientY
       let schX = imgsorech.offsetLeft
       let schY = imgsorech.offsetTop
       document.onmousemove = function (eve) {
-        eve = eve || window.event
         let miraiX = eve.clientX
         let miraiY = eve.clientY
         let schleft = schX + (miraiX - imaX)
@@ -32,6 +31,7 @@
     }
     document.onmouseup = function () {
       document.onmousemove = null
+      return false
     }
   }
 </script>

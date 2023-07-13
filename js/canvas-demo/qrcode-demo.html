@@ -5,25 +5,11 @@ body {margin:0}
 img,canvas {image-rendering:pixelated}
 #sT {font-size:90px;text-align:center}
 #qr {width:60vw;margin:20px 20vw}
-header,#sT,#br,footer {width:60vw;padding:20px 20vw}
-header * {font-size: 60px}
-footer * {font-size: 40px}
+#sT,#br {width:60vw;padding:20px 20vw}
 </style>
-<header>
-  <h1>XXXX</h1>
-</header>
 <canvas id="qr"></canvas>
 <img id="br" />
 <div id="sT"></div>
-<footer>
-  <h2>使用说明</h2>
-  <ul>
-    <li>本券为消费满20元立减5元</li>
-    <li>使用时直接出示此截图</li>
-    <li>本券有效期至2020年1月20日</li>
-    <li>最终解释权由XXXX所有</li>
-  <ul>
-</footer>
 <script>
     //未封装渲染行为的二维码库https://github.com/kazuhikoarase/qrcode-generator/tree/master/js
     const typeNumber = 4, errorCorrectionLevel = 'L';
@@ -55,13 +41,13 @@ footer * {font-size: 40px}
           c.fill()
           /**
             const px = c.getImageData(0, 0, width, height)
-            //TODO...像素操作
+            // 像素操作
             c.putImageData(px, 0, 0)
           **/
         }
       }//条形码库https://github.com/lindell/JsBarcode
       sText && JsBarcode('#br', sText, { lineColor: "#0aa", displayValue: false });
-      sT.innerHTML = sText || '参数缺少，请在地址栏中锚点'
+      sT.innerHTML = sText || '参数缺少，请在地址栏中键入hash'
     };
     window.onhashchange();
 </script>
