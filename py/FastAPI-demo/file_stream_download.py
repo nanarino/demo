@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image, ImageFont, ImageDraw  # pip install pillow
 from io import BytesIO
 from random import choice, randint
 from pathlib import Path
