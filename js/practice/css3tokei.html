@@ -67,18 +67,15 @@
 <div class="timeb"></div>
 <div class="timeb"></div>
 <script>
-  function PrefixInteger(num, n) {
-    return (Array(n).join(0) + num).slice(-n);
-  }
-  setInterval(function () {
-    var nowtime = new Date();
-    var timeb = document.getElementsByClassName('timeb');
-    var hour = document.getElementById('hour-hand');
-    var minute = document.getElementById('minute-hand');
-    var second = document.getElementById('second-hand');
-    timeb[0].innerHTML = PrefixInteger(nowtime.getHours(), 2);
-    timeb[1].innerHTML = PrefixInteger(nowtime.getMinutes(), 2);
-    timeb[2].innerHTML = PrefixInteger(nowtime.getSeconds(), 2);
+  setInterval(() => {
+    const nowtime = new Date();
+    const timeb = document.getElementsByClassName('timeb');
+    const hour = document.getElementById('hour-hand');
+    const minute = document.getElementById('minute-hand');
+    const second = document.getElementById('second-hand');
+    timeb[0].innerHTML = nowtime.getHours().toString().padEnd(2, '0');
+    timeb[1].innerHTML = nowtime.getMinutes().toString().padEnd(2, '0');
+    timeb[2].innerHTML = nowtime.getSeconds().toString().padEnd(2, '0');
     hour.style.cssText = "transform:rotate(" + nowtime.getHours() / 12 + "turn);"
     minute.style.cssText = "transform:rotate(" + nowtime.getMinutes() / 60 + "turn);"
     second.style.cssText = "transform:rotate(" + nowtime.getSeconds() / 60 + "turn);"
