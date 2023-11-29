@@ -1,0 +1,3 @@
+jieba
+matplotlib
+wordcloud
