@@ -13,3 +13,8 @@ node_modules
 
 # Erlang
 erl_crash.dump
+
+# kotlin
+META-INF
+*.class
+*.jar
