@@ -18,6 +18,10 @@ erl_crash.dump
 META-INF
 *.class
 *.jar
+!gradle-wrapper.jar
+.gradle
+build
+.idea
 
 # c/cpp
 *.exe
