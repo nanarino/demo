@@ -28,6 +28,7 @@
         "kotlinscript": "cd $dir && kotlinc -script $fileName",
         "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
         "dart": "dart",
+        "python": "py",
 
         // jdk target 21
         "java": "cd $dir && javac --enable-preview -source 21 -Xlint:preview $fileName && java --enable-preview $fileNameWithoutExt",
