@@ -18,17 +18,24 @@
     },
     "security.workspace.trust.startupPrompt": "never",
     "code-runner.clearPreviousOutput": true,
-    //"code-runner.runInTerminal": true, // 终端模式
+    "code-runner.runInTerminal": true, // 终端模式
     "code-runner.executorMap": {
+
+        // 常规命令 方便复制修改
         "javascript": "node",
-        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
         "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-        "python": "set PYTHONIOENCODING=utf8 && py",
-        "kotlin": "cd $dir && kotlinc $fileName -include-runtime -d $fileNameWithoutExt.jar && java -jar -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 $fileNameWithoutExt.jar",
-        "kotlinscript": "cd $dir && kotlinc -script $fileName", // 这个很难设置字符集 最好用终端模式
+        "kotlinscript": "cd $dir && kotlinc -script $fileName",
         "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
         "dart": "dart",
+
+        // jdk target 21
+        "java": "cd $dir && javac --enable-preview -source 21 -Xlint:preview $fileName && java --enable-preview $fileNameWithoutExt",
+        
+        // 下面的命令适用于windows的非终端模式 "code-runner.runInTerminal": false,
+        // 只对部分命令做了字符集兼容 其他该乱码的还是会乱码
+        // "python": "set PYTHONIOENCODING=utf8 && py",
+        // "kotlin": "cd $dir && kotlinc $fileName -include-runtime -d $fileNameWithoutExt.jar && java -jar -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 $fileNameWithoutExt.jar",
     },
     // stylus
     "stylusSupremacy.insertColons": false, // 是否插入冒号
