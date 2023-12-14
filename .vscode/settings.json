@@ -25,7 +25,7 @@
         "javascript": "node",
         "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
         "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
-        "kotlinscript": "kotlinc -script $fileName",
+        "kotlinscript": "kotlinc -script",
         "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
         "dart": "dart",
         "python": "py",
