@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    list-style: none;
+    list-style: none
   }
 
   body {
-    background-color: #eee;
+    background-color: #eee
   }
 
   .frame {
@@ -17,12 +17,12 @@
     background-color: #ccc;
     box-shadow: 0 0 10px #000;
     padding: 4px;
-    border-radius: 6px;
+    border-radius: 6px
   }
 
   .numberOutput {
     width: 498px;
-    background-color: #eee;
+    background-color: #eee
   }
 
   .numberOutput p {
@@ -30,14 +30,14 @@
     flex-direction: row-reverse;
     font-size: 48px;
     overflow-y: hidden;
-    height: 75px;
+    height: 75px
   }
 
   .numberInput {
     float: left;
     width: 500px;
     height: 360px;
-    background-color: #fff;
+    background-color: #fff
   }
 
   .numberInput li {
@@ -48,11 +48,11 @@
     font-size: 35px;
     background-color: #aaa;
     border: 2px solid #ccc;
-    cursor: pointer;
+    cursor: pointer
   }
 
   .numberInput li:hover {
-    background-color: #ccc;
+    background-color: #ccc
   }
 </style>
 <script>
@@ -70,13 +70,13 @@
       vw.innerHTML = vw.innerHTML.substr(0, vw.innerHTML.length - 1)
     }
     btn[1].onclick = function () {
-      location.reload();     //刷新页面
+      location.reload()     //刷新页面
     }
     btn[2].onclick = function () {
       if (vw.innerHTML.indexOf('%') !== -1) {   //这个百分数结果并不能在下次运算中使用 除非退格删掉
         vw.innerHTML = 'error'
       } else if (vw.innerHTML.indexOf('e') !== -1) {  //error没删干净 强制刷新
-        location.reload();
+        location.reload()
       } else {
         vwH.innerHTML = vw.innerHTML + '×100%'
         vw.innerHTML = Number(vw.innerHTML) * 100 + '%'
@@ -86,7 +86,7 @@
       if (vw.innerHTML.indexOf('%') !== -1) {   //这个百分数结果并不能在下次运算中使用 除非退格删掉
         vw.innerHTML = 'error'
       } else if (vw.innerHTML.indexOf('e') !== -1) {  //error没删干净 强制刷新
-        location.reload();
+        location.reload()
       } else {
         vwH.innerHTML = 'sqrt(' + vw.innerHTML + ')'
         vw.innerHTML = Number(vw.innerHTML) ** 0.5
@@ -103,16 +103,16 @@
       switch (sym) {
         case '＋':
           return (numA * base + numB * base) / base
-          break;
+          break
         case '－':
           return (numA * base - numB * base) / base
-          break;
+          break
         case '×':
           return (numA * base * (numB * base)) / base ** 2
-          break;
+          break
         case '÷':
           return numA * base / (numB * base)
-          break;
+          break
         //default:
       }
     }
@@ -121,7 +121,7 @@
       let symArr1 = arr2.filter(z => (z === '×' || z === '÷'))  //回调函数filter()  定义运算优先级
       let symArr2 = arr2.filter(z => (z === '＋' || z === '－'))
       while (1) {
-        let idx, base, sym, res;
+        let idx, base, sym, res
         let first = symArr1.shift() || symArr2.shift()
         if (!first) { break }
         idx = arr2.indexOf(first)
@@ -137,13 +137,13 @@
       if (vw.innerHTML.indexOf('%') !== -1) {   //这个百分数结果并不能在下次运算中使用 除非退格删掉
         vw.innerHTML = 'error'
       } else if (vw.innerHTML.indexOf('I') !== -1) {  //Infinity没删干净 强制刷新
-        location.reload();
+        location.reload()
       } else if (vw.innerHTML.indexOf('e') !== -1) {  //error没删干净 强制刷新
-        location.reload();
+        location.reload()
       } else if (vw.innerHTML.indexOf('N') !== -1) {  //NaN没删干净 强制刷新
-        location.reload();
+        location.reload()
       } else {
-        vw.innerHTML = vw.innerHTML.replace(/\＋/g, ',＋,').replace(/\－/g, ',－,').replace(/\×/g, ',×,').replace(/\÷/g, ',÷,');
+        vw.innerHTML = vw.innerHTML.replace(/\＋/g, ',＋,').replace(/\－/g, ',－,').replace(/\×/g, ',×,').replace(/\÷/g, ',÷,')
         vw.innerHTML = evaluation(vw.innerHTML.split(','))
       }
     }
@@ -155,7 +155,7 @@
     <p class="output"></p>
   </div>
   <!--禁止文本被拖拽或双击选中-->
-  <div class="numberInput" onselectstart="return false;" ondragstart="return false">
+  <div class="numberInput" onselectstart="return false" ondragstart="return false">
     <ul>
       <li class="btn">←</li>
       <li class="btn">C</li>

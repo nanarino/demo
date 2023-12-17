@@ -2,79 +2,79 @@ const fs = require("fs"),
     http = require("http"),
     path = require("path"),
     { networkInterfaces } = require("os"),
-    { createInterface } = require("readline");
+    { createInterface } = require("readline")
 
-let localWlanHost = '127.0.0.1';
+let localWlanHost = '127.0.0.1'
 
 const server = http.createServer((req, res) => {
     let pathname = path.resolve(__dirname, '.' + decodeURIComponent(req.url.split("?")[0]))
     if (path.extname(pathname) == "") {
-        pathname += "/";
+        pathname += "/"
     }
     if (pathname.charAt(pathname.length - 1) == "/") {
-        pathname += "index.html";
+        pathname += "index.html"
     }
 
     fs.readFile(pathname, (err, data) => {
         if (err) {
-            res.writeHead(404, { "Content-Type": "text/html" });
+            res.writeHead(404, { "Content-Type": "text/html" })
             fs.readFile('./404.html', (err, data) => {
-                res.end(err ? `<h1>404 Not Found</h1>` : data);
-            });
+                res.end(err ? `<h1>404 Not Found</h1>` : data)
+            })
         } else {
             switch (path.extname(pathname)) {
                 case ".html":
-                    res.writeHead(200, { "Content-Type": "text/html" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "text/html" })
+                    break
                 case ".js":
-                    res.writeHead(200, { "Content-Type": "text/javascript" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "text/javascript" })
+                    break
                 case ".mjs":
-                    res.writeHead(200, { "Content-Type": "text/javascript" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "text/javascript" })
+                    break
                 case ".css":
-                    res.writeHead(200, { "Content-Type": "text/css" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "text/css" })
+                    break
                 case ".json":
-                    res.writeHead(200, { "Content-Type": "application/json" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "application/json" })
+                    break
                 case ".ico":
-                    res.writeHead(200, { "Content-Type": "image/x-ico" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "image/x-ico" })
+                    break
                 case ".gif":
-                    res.writeHead(200, { "Content-Type": "image/gif" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "image/gif" })
+                    break
                 case ".jpg":
-                    res.writeHead(200, { "Content-Type": "image/jpeg" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "image/jpeg" })
+                    break
                 case ".png":
-                    res.writeHead(200, { "Content-Type": "image/png" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "image/png" })
+                    break
                 case ".webp":
-                    res.writeHead(200, { "Content-Type": "image/webp" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "image/webp" })
+                    break
                 case ".svg":
-                    res.writeHead(200, { "Content-Type": "image/svg+xml" });
-                    break;
+                    res.writeHead(200, { "Content-Type": "image/svg+xml" })
+                    break
                 default:
-                    res.writeHead(200, { "Content-Type": "application/octet-stream" });
+                    res.writeHead(200, { "Content-Type": "application/octet-stream" })
             }
-            res.end(data);
+            res.end(data)
         }
-    });
+    })
 })
 
 try {
-    const ifaces = networkInterfaces();
+    const ifaces = networkInterfaces()
     for (let lans of Object.values(ifaces)) {
         lans.forEach(details => {
             if (details.family === 'IPv4' && details.address !== '127.0.0.1' && !details.internal) {
-                localWlanHost = details.address;
+                localWlanHost = details.address
             }
-        });
+        })
     }
 } catch (e) {
-    console.log(e);
+    console.log(e)
 }
 
 const readline = createInterface({
@@ -83,8 +83,8 @@ const readline = createInterface({
 })
 
 readline.question('input port:', input => {
-    let port = Number.parseInt(input) || 80;
-    server.listen(port);
-    console.log(`Server running at \x1b[36mhttp://${localWlanHost}:${port}/\x1b[39m`);
-    readline.close();
+    let port = Number.parseInt(input) || 80
+    server.listen(port)
+    console.log(`Server running at \x1b[36mhttp://${localWlanHost}:${port}/\x1b[39m`)
+    readline.close()
 })

@@ -23,7 +23,7 @@ render(app, {
     viewExt: 'html',
     cache: false,
     debug: false,
-});
+})
 
 
 //允许跨域请求

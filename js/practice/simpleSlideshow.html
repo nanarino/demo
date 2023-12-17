@@ -8,7 +8,7 @@
   <style>
     * {
       margin: 0px;
-      text-decoration: none;
+      text-decoration: none
     }
 
     #container {
@@ -17,14 +17,14 @@
       position: relative;
       border: 3px solid #333;
       overflow: hidden;
-      margin: 0 auto;
+      margin: 0 auto
     }
 
     #list {
       width: 1500px;
       height: 500px;
       position: absolute;
-      z-index: 1;
+      z-index: 1
     }
 
     #list img {
@@ -48,23 +48,23 @@
       z-index: 2;
       top: 220px;
       background-color: RGBA(0, 0, 0, .3);
-      color: #fff;
+      color: #fff
     }
 
     .arrow:hover {
-      background-color: RGBA(0, 0, 0, .7);
+      background-color: RGBA(0, 0, 0, .7)
     }
 
     #container:hover .arrow {
-      display: block;
+      display: block
     }
 
     #prev {
-      left: 20px;
+      left: 20px
     }
 
     #next {
-      right: 20px;
+      right: 20px
     }
 
     #buttons {
@@ -73,7 +73,7 @@
       width: 80px;
       z-index: 2;
       bottom: 20px;
-      left: 216px;
+      left: 216px
     }
 
     #buttons span {
@@ -88,7 +88,7 @@
     }
 
     #buttons .on {
-      background: orangered;
+      background: orangered
     }
   </style>
   <script>
@@ -96,14 +96,14 @@
       return ((n % m) + m) % m
     }
     function throttle(fn, wait) {//节流函数（时间戳）
-      var pre = Date.now();
+      var pre = Date.now()
       return function () {
-        var context = this;
-        var args = arguments;
-        var now = Date.now();
+        var context = this
+        var args = arguments
+        var now = Date.now()
         if (now - pre >= wait) {
-          fn.apply(context, args);
-          pre = Date.now();
+          fn.apply(context, args)
+          pre = Date.now()
         }
       }
     }
@@ -171,7 +171,7 @@
       function play() {
         timer = setInterval(function () {
           nextonclick()
-        }, 2500);
+        }, 2500)
       }
       function stop() {
         clearInterval(timer)

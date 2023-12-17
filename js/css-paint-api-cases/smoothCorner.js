@@ -1,7 +1,7 @@
 //https://drafts.css-houdini.org/css-paint-api/
 class SmoothCorner {
 
-  static get inputProperties() { return ['--smooth-level']; }
+  static get inputProperties() { return ['--smooth-level'] }
 
   paint(ctx, size, properties) {
     ctx.fillStyle = 'black'
@@ -13,7 +13,7 @@ class SmoothCorner {
     const r = size.width / 2
     const w = size.width / 2
     const h = size.height / 2
-    ctx.beginPath();
+    ctx.beginPath()
     for (let i = 0; i < (2 * r + 1); i++) {
       const x = (i - r) + w
       const y = (Math.pow(Math.abs(Math.pow(r, m) - Math.pow(Math.abs(i - r), m)), 1 / m)) + h
@@ -29,4 +29,4 @@ class SmoothCorner {
   }
 }
 
-registerPaint('smooth-corners', SmoothCorner);
+registerPaint('smooth-corners', SmoothCorner)

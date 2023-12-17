@@ -12,22 +12,22 @@ img,canvas {image-rendering:pixelated}
 <div id="sT"></div>
 <script>
     //未封装渲染行为的二维码库https://github.com/kazuhikoarase/qrcode-generator/tree/master/js
-    const typeNumber = 4, errorCorrectionLevel = 'L';
-    const qrdata = qrcode(typeNumber, errorCorrectionLevel);
+    const typeNumber = 4, errorCorrectionLevel = 'L'
+    const qrdata = qrcode(typeNumber, errorCorrectionLevel)
     /**
      *  //若使用更简单的二维码库https://github.com/davidshimjs/qrcodejs
-    const width = qr.clientWidth;
+    const width = qr.clientWidth
     const qrcode = new QRCode(qr, {
         width : parseFloat(width),
         height : parseFloat(width)
-    });
-        //window.onhashchange中sText && qrcode.makeCode(sText);
+    })
+        //window.onhashchange中sText && qrcode.makeCode(sText)
     **/
     window.onhashchange = () => {
-      const sText = window.location.hash && decodeURIComponent(window.location.hash).replace('#', '');
+      const sText = window.location.hash && decodeURIComponent(window.location.hash).replace('#', '')
       if (sText) {
-        qrdata.addData(sText);
-        qrdata.make();
+        qrdata.addData(sText)
+        qrdata.make()
         const qrimg = new Image
         qrimg.src = qrdata.createDataURL()
         qrimg.style.display = 'none'
@@ -46,8 +46,8 @@ img,canvas {image-rendering:pixelated}
           **/
         }
       }//条形码库https://github.com/lindell/JsBarcode
-      sText && JsBarcode('#br', sText, { lineColor: "#0aa", displayValue: false });
+      sText && JsBarcode('#br', sText, { lineColor: "#0aa", displayValue: false })
       sT.innerHTML = sText || '参数缺少，请在地址栏中键入hash'
-    };
-    window.onhashchange();
+    }
+    window.onhashchange()
 </script>

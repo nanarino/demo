@@ -1,7 +1,7 @@
 <style>
   * {
     padding: 0;
-    margin: 0;
+    margin: 0
   }
 
   .timeb {
@@ -13,7 +13,7 @@
     background-color: salmon;
     color: navy;
     text-align: center;
-    font-size: large;
+    font-size: large
   }
 
   #piec {
@@ -22,7 +22,7 @@
     border-radius: 50%;
     background-color: skyblue;
     position: relative;
-    margin: 5px;
+    margin: 5px
   }
 
   #hour-hand {
@@ -32,7 +32,7 @@
     position: absolute;
     top: 30px;
     left: 59px;
-    transform-origin: center bottom;
+    transform-origin: center bottom
   }
 
   #minute-hand {
@@ -42,7 +42,7 @@
     position: absolute;
     top: 10px;
     left: 59.5px;
-    transform-origin: center bottom;
+    transform-origin: center bottom
   }
 
   #second-hand {
@@ -52,7 +52,7 @@
     position: absolute;
     top: 4px;
     left: 60px;
-    transform-origin: 50% 80%;
+    transform-origin: 50% 80%
   }
 </style>
 <div id="piec">
@@ -68,16 +68,16 @@
 <div class="timeb"></div>
 <script>
   setInterval(() => {
-    const nowtime = new Date();
-    const timeb = document.getElementsByClassName('timeb');
-    const hour = document.getElementById('hour-hand');
-    const minute = document.getElementById('minute-hand');
-    const second = document.getElementById('second-hand');
-    timeb[0].innerHTML = nowtime.getHours().toString().padEnd(2, '0');
-    timeb[1].innerHTML = nowtime.getMinutes().toString().padEnd(2, '0');
-    timeb[2].innerHTML = nowtime.getSeconds().toString().padEnd(2, '0');
+    const nowtime = new Date
+    const timeb = document.getElementsByClassName('timeb')
+    const hour = document.getElementById('hour-hand')
+    const minute = document.getElementById('minute-hand')
+    const second = document.getElementById('second-hand')
+    timeb[0].innerHTML = nowtime.getHours().toString().padEnd(2, '0')
+    timeb[1].innerHTML = nowtime.getMinutes().toString().padEnd(2, '0')
+    timeb[2].innerHTML = nowtime.getSeconds().toString().padEnd(2, '0')
     hour.style.cssText = "transform:rotate(" + nowtime.getHours() / 12 + "turn);"
     minute.style.cssText = "transform:rotate(" + nowtime.getMinutes() / 60 + "turn);"
     second.style.cssText = "transform:rotate(" + nowtime.getSeconds() / 60 + "turn);"
-  }, 1000);
+  }, 1000)
 </script>
