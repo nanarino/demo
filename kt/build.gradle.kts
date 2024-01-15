@@ -14,5 +14,6 @@ repositories {
     mavenCentral()
 }
 application {
-    mainClass.set("HelloWorldKt")
+    // mainClass.set("HelloWorldKt")
+    mainClass.set("MyIfElseKt")
 }
