@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "c"
+			"path": "c/mingw"
 		},
 		{
 			"path": "ex"
 		},
 		{
-			"path": "js"
+			"path": "js/browser"
+		},
+		{
+			"path": "js/node"
 		},
 		{
 			"path": "py"

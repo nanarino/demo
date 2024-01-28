@@ -1,9 +1,16 @@
+# macOS-specific files
+.DS_Store
+
 # Environments
 .env
 .venv
 env/
 venv/
 ENV/
+.env.production
+
+# build output
+dist/
 
 # local style source
 *.css.map
@@ -25,3 +32,6 @@ build
 
 # c/cpp
 *.exe
+
+# generated types
+.astro/
