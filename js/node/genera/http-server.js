@@ -4,10 +4,13 @@ const fs = require("fs"),
     { networkInterfaces } = require("os"),
     { createInterface } = require("readline")
 
-let localWlanHost = '127.0.0.1'
+let localWlanHost = "127.0.0.1"
 
 const server = http.createServer((req, res) => {
-    let pathname = path.resolve(__dirname, '.' + decodeURIComponent(req.url.split("?")[0]))
+    let pathname = path.resolve(
+        __dirname,
+        "." + decodeURIComponent(req.url.split("?")[0])
+    )
     if (path.extname(pathname) == "") {
         pathname += "/"
     }
@@ -18,7 +21,7 @@ const server = http.createServer((req, res) => {
     fs.readFile(pathname, (err, data) => {
         if (err) {
             res.writeHead(404, { "Content-Type": "text/html" })
-            fs.readFile('./404.html', (err, data) => {
+            fs.readFile("./404.html", (err, data) => {
                 res.end(err ? `<h1>404 Not Found</h1>` : data)
             })
         } else {
@@ -57,7 +60,9 @@ const server = http.createServer((req, res) => {
                     res.writeHead(200, { "Content-Type": "image/svg+xml" })
                     break
                 default:
-                    res.writeHead(200, { "Content-Type": "application/octet-stream" })
+                    res.writeHead(200, {
+                        "Content-Type": "application/octet-stream",
+                    })
             }
             res.end(data)
         }
@@ -68,7 +73,11 @@ try {
     const ifaces = networkInterfaces()
     for (let lans of Object.values(ifaces)) {
         lans.forEach(details => {
-            if (details.family === 'IPv4' && details.address !== '127.0.0.1' && !details.internal) {
+            if (
+                details.family === "IPv4" &&
+                details.address !== "127.0.0.1" &&
+                !details.internal
+            ) {
                 localWlanHost = details.address
             }
         })
@@ -79,12 +88,14 @@ try {
 
 const readline = createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
 })
 
-readline.question('input port:', input => {
+readline.question("input port:", input => {
     let port = Number.parseInt(input) || 80
     server.listen(port)
-    console.log(`Server running at \x1b[36mhttp://${localWlanHost}:${port}/\x1b[39m`)
+    console.log(
+        `Server running at \x1b[36mhttp://${localWlanHost}:${port}/\x1b[39m`
+    )
     readline.close()
 })

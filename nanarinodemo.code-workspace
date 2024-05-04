@@ -22,5 +22,9 @@
 	"settings": {
 		// [folders]/.vscode/settings.json can override again
 		// 在工作区内的设置可以再次覆盖
+		"files.associations": {
+			"*.mdx": "markdown",
+			".prettierrc": "yaml"
+		}
 	}
 }

@@ -1,13 +1,13 @@
 {
-  "name": "nanarinodemo-browser",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev"
-  },
-  "dependencies": {
-    "@types/node": "^20.12.8",
-    "astro": "^4.7.1"
-  }
+    "name": "nanarinodemo-browser",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev"
+    },
+    "dependencies": {
+        "@types/node": "^20.12.8",
+        "astro": "^4.7.1"
+    }
 }

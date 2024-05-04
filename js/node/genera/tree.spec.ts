@@ -1,27 +1,27 @@
-import { find, flat, del, getAncestors } from './tree'
+import { find, flat, del, getAncestors } from "./tree"
 
 type nodeData = { name: string }
 const treeData = [
     {
         id: 1,
-        name: 'No.1'
+        name: "No.1",
     },
     {
         id: 2,
-        name: 'No.2',
+        name: "No.2",
         children: [
             {
                 id: 3,
-                name: 'No.3',
+                name: "No.3",
                 children: [
                     {
                         id: 4,
-                        name: 'last'
-                    }
-                ]
-            }
-        ]
-    }
+                        name: "last",
+                    },
+                ],
+            },
+        ],
+    },
 ]
 
 console.log(find<nodeData>({ id: 0, children: treeData }, 2)?.name)

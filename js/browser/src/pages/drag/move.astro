@@ -1,40 +1,54 @@
 <style>
-* {padding:0;margin:0}
-#imgbox {position:relative;width:500px;height:500px;margin:50px auto;background:palevioletred}
-#imgsorech {position:absolute;width:200px;height:200px;background:palegreen}
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    #imgbox {
+        position: relative;
+        width: 500px;
+        height: 500px;
+        margin: 50px auto;
+        background: palevioletred;
+    }
+    #imgsorech {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: palegreen;
+    }
 </style>
 <script is:inline>
-  // 放开注释的代码即为有边界的拖拽
-  window.onload = function () {
-    // let minX = 0
-    // let minY = 0
-    // let maxX = imgbox.clientWidth+minX-imgsorech.clientWidth
-    // let maxY = imgbox.clientHeight+minY-imgsorech.clientHeight
-    imgsorech.onmousedown = function (eve) {
-      let imaX = eve.clientX
-      let imaY = eve.clientY
-      let schX = imgsorech.offsetLeft
-      let schY = imgsorech.offsetTop
-      document.onmousemove = function (eve) {
-        let miraiX = eve.clientX
-        let miraiY = eve.clientY
-        let schleft = schX + (miraiX - imaX)
-        let schtop = schY + (miraiY - imaY)
-        // schleft = Math.max(schleft,minX)
-        // schleft = Math.min(schleft,maxX)
-        // schtop = Math.max(schtop,minY)
-        // schtop = Math.min(schtop,maxY)
-        imgsorech.style.left = schleft + 'px'
-        imgsorech.style.top = schtop + 'px'
-        return false
-      }
-    }
-    document.onmouseup = function () {
-      document.onmousemove = null
-      return false
-    }
-  }
+    // 放开注释的代码即为有边界的拖拽
+    window.onload = function () {
+        // let minX = 0
+        // let minY = 0
+        // let maxX = imgbox.clientWidth+minX-imgsorech.clientWidth
+        // let maxY = imgbox.clientHeight+minY-imgsorech.clientHeight
+        imgsorech.onmousedown = function (eve) {
+            let imaX = eve.clientX;
+            let imaY = eve.clientY;
+            let schX = imgsorech.offsetLeft;
+            let schY = imgsorech.offsetTop;
+            document.onmousemove = function (eve) {
+                let miraiX = eve.clientX;
+                let miraiY = eve.clientY;
+                let schleft = schX + (miraiX - imaX);
+                let schtop = schY + (miraiY - imaY);
+                // schleft = Math.max(schleft,minX)
+                // schleft = Math.min(schleft,maxX)
+                // schtop = Math.max(schtop,minY)
+                // schtop = Math.min(schtop,maxY)
+                imgsorech.style.left = schleft + "px";
+                imgsorech.style.top = schtop + "px";
+                return false;
+            };
+        };
+        document.onmouseup = function () {
+            document.onmousemove = null;
+            return false;
+        };
+    };
 </script>
 <div id="imgbox">
-  <div id="imgsorech"></div>
+    <div id="imgsorech"></div>
 </div>
