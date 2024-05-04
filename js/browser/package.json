@@ -7,7 +7,7 @@
     "start": "astro dev"
   },
   "dependencies": {
-    "astro": "^4.2.1",
-    "@types/node": "^20.11.7"
+    "@types/node": "^20.12.8",
+    "astro": "^4.7.1"
   }
 }
