@@ -45,6 +45,8 @@ git命令
     git push origin -d 远程名
     # 创建本地分支并切换到
     git checkout -b 本地名
+    # 创建本地空白分支并切换到
+    git switch --orphan
     # 远程分支拉到本地 并切换到
     git checkout -b 本地名 origin/远程名
     # 本地切换分支
