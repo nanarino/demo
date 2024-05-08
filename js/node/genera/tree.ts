@@ -1,25 +1,28 @@
-export type treeNode<nodeData> = nodeData & {
-    id: number
-    children?: treeNode<nodeData>[]
-    parentId?: number
+export type TreeKey = number | bigint | string
+
+export type TreeNode<Data> = Data & {
+    id: TreeKey
+    children?: TreeNode<Data>[]
+    parentId?: TreeKey
+    level?: number
 }
-export type treeRoot<nodeData> = Partial<nodeData> & {
+export type TreeRoot<Data> = Partial<Data> & {
     id: 0
-    children: treeNode<nodeData>[]
+    children: TreeNode<Data>[]
 }
 
-export function find<nodeData>(
-    tree: treeNode<nodeData> | treeRoot<nodeData>,
-    id: number
-): treeNode<nodeData> | treeRoot<nodeData> | null {
-    let i = 0,
-        found: treeNode<nodeData> | treeRoot<nodeData> | null
+export function find<Data>(
+    tree: TreeNode<Data> | TreeRoot<Data>,
+    id: TreeKey
+): TreeNode<Data> | TreeRoot<Data> | null {
+    let i = 0
+    let found: TreeNode<Data> | TreeRoot<Data> | null
     if (tree.id === id) return tree
     if (Array.isArray(tree.children)) {
         for (; i < tree.children.length; i++) {
             if (tree.children[i].id === id) {
                 return tree.children[i]
-            } else if (Array.isArray(tree.children[i].children)) {
+            } else if (tree.children[i].children?.length) {
                 found = find(tree.children[i], id)
                 if (found) return found
             }
@@ -28,18 +31,16 @@ export function find<nodeData>(
     return null
 }
 
-export function flat<nodeData>(
-    tree: treeNode<nodeData> | treeRoot<nodeData>,
-    parentId?: number
-): treeNode<nodeData>[] {
-    if (Array.isArray(tree.children) && tree.children.length) {
+export function flat<Data>(
+    tree: TreeNode<Data> | TreeRoot<Data>,
+    parentId?: TreeKey
+): TreeNode<Data>[] {
+    if (tree.children?.length) {
         return tree.children.reduce(
-            (t: treeNode<nodeData>[], node) => [
+            (t: TreeNode<Data>[], node) => [
                 ...t,
                 parentId ? { ...node, parentId } : node,
-                ...(Array.isArray(node.children) && node.children.length
-                    ? flat(node, node.id)
-                    : []),
+                ...(node.children?.length ? flat(node, node.id) : []),
             ],
             []
         )
@@ -47,36 +48,36 @@ export function flat<nodeData>(
     return []
 }
 
-export function del<nodeData>(
-    tree: treeNode<nodeData> | treeRoot<nodeData>,
-    id: number
-): boolean {
+export function remove<Data>(
+    tree: TreeNode<Data> | TreeRoot<Data>,
+    id: TreeKey
+) {
     if (Array.isArray(tree.children)) {
         for (let i = 0; i < tree.children.length; i++) {
             if (tree.children[i].id === id) {
                 tree.children.splice(i, 1)
                 return true
             } else if (Array.isArray(tree.children[i].children)) {
-                if (del(tree.children[i], id)) return true
+                if (remove(tree.children[i], id)) return true
             }
         }
     }
     return false
 }
 
-export function getAncestors<nodeData>(
-    tree: treeNode<nodeData> | treeRoot<nodeData>,
-    id: number
-): number[] {
-    const getIds = (flatArray: treeNode<nodeData>[]) => {
-        let ids = [id]
+export function getAncestors<Data>(
+    tree: TreeNode<Data> | TreeRoot<Data>,
+    id: TreeKey
+) {
+    const getIds = (flatArray: TreeNode<Data>[]) => {
         let child = flatArray.find(_ => _.id === id)
-        let hasChild: number | undefined
-        while ((hasChild = child && child.parentId)) {
-            ids = [child.parentId, ...ids]
+        const children = child ? [child] : []
+        let hasChild: TreeKey | undefined
+        while ((hasChild = child?.parentId)) {
             child = flatArray.find(_ => hasChild === _.id)
+            child && children.push(child)
         }
-        return ids
+        return children
     }
     return getIds(flat(tree))
 }
