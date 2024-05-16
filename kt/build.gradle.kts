@@ -15,5 +15,6 @@ repositories {
 }
 application {
     // mainClass.set("HelloWorldKt")
-    mainClass.set("MyIfElseKt")
+    // mainClass.set("MyIfElseKt")
+    mainClass.set("VarianceKt")
 }
