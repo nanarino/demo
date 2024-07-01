@@ -1,7 +1,7 @@
 {
     "code-runner.executorMap": {
         "javascript": "node",
-        "typescript": "npx esno"
+        "typescript": "npx tsx"
     },
     "editor.tabSize": 4,
     "files.associations": {
