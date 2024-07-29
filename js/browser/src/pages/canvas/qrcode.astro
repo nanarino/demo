@@ -33,8 +33,8 @@
 <script is:inline>
     //未封装渲染行为的二维码库https://github.com/kazuhikoarase/qrcode-generator/tree/master/js
     const typeNumber = 4,
-        errorCorrectionLevel = "L";
-    const qrdata = qrcode(typeNumber, errorCorrectionLevel);
+        errorCorrectionLevel = "L"
+    const qrdata = qrcode(typeNumber, errorCorrectionLevel)
     /**
      *  //若使用更简单的二维码库https://github.com/davidshimjs/qrcodejs
     const width = qr.clientWidth
@@ -47,31 +47,31 @@
     window.onhashchange = () => {
         const sText =
             window.location.hash &&
-            decodeURIComponent(window.location.hash).replace("#", "");
+            decodeURIComponent(window.location.hash).replace("#", "")
         if (sText) {
-            qrdata.addData(sText);
-            qrdata.make();
-            const qrimg = new Image();
-            qrimg.src = qrdata.createDataURL();
-            qrimg.style.display = "none";
-            document.body.appendChild(qrimg);
+            qrdata.addData(sText)
+            qrdata.make()
+            const qrimg = new Image()
+            qrimg.src = qrdata.createDataURL()
+            qrimg.style.display = "none"
+            document.body.appendChild(qrimg)
             qrimg.onload = () => {
-                const { width, height } = qrimg;
-                Object.assign(qr, { width, height });
-                const c = qr.getContext("2d");
-                c.fillStyle = c.createPattern(qrimg, "repeat");
-                c.rect(0, 0, width, height);
-                c.fill();
+                const { width, height } = qrimg
+                Object.assign(qr, { width, height })
+                const c = qr.getContext("2d")
+                c.fillStyle = c.createPattern(qrimg, "repeat")
+                c.rect(0, 0, width, height)
+                c.fill()
                 /**
             const px = c.getImageData(0, 0, width, height)
             // 像素操作
             c.putImageData(px, 0, 0)
           **/
-            };
+            }
         } //条形码库https://github.com/lindell/JsBarcode
         sText &&
-            JsBarcode("#br", sText, { lineColor: "#0aa", displayValue: false });
-        sT.innerHTML = sText || "input #hash";
-    };
-    window.onhashchange();
+            JsBarcode("#br", sText, { lineColor: "#0aa", displayValue: false })
+        sT.innerHTML = sText || "input #hash"
+    }
+    window.onhashchange()
 </script>

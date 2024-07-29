@@ -1,21 +1,21 @@
 ---
-import Menu from "../components/menu.astro";
-import fs from "fs";
-import path from "path";
-import { promisify } from "util";
-import type { page, menu } from "../types";
+import Menu from "../components/menu.astro"
+import fs from "fs"
+import path from "path"
+import { promisify } from "util"
+import type { page, menu } from "../types"
 
-const stat = promisify(fs.stat);
-const readDir = promisify(fs.readdir);
+const stat = promisify(fs.stat)
+const readDir = promisify(fs.readdir)
 const getMenu = async (
     currentDir: string,
     rootDir: string = currentDir
 ): Promise<(page | menu)[]> => {
-    const children: (page | menu)[] = [];
-    if ((await stat(path.resolve(currentDir))).isFile()) return [];
+    const children: (page | menu)[] = []
+    if ((await stat(path.resolve(currentDir))).isFile()) return []
     for (const fileName of await readDir(currentDir)) {
-        if (fileName?.[0] === ".") continue;
-        const filePath = path.join(currentDir, fileName);
+        if (fileName?.[0] === ".") continue
+        const filePath = path.join(currentDir, fileName)
         children.push({
             path: path
                 .relative(rootDir, filePath)
@@ -26,12 +26,12 @@ const getMenu = async (
             ...((await stat(filePath)).isFile()
                 ? null
                 : { children: await getMenu(filePath, rootDir) }),
-        });
+        })
     }
-    return children;
-};
+    return children
+}
 
-const menu = await getMenu("./src/pages");
+const menu = await getMenu("./src/pages")
 ---
 
 <meta charset="utf-8" />

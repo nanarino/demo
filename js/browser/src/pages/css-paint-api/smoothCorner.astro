@@ -1,25 +1,25 @@
 <style>
-  .round {
-    width: 200px;
-    height: 200px;
-    background: linear-gradient(to bottom right, purple, blue);
-    display: inline-block;
-    margin: 10px;
-    transition: 1s all
-  }
+    .round {
+        width: 200px;
+        height: 200px;
+        background: linear-gradient(to bottom right, purple, blue);
+        display: inline-block;
+        margin: 10px;
+        transition: 1s all;
+    }
 
-  .round.g1 {
-    border-radius: 60px
-  }
+    .round.g1 {
+        border-radius: 60px;
+    }
 
-  .round.g2 {
-    mask-image: paint(smooth-corners);
-    -webkit-mask-image: paint(smooth-corners);
-    --smooth-level: 3
-  }
+    .round.g2 {
+        mask-image: paint(smooth-corners);
+        -webkit-mask-image: paint(smooth-corners);
+        --smooth-level: 3;
+    }
 </style>
 <div class="round g1"></div>
 <div class="round g2"></div>
 <script is:inline>
-  CSS.paintWorklet.addModule('./smoothCorner.js')
+    CSS.paintWorklet.addModule("./smoothCorner.js")
 </script>

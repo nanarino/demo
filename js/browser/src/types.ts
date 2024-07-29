@@ -1,6 +1,6 @@
 export interface page {
-    path: string;
+    path: string
 }
 export interface menu extends page {
-    children: page[];
+    children: page[]
 }

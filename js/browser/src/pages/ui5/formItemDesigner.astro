@@ -1,288 +1,356 @@
 <head>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <style>
-    *:not(:defined) {
-      visibility: hidden;
-    }
-
-    @font-face {
-      font-family: Emoji;
-      src: local("Apple Color Emoji"), local("Segoe UI Emoji"), local("Segoe UI Symbol"), local("Noto Color Emoji");
-      unicode-range: U+1F000-1F644, U+203C-3299;
-    }
-
-    body {
-      font-family: system-ui, —apple-system, Segoe UI, Rototo, Emoji, Helvetica, Arial, sans-serif
-    }
-
-    form {
-      display: grid;
-      justify-content: center;
-      gap: 16px
-    }
-
-    .form-item {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px
-    }
-
-    #formItems {
-      display: grid;
-      gap: 8px
-    }
-
-    #formItems>* {
-      display: flex;
-      align-items: center;
-      border-block-end: solid #0854A0;
-    }
-
-    #formItems>div>div:first-of-type {
-      flex: 1;
-      padding: 16px 0;
-      width: 0;
-    }
-
-    footer {
-      display: flex;
-      justify-content: center;
-      margin: 8px 0 32px 0;
-    }
-  </style>
-  <script type="importmap">
-    {
-      "imports": {
-        "@ui5/webcomponents-icons/dist/AllIcons.js": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/AllIcons.js",
-        "@ui5/webcomponents/dist/Button.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Button.js",
-        "@ui5/webcomponents/dist/CheckBox.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/CheckBox.js",
-        "@ui5/webcomponents/dist/Dialog.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Dialog.js",
-        "@ui5/webcomponents/dist/Input.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Input.js",
-        "@ui5/webcomponents/dist/Label.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Label.js",
-        "@ui5/webcomponents/dist/Menu.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Menu.js",
-        "@ui5/webcomponents/dist/MenuItem.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/MenuItem.js",
-        "@ui5/webcomponents/dist/Option.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Option.js",
-        "@ui5/webcomponents/dist/Select.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Select.js",
-        "@ui5/webcomponents/dist/Toast.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Toast.js",
-        "list-slice": "https://ga.jspm.io/npm:list-slice@1.1.6/dist/index.js"
-      },
-      "scopes": {
-        "https://ga.jspm.io/": {
-          "@ui5/webcomponents-base/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-base@1.9.1/dist/",
-          "@ui5/webcomponents-icons/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/",
-          "@ui5/webcomponents-theming/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js": "https://ga.jspm.io/npm:@ui5/webcomponents-theming@1.9.1/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js",
-          "lit-html": "https://ga.jspm.io/npm:lit-html@2.5.0/development/lit-html.js",
-          "lit-html/": "https://ga.jspm.io/npm:lit-html@2.5.0/development/"
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <style>
+        *:not(:defined) {
+            visibility: hidden;
         }
-      }
-    }
-  </script>
-  <script type="module">
-    import "@ui5/webcomponents/dist/Toast.js"
-    import "@ui5/webcomponents-icons/dist/AllIcons.js"
-    import "@ui5/webcomponents/dist/Button.js"
-    import "@ui5/webcomponents/dist/Menu.js"
-    import "@ui5/webcomponents/dist/MenuItem.js"
-    import "@ui5/webcomponents/dist/Dialog.js"
-    import "@ui5/webcomponents/dist/Input.js"
-    import "@ui5/webcomponents/dist/Label.js"
-    import "@ui5/webcomponents/dist/Select.js"
-    import "@ui5/webcomponents/dist/Option.js"
-    import "@ui5/webcomponents/dist/CheckBox.js"
-  </script>
+
+        @font-face {
+            font-family: Emoji;
+            src: local("Apple Color Emoji"), local("Segoe UI Emoji"),
+                local("Segoe UI Symbol"), local("Noto Color Emoji");
+            unicode-range: U+1F000-1F644, U+203C-3299;
+        }
+
+        body {
+            font-family:
+                system-ui,
+                —apple-system,
+                Segoe UI,
+                Rototo,
+                Emoji,
+                Helvetica,
+                Arial,
+                sans-serif;
+        }
+
+        form {
+            display: grid;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .form-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        #formItems {
+            display: grid;
+            gap: 8px;
+        }
+
+        #formItems > * {
+            display: flex;
+            align-items: center;
+            border-block-end: solid #0854a0;
+        }
+
+        #formItems > div > div:first-of-type {
+            flex: 1;
+            padding: 16px 0;
+            width: 0;
+        }
+
+        footer {
+            display: flex;
+            justify-content: center;
+            margin: 8px 0 32px 0;
+        }
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "@ui5/webcomponents-icons/dist/AllIcons.js": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/AllIcons.js",
+                "@ui5/webcomponents/dist/Button.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Button.js",
+                "@ui5/webcomponents/dist/CheckBox.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/CheckBox.js",
+                "@ui5/webcomponents/dist/Dialog.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Dialog.js",
+                "@ui5/webcomponents/dist/Input.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Input.js",
+                "@ui5/webcomponents/dist/Label.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Label.js",
+                "@ui5/webcomponents/dist/Menu.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Menu.js",
+                "@ui5/webcomponents/dist/MenuItem.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/MenuItem.js",
+                "@ui5/webcomponents/dist/Option.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Option.js",
+                "@ui5/webcomponents/dist/Select.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Select.js",
+                "@ui5/webcomponents/dist/Toast.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Toast.js",
+                "list-slice": "https://ga.jspm.io/npm:list-slice@1.1.6/dist/index.js"
+            },
+            "scopes": {
+                "https://ga.jspm.io/": {
+                    "@ui5/webcomponents-base/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-base@1.9.1/dist/",
+                    "@ui5/webcomponents-icons/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/",
+                    "@ui5/webcomponents-theming/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js": "https://ga.jspm.io/npm:@ui5/webcomponents-theming@1.9.1/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js",
+                    "lit-html": "https://ga.jspm.io/npm:lit-html@2.5.0/development/lit-html.js",
+                    "lit-html/": "https://ga.jspm.io/npm:lit-html@2.5.0/development/"
+                }
+            }
+        }
+    </script>
+    <script type="module">
+        import "@ui5/webcomponents/dist/Toast.js"
+        import "@ui5/webcomponents-icons/dist/AllIcons.js"
+        import "@ui5/webcomponents/dist/Button.js"
+        import "@ui5/webcomponents/dist/Menu.js"
+        import "@ui5/webcomponents/dist/MenuItem.js"
+        import "@ui5/webcomponents/dist/Dialog.js"
+        import "@ui5/webcomponents/dist/Input.js"
+        import "@ui5/webcomponents/dist/Label.js"
+        import "@ui5/webcomponents/dist/Select.js"
+        import "@ui5/webcomponents/dist/Option.js"
+        import "@ui5/webcomponents/dist/CheckBox.js"
+    </script>
 </head>
 
 <body>
-  <ui5-toast id="toast">保存成功</ui5-toast>
+    <ui5-toast id="toast">保存成功</ui5-toast>
 
-  <div style="display:grid;align-content:start;background-color:aliceblue;padding:16px;">
-    <div style="display:flex;align-items:center">
-      <p class="title" style="width:0;flex:1;line-break:anywhere;word-break:break-all;font-size:18px"></p>
-      <div>
-        <ui5-button icon="edit" id="editTitleBtn"></ui5-button>
-        <ui5-dialog id="titleDialog" header-text="编辑标题">
-          <form onsubmit="return false">
-            <div class="form-item">
-              <ui5-label for="titleIpt">标题: </ui5-label>
-              <ui5-input id="titleIpt"></ui5-input>
-            </div>
-          </form>
-          <div slot="footer">
-            <ui5-button design="Emphasized" id="titleSubmitBtn">提交</ui5-button>
-            <ui5-button id="titleCancelBtn">取消</ui5-button>
-          </div>
-        </ui5-dialog>
+    <div
+        style="display:grid;align-content:start;background-color:aliceblue;padding:16px;"
+    >
+        <div style="display:flex;align-items:center">
+            <p
+                class="title"
+                style="width:0;flex:1;line-break:anywhere;word-break:break-all;font-size:18px"
+            >
+            </p>
+            <div>
+                <ui5-button icon="edit" id="editTitleBtn"></ui5-button>
+                <ui5-dialog id="titleDialog" header-text="编辑标题">
+                    <form onsubmit="return false">
+                        <div class="form-item">
+                            <ui5-label for="titleIpt">标题: </ui5-label>
+                            <ui5-input id="titleIpt"></ui5-input>
+                        </div>
+                    </form>
+                    <div slot="footer">
+                        <ui5-button design="Emphasized" id="titleSubmitBtn"
+                            >提交</ui5-button
+                        >
+                        <ui5-button id="titleCancelBtn">取消</ui5-button>
+                    </div>
+                </ui5-dialog>
 
-        <ui5-button icon="add" id="addBtn"></ui5-button>
-        <ui5-menu id="addMenu">
-          <ui5-menu-item text="添加文本框" data-type="input"></ui5-menu-item>
-          <ui5-menu-item text="添加下拉框" data-type="select"></ui5-menu-item>
-          <ui5-menu-item text="添加多选框" data-type="checkbox"></ui5-menu-item>
-        </ui5-menu>
+                <ui5-button icon="add" id="addBtn"></ui5-button>
+                <ui5-menu id="addMenu">
+                    <ui5-menu-item text="添加文本框" data-type="input"
+                    ></ui5-menu-item>
+                    <ui5-menu-item text="添加下拉框" data-type="select"
+                    ></ui5-menu-item>
+                    <ui5-menu-item text="添加多选框" data-type="checkbox"
+                    ></ui5-menu-item>
+                </ui5-menu>
 
-        <ui5-dialog id="inputDialog" header-text="编辑文本框">
-          <form onsubmit="return false">
-            <div class="form-item">
-              <ui5-label for="inputIpt">问题: </ui5-label>
-              <ui5-input id="inputIpt"></ui5-input>
-            </div>
-          </form>
-          <div slot="footer">
-            <ui5-button design="Emphasized" id="InputCloseBtn">确定</ui5-button>
-          </div>
-        </ui5-dialog>
+                <ui5-dialog id="inputDialog" header-text="编辑文本框">
+                    <form onsubmit="return false">
+                        <div class="form-item">
+                            <ui5-label for="inputIpt">问题: </ui5-label>
+                            <ui5-input id="inputIpt"></ui5-input>
+                        </div>
+                    </form>
+                    <div slot="footer">
+                        <ui5-button design="Emphasized" id="InputCloseBtn"
+                            >确定</ui5-button
+                        >
+                    </div>
+                </ui5-dialog>
 
-        <ui5-dialog id="selectDialog" header-text="编辑下拉框">
-          <form onsubmit="return false">
-            <div class="form-item">
-              <ui5-label for="selectIpt">问题: </ui5-label>
-              <ui5-input id="selectIpt" style="--_ui5_input_width: 254px"></ui5-input>
-            </div>
-            <div class="form-item">
-              <ui5-label for="selectIpt_0">默认选项: </ui5-label>
-              <ui5-input id="selectIpt_0" class='selectOptIpt' style="--_ui5_input_width: 254px"></ui5-input>
-            </div>
-          </form>
-          <div slot="footer">
-            <ui5-button design="Emphasized" id="selectAddItemBtn">添加选项</ui5-button>
-            <ui5-button design="Emphasized" id="selectCloseBtn">确定</ui5-button>
-          </div>
-        </ui5-dialog>
+                <ui5-dialog id="selectDialog" header-text="编辑下拉框">
+                    <form onsubmit="return false">
+                        <div class="form-item">
+                            <ui5-label for="selectIpt">问题: </ui5-label>
+                            <ui5-input
+                                id="selectIpt"
+                                style="--_ui5_input_width: 254px"></ui5-input>
+                        </div>
+                        <div class="form-item">
+                            <ui5-label for="selectIpt_0">默认选项: </ui5-label>
+                            <ui5-input
+                                id="selectIpt_0"
+                                class="selectOptIpt"
+                                style="--_ui5_input_width: 254px"></ui5-input>
+                        </div>
+                    </form>
+                    <div slot="footer">
+                        <ui5-button design="Emphasized" id="selectAddItemBtn"
+                            >添加选项</ui5-button
+                        >
+                        <ui5-button design="Emphasized" id="selectCloseBtn"
+                            >确定</ui5-button
+                        >
+                    </div>
+                </ui5-dialog>
 
-        <ui5-dialog id="checkboxDialog" header-text="编辑多选框">
-          <form onsubmit="return false">
-            <div class="form-item">
-              <ui5-label for="checkboxIpt">问题: </ui5-label>
-              <ui5-input id="checkboxIpt" style="--_ui5_input_width: 254px"></ui5-input>
+                <ui5-dialog id="checkboxDialog" header-text="编辑多选框">
+                    <form onsubmit="return false">
+                        <div class="form-item">
+                            <ui5-label for="checkboxIpt">问题: </ui5-label>
+                            <ui5-input
+                                id="checkboxIpt"
+                                style="--_ui5_input_width: 254px"></ui5-input>
+                        </div>
+                        <div class="form-item">
+                            <ui5-label for="checkboxIpt_0">选项1: </ui5-label>
+                            <ui5-input
+                                id="checkboxIpt_0"
+                                class="checkboxOptIpt"
+                                style="--_ui5_input_width: 254px"></ui5-input>
+                        </div>
+                    </form>
+                    <div slot="footer">
+                        <ui5-button design="Emphasized" id="checkboxAddItemBtn"
+                            >添加选项</ui5-button
+                        >
+                        <ui5-button design="Emphasized" id="checkboxCloseBtn"
+                            >确定</ui5-button
+                        >
+                    </div>
+                </ui5-dialog>
             </div>
-            <div class="form-item">
-              <ui5-label for="checkboxIpt_0">选项1: </ui5-label>
-              <ui5-input id="checkboxIpt_0" class='checkboxOptIpt' style="--_ui5_input_width: 254px"></ui5-input>
-            </div>
-          </form>
-          <div slot="footer">
-            <ui5-button design="Emphasized" id="checkboxAddItemBtn">添加选项</ui5-button>
-            <ui5-button design="Emphasized" id="checkboxCloseBtn">确定</ui5-button>
-          </div>
-        </ui5-dialog>
-      </div>
+        </div>
+        <div id="formItems"></div>
     </div>
-    <div id="formItems"></div>
-  </div>
 
-  <footer>
-    <div>
-      <ui5-button icon="upload-to-cloud" design="Positive" id="saveBtn">保存问卷</ui5-button>
-      <ui5-button icon="attachment-html" id="copyBtn">复制为Email代码</ui5-button>
-    </div>
-  </footer>
+    <footer>
+        <div>
+            <ui5-button icon="upload-to-cloud" design="Positive" id="saveBtn"
+                >保存问卷</ui5-button
+            >
+            <ui5-button icon="attachment-html" id="copyBtn"
+                >复制为Email代码</ui5-button
+            >
+        </div>
+    </footer>
 
-  <textarea id="hiddenToUseCopyIpt" style="pointer-events:none;opacity:0;position:absolute;"></textarea>
+    <textarea
+        id="hiddenToUseCopyIpt"
+        style="pointer-events:none;opacity:0;position:absolute;"></textarea>
 
-  <script type="module">
-    const submitApi = `http://127.0.0.1:27016/submit/`
-    //import { getitem, setitem } from 'list-slice'
-    window.delitem = index => {
-      items.splice(index, 1)
-      render()
-    }
-    window.editem = index => {
-      const item = items[index]
-      switch (item.type) {
-        case 'input':
-          inputIpt.value = item.label
-          inputDialog.show()
-          InputCloseBtn.onclick = function () {
-            item.label = inputIpt.value
-            inputDialog.close()
+    <script type="module">
+        const submitApi = `http://127.0.0.1:27016/submit/`
+        //import { getitem, setitem } from 'list-slice'
+        window.delitem = index => {
+            items.splice(index, 1)
             render()
-          }
-          break;
-        case 'select':
-          selectIpt.value = item.label
-          selectIpt_0.value = item.options.at(0) ?? ''
-          item.options.slice(1).forEach((v, i) => {
-            const index = i + 1
-            const node = document.createElement("div")
-            node.dataset['index'] = index * 1 + 1
-            node.classList.add('form-item')
-            node.innerHTML = `
+        }
+        window.editem = index => {
+            const item = items[index]
+            switch (item.type) {
+                case "input":
+                    inputIpt.value = item.label
+                    inputDialog.show()
+                    InputCloseBtn.onclick = function () {
+                        item.label = inputIpt.value
+                        inputDialog.close()
+                        render()
+                    }
+                    break
+                case "select":
+                    selectIpt.value = item.label
+                    selectIpt_0.value = item.options.at(0) ?? ""
+                    item.options.slice(1).forEach((v, i) => {
+                        const index = i + 1
+                        const node = document.createElement("div")
+                        node.dataset["index"] = index * 1 + 1
+                        node.classList.add("form-item")
+                        node.innerHTML = `
                 <ui5-label for="selectIpt_${index}">选项${index * 1 + 1}: </ui5-label>
                 <ui5-input id="selectIpt_${index}" class='selectOptIpt' value='${v}'></ui5-input>
                 <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
               `
-            node.querySelector('.delOptBtn').onclick = function () {
-              node.parentNode.removeChild(node)
-            }
-            selectDialog.querySelector('form').appendChild(node)
-          })
-          selectDialog.show()
-          selectCloseBtn.onclick = function () {
-            item.label = selectIpt.value
-            item.options = [...selectDialog.querySelectorAll(`.selectOptIpt`)].map(ipt => ipt.value)
-            selectDialog.close()
-              ;[...selectDialog.querySelectorAll(`[data-index]`)].forEach(optDom => optDom.parentNode.removeChild(optDom))
-            render()
-          }
-          break;
-        case 'checkbox':
-          checkboxIpt.value = item.label
-          checkboxIpt_0.value = item.options.at(0) ?? ''
-          item.options.slice(1).forEach((v, i) => {
-            const index = i + 1
-            const node = document.createElement("div")
-            node.dataset['index'] = index * 1 + 1
-            node.classList.add('form-item')
-            node.innerHTML = `
+                        node.querySelector(".delOptBtn").onclick = function () {
+                            node.parentNode.removeChild(node)
+                        }
+                        selectDialog.querySelector("form").appendChild(node)
+                    })
+                    selectDialog.show()
+                    selectCloseBtn.onclick = function () {
+                        item.label = selectIpt.value
+                        item.options = [
+                            ...selectDialog.querySelectorAll(`.selectOptIpt`),
+                        ].map(ipt => ipt.value)
+                        selectDialog.close()
+                        ;[
+                            ...selectDialog.querySelectorAll(`[data-index]`),
+                        ].forEach(optDom =>
+                            optDom.parentNode.removeChild(optDom)
+                        )
+                        render()
+                    }
+                    break
+                case "checkbox":
+                    checkboxIpt.value = item.label
+                    checkboxIpt_0.value = item.options.at(0) ?? ""
+                    item.options.slice(1).forEach((v, i) => {
+                        const index = i + 1
+                        const node = document.createElement("div")
+                        node.dataset["index"] = index * 1 + 1
+                        node.classList.add("form-item")
+                        node.innerHTML = `
                 <ui5-label for="checkboxIpt_${index}">选项${index * 1 + 1}: </ui5-label>
                 <ui5-input id="checkboxIpt_${index}" class='checkboxOptIpt' value='${v}'></ui5-input>
                 <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
               `
-            node.querySelector('.delOptBtn').onclick = function () {
-              node.parentNode.removeChild(node)
+                        node.querySelector(".delOptBtn").onclick = function () {
+                            node.parentNode.removeChild(node)
+                        }
+                        checkboxDialog.querySelector("form").appendChild(node)
+                    })
+                    checkboxDialog.show()
+                    checkboxCloseBtn.onclick = function () {
+                        item.label = checkboxIpt.value
+                        item.options = [
+                            ...checkboxDialog.querySelectorAll(
+                                `.checkboxOptIpt`
+                            ),
+                        ].map(ipt => ipt.value)
+                        checkboxDialog.close()
+                        ;[
+                            ...checkboxDialog.querySelectorAll(`[data-index]`),
+                        ].forEach(optDom =>
+                            optDom.parentNode.removeChild(optDom)
+                        )
+                        render()
+                    }
+                    break
+                default:
+                    break
             }
-            checkboxDialog.querySelector('form').appendChild(node)
-          })
-          checkboxDialog.show()
-          checkboxCloseBtn.onclick = function () {
-            item.label = checkboxIpt.value
-            item.options = [...checkboxDialog.querySelectorAll(`.checkboxOptIpt`)].map(ipt => ipt.value)
-            checkboxDialog.close()
-              ;[...checkboxDialog.querySelectorAll(`[data-index]`)].forEach(optDom => optDom.parentNode.removeChild(optDom))
-            render()
-          }
-          break;
-        default:
-          break;
-      }
-    }
-    //数据
-    let title = '未命名问卷'
-    let items = [ // 这是demo数据
-      { label: '问题1', type: 'input' },
-      { label: '问题2', type: 'select', options: ['选项1', '选项2', '选项3'] },
-      { label: '问题3', type: 'checkbox', options: ['选项1', '选项2', '选项3'] },
-    ]
+        }
+        //数据
+        let title = "未命名问卷"
+        let items = [
+            // 这是demo数据
+            { label: "问题1", type: "input" },
+            {
+                label: "问题2",
+                type: "select",
+                options: ["选项1", "选项2", "选项3"],
+            },
+            {
+                label: "问题3",
+                type: "checkbox",
+                options: ["选项1", "选项2", "选项3"],
+            },
+        ]
 
-    //数据渲染
-    const titleDOM = document.querySelector('p.title')
-    const formItemsDom = document.querySelector('#formItems')
-    const saveBtn = document.getElementById('saveBtn')
-    const copyBtn = document.getElementById('copyBtn')
-    titleDOM.innerText = title
-    const render = function (isInit = false) {
+        //数据渲染
+        const titleDOM = document.querySelector("p.title")
+        const formItemsDom = document.querySelector("#formItems")
+        const saveBtn = document.getElementById("saveBtn")
+        const copyBtn = document.getElementById("copyBtn")
+        titleDOM.innerText = title
+        const render = function (isInit = false) {
+            //如果不是第一次render 禁用复制按钮
+            if (!isInit) copyBtn.setAttribute("disabled", "disabled")
 
-      //如果不是第一次render 禁用复制按钮
-      if (!isInit) copyBtn.setAttribute('disabled', 'disabled')
-
-      items = items.filter(v => v.label.length)
-      formItemsDom.innerHTML = items.reduce((html, item, index) => {
-        item.options = item.options?.filter(v => v.length)
-        switch (item.type) {
-          case 'input':
-            html += `
+            items = items.filter(v => v.label.length)
+            formItemsDom.innerHTML = items.reduce((html, item, index) => {
+                item.options = item.options?.filter(v => v.length)
+                switch (item.type) {
+                    case "input":
+                        html += `
               <div>
                 <div>
                   <p>${item.label}</p>
@@ -294,18 +362,25 @@
                 </div>
               </div>
               `
-            break;
-          case 'select':
-            if (item.options.length === 0) return html
-            html += `
+                        break
+                    case "select":
+                        if (item.options.length === 0) return html
+                        html += `
               <div>
                 <div>
                   <p>${item.label}</p>
                   <div>
                     <ui5-select name="${index}">
-                      ${item.options?.reduce((h, v, i) => h + `
+                      ${
+                          item.options?.reduce(
+                              (h, v, i) =>
+                                  h +
+                                  `
                         <ui5-option value="${i}">${v}</ui5-option>
-                      `, ``) ?? ''}
+                      `,
+                              ``
+                          ) ?? ""
+                      }
                     </ui5-select>
                   </div>
                 </div>
@@ -315,17 +390,24 @@
                 </div>
               </div>
               `
-            break;
-          case 'checkbox':
-            if (item.options.length === 0) return html
-            html += `
+                        break
+                    case "checkbox":
+                        if (item.options.length === 0) return html
+                        html += `
               <div>
                 <div>
                   <p>${item.label}</p>
                   <div>
-                    ${item.options?.reduce((h, v, i) => h + `
+                    ${
+                        item.options?.reduce(
+                            (h, v, i) =>
+                                h +
+                                `
                       <ui5-checkbox text="${v}" value="${i}" name="${index}"></ui5-checkbox>
-                    `, ``) ?? ''}
+                    `,
+                            ``
+                        ) ?? ""
+                    }
                   </div>
                 </div>
                 <div>
@@ -334,47 +416,49 @@
                 </div>
               </div>
               `
-          default:
-            break;
+                    default:
+                        break
+                }
+                return html
+            }, "")
         }
-        return html
-      }, '')
-    }
 
-    void async function () {
-      // 若有id 请求接口 获取title和items
-      // await fetch
+        void (async function () {
+            // 若有id 请求接口 获取title和items
+            // await fetch
 
-      // demo数据渲染
-      render(true)
-    }()
+            // demo数据渲染
+            render(true)
+        })()
 
-    // 提交保存
-    const toast = document.getElementById('toast')
-    saveBtn.onclick = async function () {
-      // await fetch
-      // 若有id 请求新增接口
-      // 若没有id 请求修改接口
-      // 解禁复制按钮
-      toast.show()
-      copyBtn.hasAttribute('disabled') && copyBtn.removeAttribute('disabled')
-    }
+        // 提交保存
+        const toast = document.getElementById("toast")
+        saveBtn.onclick = async function () {
+            // await fetch
+            // 若有id 请求新增接口
+            // 若没有id 请求修改接口
+            // 解禁复制按钮
+            toast.show()
+            copyBtn.hasAttribute("disabled") &&
+                copyBtn.removeAttribute("disabled")
+        }
 
-    // 复制为Email Form代码
-    const hiddenToUseCopyIpt = document.getElementById('hiddenToUseCopyIpt')
-    copyBtn.onclick = function () {
-      hiddenToUseCopyIpt.value = `
+        // 复制为Email Form代码
+        const hiddenToUseCopyIpt = document.getElementById("hiddenToUseCopyIpt")
+        copyBtn.onclick = function () {
+            hiddenToUseCopyIpt.value = `
       <center>
         <h1>${title}</h1>
         <form action="${submitApi}" method="POST">
           <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable"
             style="border-collapse: collapse; width: 100%; max-width: 750px; margin: 0 auto; text-align:left; font-size:0;">
             <tbody>
-              ${
-                items.reduce((html, item, index) => {
+              ${items.reduce((html, item, index) => {
                   switch (item.type) {
-                    case 'input':
-                      return html + `
+                      case "input":
+                          return (
+                              html +
+                              `
               <tr>
                 <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
                   <span>${item.label}</span>
@@ -386,9 +470,12 @@
                 </td>
               </tr>
                       `
-                      break;
-                    case 'select':
-                      return html + `
+                          )
+                          break
+                      case "select":
+                          return (
+                              html +
+                              `
               <tr>
                 <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
                   <span>${item.label}</span>
@@ -397,16 +484,26 @@
               <tr>
                 <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
                   <select name="${index}">
-                    ${item.options?.reduce((h, v, i) => h + `
+                    ${
+                        item.options?.reduce(
+                            (h, v, i) =>
+                                h +
+                                `
                       <option value="${i}">${v}</option>
-                    `, ``) ?? ''}
+                    `,
+                            ``
+                        ) ?? ""
+                    }
                   </select>
                 </td>
               </tr>
                       `
-                      break;
-                    case 'checkbox':
-                      return html + `
+                          )
+                          break
+                      case "checkbox":
+                          return (
+                              html +
+                              `
               <tr>
                 <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
                   <span>${item.label}</span>
@@ -415,20 +512,27 @@
               <tr>
                 <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
                   <div style="font-size: 12px">
-                    ${item.options?.reduce((h, v, i) => h + `
+                    ${
+                        item.options?.reduce(
+                            (h, v, i) =>
+                                h +
+                                `
                       <input type="checkbox" value="${i}" name="${index}">${v}
-                    `, ``) ?? ''}
+                    `,
+                            ``
+                        ) ?? ""
+                    }
                   </div>
                 </td>
               </tr>
                       `
-                      break;
-                    default:
-                      return html
-                      break;
+                          )
+                          break
+                      default:
+                          return html
+                          break
                   }
-                }, '')
-              }
+              }, "")}
             </tbody>
           </table>
           <div style="margin-top:24px;">
@@ -437,135 +541,157 @@
         </form>
       </center>
       `
-      hiddenToUseCopyIpt.select()
-      document.execCommand('copy')
-    }
+            hiddenToUseCopyIpt.select()
+            document.execCommand("copy")
+        }
 
-    // 标题编辑&模态框
-    const editTitleBtn = document.getElementById('editTitleBtn')
-    const titleDialog = document.getElementById('titleDialog')
-    const titleIpt = document.getElementById('titleIpt')
-    editTitleBtn.onclick = function () {
-      titleIpt.value = title
-      titleDialog.show()
-    }
-    const titleSubmitBtn = titleDialog.querySelector(`#titleSubmitBtn`)
-    titleSubmitBtn.onclick = function () {
-      titleDOM.innerText = title = titleIpt.value || '未命名问卷'
-      titleDialog.close()
-      copyBtn.setAttribute('disabled', 'disabled')
-    }
-    const titleCancelBtn = titleDialog.querySelector(`#titleCancelBtn`)
-    titleCancelBtn.onclick = function () {
-      titleIpt.value = title
-      titleDialog.close()
-    }
+        // 标题编辑&模态框
+        const editTitleBtn = document.getElementById("editTitleBtn")
+        const titleDialog = document.getElementById("titleDialog")
+        const titleIpt = document.getElementById("titleIpt")
+        editTitleBtn.onclick = function () {
+            titleIpt.value = title
+            titleDialog.show()
+        }
+        const titleSubmitBtn = titleDialog.querySelector(`#titleSubmitBtn`)
+        titleSubmitBtn.onclick = function () {
+            titleDOM.innerText = title = titleIpt.value || "未命名问卷"
+            titleDialog.close()
+            copyBtn.setAttribute("disabled", "disabled")
+        }
+        const titleCancelBtn = titleDialog.querySelector(`#titleCancelBtn`)
+        titleCancelBtn.onclick = function () {
+            titleIpt.value = title
+            titleDialog.close()
+        }
 
-    // 新增文本框模态框
-    const inputDialog = document.getElementById('inputDialog')
-    const inputIpt = document.getElementById('inputIpt')
-    const InputCloseBtn = inputDialog.querySelector(`#InputCloseBtn`)
+        // 新增文本框模态框
+        const inputDialog = document.getElementById("inputDialog")
+        const inputIpt = document.getElementById("inputIpt")
+        const InputCloseBtn = inputDialog.querySelector(`#InputCloseBtn`)
 
-    // 新增下拉框模态框
-    const selectDialog = document.getElementById('selectDialog')
-    const selectIpt = document.getElementById('selectIpt')
-    const selectCloseBtn = selectDialog.querySelector(`#selectCloseBtn`)
-    const selectAddItemBtn = selectDialog.querySelector(`#selectAddItemBtn`)
-    const selectIpt_0 = selectDialog.querySelector(`#selectIpt_0`)
-    // 添加选项
-    selectAddItemBtn.onclick = function () {
-      const index = Array.from(selectDialog.querySelectorAll(`form>*`)).at(-1).dataset['index'] ?? 1
-      const node = document.createElement("div")
-      node.dataset['index'] = index * 1 + 1
-      node.classList.add('form-item')
-      node.innerHTML = `
+        // 新增下拉框模态框
+        const selectDialog = document.getElementById("selectDialog")
+        const selectIpt = document.getElementById("selectIpt")
+        const selectCloseBtn = selectDialog.querySelector(`#selectCloseBtn`)
+        const selectAddItemBtn = selectDialog.querySelector(`#selectAddItemBtn`)
+        const selectIpt_0 = selectDialog.querySelector(`#selectIpt_0`)
+        // 添加选项
+        selectAddItemBtn.onclick = function () {
+            const index =
+                Array.from(selectDialog.querySelectorAll(`form>*`)).at(-1)
+                    .dataset["index"] ?? 1
+            const node = document.createElement("div")
+            node.dataset["index"] = index * 1 + 1
+            node.classList.add("form-item")
+            node.innerHTML = `
           <ui5-label for="selectIpt_${index}">选项${index * 1 + 1}: </ui5-label>
           <ui5-input id="selectIpt_${index}" class='selectOptIpt'></ui5-input>
           <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
         `
-      node.querySelector('.delOptBtn').onclick = function () {
-        node.parentNode.removeChild(node)
-      }
-      selectDialog.querySelector('form').appendChild(node)
-    }
-    // 新增多选框模态框
-    const checkboxDialog = document.getElementById('checkboxDialog')
-    const checkboxIpt = document.getElementById('checkboxIpt')
-    const checkboxIpt_0 = document.getElementById('checkboxIpt_0')
-    const checkboxCloseBtn = checkboxDialog.querySelector(`#checkboxCloseBtn`)
-    const checkboxAddItemBtn = checkboxDialog.querySelector(`#checkboxAddItemBtn`)
-    // 添加选项
-    checkboxAddItemBtn.onclick = function () {
-      const index = Array.from(checkboxDialog.querySelectorAll(`form>*`)).at(-1).dataset['index'] ?? 1
-      const node = document.createElement("div")
-      node.dataset['index'] = index * 1 + 1
-      node.classList.add('form-item')
-      node.innerHTML = `
+            node.querySelector(".delOptBtn").onclick = function () {
+                node.parentNode.removeChild(node)
+            }
+            selectDialog.querySelector("form").appendChild(node)
+        }
+        // 新增多选框模态框
+        const checkboxDialog = document.getElementById("checkboxDialog")
+        const checkboxIpt = document.getElementById("checkboxIpt")
+        const checkboxIpt_0 = document.getElementById("checkboxIpt_0")
+        const checkboxCloseBtn =
+            checkboxDialog.querySelector(`#checkboxCloseBtn`)
+        const checkboxAddItemBtn =
+            checkboxDialog.querySelector(`#checkboxAddItemBtn`)
+        // 添加选项
+        checkboxAddItemBtn.onclick = function () {
+            const index =
+                Array.from(checkboxDialog.querySelectorAll(`form>*`)).at(-1)
+                    .dataset["index"] ?? 1
+            const node = document.createElement("div")
+            node.dataset["index"] = index * 1 + 1
+            node.classList.add("form-item")
+            node.innerHTML = `
           <ui5-label for="checkboxIpt_${index}">选项${index * 1 + 1}: </ui5-label>
           <ui5-input id="checkboxIpt_${index}" class='checkboxOptIpt'></ui5-input>
           <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
         `
-      node.querySelector('.delOptBtn').onclick = function () {
-        node.parentNode.removeChild(node)
-      }
-      checkboxDialog.querySelector('form').appendChild(node)
-    }
+            node.querySelector(".delOptBtn").onclick = function () {
+                node.parentNode.removeChild(node)
+            }
+            checkboxDialog.querySelector("form").appendChild(node)
+        }
 
-    // 新增
-    const addBtn = document.getElementById('addBtn')
-    const addMenu = document.getElementById('addMenu')
-    addBtn.onclick = function () {
-      addMenu.showAt(this)
-    }
-    addMenu.addEventListener('item-click', function (e) {
-      switch (e.detail.item.dataset['type']) {
-        case 'input':
-          inputIpt.value = ''
-          inputDialog.show()
-          InputCloseBtn.onclick = function () {
-            items.push({
-              type: 'input',
-              label: inputIpt.value
-            })
-            inputDialog.close()
-            render()
-          }
-          break;
-        case 'select':
-          selectIpt.value = ''
-          selectIpt_0.value = ''
-          selectDialog.show()
-          selectCloseBtn.onclick = function () {
-            //const formData = new FormData(selectDialog.querySelector(`form`))
-            //console.log(Object.fromEntries(formData.entries()));
-            items.push({
-              type: 'select',
-              label: selectIpt.value,
-              options: [...selectDialog.querySelectorAll(`.selectOptIpt`)].map(ipt => ipt.value)
-            })
-            selectDialog.close()
-              ;[...selectDialog.querySelectorAll(`[data-index]`)].forEach(optDom => optDom.parentNode.removeChild(optDom))
-            render()
-          }
-          break;
-        case 'checkbox':
-          checkboxIpt.value = ''
-          checkboxIpt_0.value = ''
-          checkboxDialog.show()
-          checkboxCloseBtn.onclick = function () {
-            items.push({
-              type: 'checkbox',
-              label: checkboxIpt.value,
-              options: [...checkboxDialog.querySelectorAll(`.checkboxOptIpt`)].map(ipt => ipt.value)
-            })
-            checkboxDialog.close()
-              ;[...checkboxDialog.querySelectorAll(`[data-index]`)].forEach(optDom => optDom.parentNode.removeChild(optDom))
-            render()
-          }
-          break;
-        default:
-          break;
-      }
-    })
-  </script>
+        // 新增
+        const addBtn = document.getElementById("addBtn")
+        const addMenu = document.getElementById("addMenu")
+        addBtn.onclick = function () {
+            addMenu.showAt(this)
+        }
+        addMenu.addEventListener("item-click", function (e) {
+            switch (e.detail.item.dataset["type"]) {
+                case "input":
+                    inputIpt.value = ""
+                    inputDialog.show()
+                    InputCloseBtn.onclick = function () {
+                        items.push({
+                            type: "input",
+                            label: inputIpt.value,
+                        })
+                        inputDialog.close()
+                        render()
+                    }
+                    break
+                case "select":
+                    selectIpt.value = ""
+                    selectIpt_0.value = ""
+                    selectDialog.show()
+                    selectCloseBtn.onclick = function () {
+                        //const formData = new FormData(selectDialog.querySelector(`form`))
+                        //console.log(Object.fromEntries(formData.entries()));
+                        items.push({
+                            type: "select",
+                            label: selectIpt.value,
+                            options: [
+                                ...selectDialog.querySelectorAll(
+                                    `.selectOptIpt`
+                                ),
+                            ].map(ipt => ipt.value),
+                        })
+                        selectDialog.close()
+                        ;[
+                            ...selectDialog.querySelectorAll(`[data-index]`),
+                        ].forEach(optDom =>
+                            optDom.parentNode.removeChild(optDom)
+                        )
+                        render()
+                    }
+                    break
+                case "checkbox":
+                    checkboxIpt.value = ""
+                    checkboxIpt_0.value = ""
+                    checkboxDialog.show()
+                    checkboxCloseBtn.onclick = function () {
+                        items.push({
+                            type: "checkbox",
+                            label: checkboxIpt.value,
+                            options: [
+                                ...checkboxDialog.querySelectorAll(
+                                    `.checkboxOptIpt`
+                                ),
+                            ].map(ipt => ipt.value),
+                        })
+                        checkboxDialog.close()
+                        ;[
+                            ...checkboxDialog.querySelectorAll(`[data-index]`),
+                        ].forEach(optDom =>
+                            optDom.parentNode.removeChild(optDom)
+                        )
+                        render()
+                    }
+                    break
+                default:
+                    break
+            }
+        })
+    </script>
 </body>

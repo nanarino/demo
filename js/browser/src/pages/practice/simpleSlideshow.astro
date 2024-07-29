@@ -93,20 +93,20 @@
         <script is:inline>
             function mod(n, m) {
                 //取模算法
-                return ((n % m) + m) % m;
+                return ((n % m) + m) % m
             }
             function throttle(fn, wait) {
                 //节流函数（时间戳）
-                var pre = Date.now();
+                var pre = Date.now()
                 return function () {
-                    var context = this;
-                    var args = arguments;
-                    var now = Date.now();
+                    var context = this
+                    var args = arguments
+                    var now = Date.now()
                     if (now - pre >= wait) {
-                        fn.apply(context, args);
-                        pre = Date.now();
+                        fn.apply(context, args)
+                        pre = Date.now()
                     }
-                };
+                }
             }
             const imgSrcList = [
                 //图片url列表
@@ -114,101 +114,101 @@
                 `https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f0cf.svg`,
                 `https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f170.svg`,
                 `https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f19a.svg`,
-            ];
+            ]
 
-            const imgLength = imgSrcList.length;
+            const imgLength = imgSrcList.length
 
             window.onload = async () => {
-                const container = document.getElementById("container");
-                const list = document.getElementById("list");
+                const container = document.getElementById("container")
+                const list = document.getElementById("list")
                 const buttons = document
                     .getElementById("buttons")
-                    .getElementsByTagName("span");
-                const imglist = list.getElementsByTagName("img");
-                const pre = document.getElementById("prev");
-                const next = document.getElementById("next");
-                const timeout = 240; //过渡+停顿总时间
-                let index;
+                    .getElementsByTagName("span")
+                const imglist = list.getElementsByTagName("img")
+                const pre = document.getElementById("prev")
+                const next = document.getElementById("next")
+                const timeout = 240 //过渡+停顿总时间
+                let index
 
                 function run(n) {
-                    n++;
+                    n++
                     return new Promise((resolve, reject) => {
                         setTimeout(function () {
-                            list.style.transition = ".2s";
-                            list.style.left = -500 * n + "px";
-                            resolve();
-                        }, 38);
-                    });
+                            list.style.transition = ".2s"
+                            list.style.left = -500 * n + "px"
+                            resolve()
+                        }, 38)
+                    })
                 }
 
                 function resetSrc(n) {
                     return new Promise((resolve, reject) => {
                         setTimeout(function () {
-                            list.style.transition = "";
-                            list.style.left = "-500px";
-                            imglist[0].src = imgSrcList[mod(n - 1, imgLength)];
-                            imglist[1].src = imgSrcList[mod(n, imgLength)];
-                            imglist[2].src = imgSrcList[mod(n + 1, imgLength)];
-                            resolve();
-                        }, 212);
-                    });
+                            list.style.transition = ""
+                            list.style.left = "-500px"
+                            imglist[0].src = imgSrcList[mod(n - 1, imgLength)]
+                            imglist[1].src = imgSrcList[mod(n, imgLength)]
+                            imglist[2].src = imgSrcList[mod(n + 1, imgLength)]
+                            resolve()
+                        }, 212)
+                    })
                 }
 
                 const nextonclick = async () => {
-                    buttons[mod(index, imgLength)].className = "";
-                    await run(+1);
-                    index++;
-                    buttons[mod(index, imgLength)].className = "on";
-                    await resetSrc(index);
-                };
+                    buttons[mod(index, imgLength)].className = ""
+                    await run(+1)
+                    index++
+                    buttons[mod(index, imgLength)].className = "on"
+                    await resetSrc(index)
+                }
 
                 const preonclick = async () => {
-                    buttons[mod(index, imgLength)].className = "";
-                    await run(-1);
-                    index--;
-                    buttons[mod(index, imgLength)].className = "on";
-                    await resetSrc(index);
-                };
+                    buttons[mod(index, imgLength)].className = ""
+                    await run(-1)
+                    index--
+                    buttons[mod(index, imgLength)].className = "on"
+                    await resetSrc(index)
+                }
 
-                window.timer = null;
+                window.timer = null
                 function play() {
                     timer = setInterval(function () {
-                        nextonclick();
-                    }, 2500);
+                        nextonclick()
+                    }, 2500)
                 }
                 function stop() {
-                    clearInterval(timer);
+                    clearInterval(timer)
                 }
 
                 void (function init() {
-                    index = 0;
-                    imglist[0].src = imgSrcList[imgLength - 1];
-                    imglist[1].src = imgSrcList[0];
-                    imglist[2].src = imgSrcList[1];
-                    list.style.left = "-500px";
-                    next.onclick = throttle(nextonclick, timeout);
-                    pre.onclick = throttle(preonclick, timeout);
+                    index = 0
+                    imglist[0].src = imgSrcList[imgLength - 1]
+                    imglist[1].src = imgSrcList[0]
+                    imglist[2].src = imgSrcList[1]
+                    list.style.left = "-500px"
+                    next.onclick = throttle(nextonclick, timeout)
+                    pre.onclick = throttle(preonclick, timeout)
                     for (let i = 0; i < imgLength; i++) {
                         buttons[i].onclick = throttle(async () => {
-                            var t = 0;
+                            var t = 0
                             if ((t = i - mod(index, imgLength)) > 0) {
-                                t = Math.abs(t);
+                                t = Math.abs(t)
                                 while (t--) {
-                                    await nextonclick();
+                                    await nextonclick()
                                 }
                             } else {
-                                t = Math.abs(t);
+                                t = Math.abs(t)
                                 while (t--) {
-                                    await preonclick();
+                                    await preonclick()
                                 }
                             }
-                        }, timeout * 3);
+                        }, timeout * 3)
                     }
-                    container.onmouseenter = stop;
-                    container.onmouseleave = play;
-                    play();
-                })();
-            };
+                    container.onmouseenter = stop
+                    container.onmouseleave = play
+                    play()
+                })()
+            }
         </script>
     </head>
 

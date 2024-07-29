@@ -9,11 +9,11 @@
 <ul id="li"></ul>
 <script is:inline>
     input.oninput = () => {
-        let script = document.createElement("script");
-        script.src = `https://s.search.bilibili.com/main/suggest?jsoncallback=mycallback&term=${input.value}`;
-        document.body.appendChild(script);
-        script.onload = () => document.body.removeChild(script);
-    };
+        let script = document.createElement("script")
+        script.src = `https://s.search.bilibili.com/main/suggest?jsoncallback=mycallback&term=${input.value}`
+        document.body.appendChild(script)
+        script.onload = () => document.body.removeChild(script)
+    }
 
     function mycallback(data) {
         li.innerHTML = Object.values(data).reduce(
@@ -23,12 +23,12 @@
       <li><a href = https://search.bilibili.com/all?keyword=${v.value}>${v.name}<a/></li>
     `,
             ""
-        );
+        )
     }
 
     function enter() {
-        location.href = `https://search.bilibili.com/all?keyword=${input.value}`;
+        location.href = `https://search.bilibili.com/all?keyword=${input.value}`
     }
 
-    input.onkeypress = (e) => e.key == "Enter" && enter();
+    input.onkeypress = e => e.key == "Enter" && enter()
 </script>

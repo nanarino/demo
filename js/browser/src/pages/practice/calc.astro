@@ -58,121 +58,121 @@
 </style>
 <script is:inline>
     window.onload = function () {
-        let num = document.getElementsByClassName("num");
-        let btn = document.getElementsByClassName("btn");
-        let vw = document.getElementsByClassName("output")[1];
-        let vwH = document.getElementsByClassName("output")[0];
+        let num = document.getElementsByClassName("num")
+        let btn = document.getElementsByClassName("btn")
+        let vw = document.getElementsByClassName("output")[1]
+        let vwH = document.getElementsByClassName("output")[0]
         for (let i = 0; i < num.length; i++) {
             num[i].onclick = function () {
-                vw.innerHTML += num[i].innerHTML;
-            };
+                vw.innerHTML += num[i].innerHTML
+            }
         }
         btn[0].onclick = function () {
-            vw.innerHTML = vw.innerHTML.substr(0, vw.innerHTML.length - 1);
-        };
+            vw.innerHTML = vw.innerHTML.substr(0, vw.innerHTML.length - 1)
+        }
         btn[1].onclick = function () {
-            location.reload(); //刷新页面
-        };
+            location.reload() //刷新页面
+        }
         btn[2].onclick = function () {
             if (vw.innerHTML.indexOf("%") !== -1) {
                 //这个百分数结果并不能在下次运算中使用 除非退格删掉
-                vw.innerHTML = "error";
+                vw.innerHTML = "error"
             } else if (vw.innerHTML.indexOf("e") !== -1) {
                 //error没删干净 强制刷新
-                location.reload();
+                location.reload()
             } else {
-                vwH.innerHTML = vw.innerHTML + "×100%";
-                vw.innerHTML = Number(vw.innerHTML) * 100 + "%";
+                vwH.innerHTML = vw.innerHTML + "×100%"
+                vw.innerHTML = Number(vw.innerHTML) * 100 + "%"
             }
-        };
+        }
         btn[3].onclick = function () {
             if (vw.innerHTML.indexOf("%") !== -1) {
                 //这个百分数结果并不能在下次运算中使用 除非退格删掉
-                vw.innerHTML = "error";
+                vw.innerHTML = "error"
             } else if (vw.innerHTML.indexOf("e") !== -1) {
                 //error没删干净 强制刷新
-                location.reload();
+                location.reload()
             } else {
-                vwH.innerHTML = "sqrt(" + vw.innerHTML + ")";
-                vw.innerHTML = Number(vw.innerHTML) ** 0.5;
+                vwH.innerHTML = "sqrt(" + vw.innerHTML + ")"
+                vw.innerHTML = Number(vw.innerHTML) ** 0.5
             }
-        };
+        }
         function floatBase(numA, numB) {
             //浮点数运算问题
-            let aLastIndex = String(numA).length - 1;
-            let bLastIndex = String(numB).length - 1;
+            let aLastIndex = String(numA).length - 1
+            let bLastIndex = String(numB).length - 1
             let aFloLen =
                 aLastIndex -
                 (Number.isInteger(numA * 1)
                     ? aLastIndex
-                    : String(numA).indexOf("."));
+                    : String(numA).indexOf("."))
             let bFloLen =
                 bLastIndex -
                 (Number.isInteger(numB * 1)
                     ? bLastIndex
-                    : String(numB).indexOf("."));
-            return 10 ** (aFloLen > bFloLen ? aFloLen : bFloLen);
+                    : String(numB).indexOf("."))
+            return 10 ** (aFloLen > bFloLen ? aFloLen : bFloLen)
         }
         function computed(numA, numB, sym, base) {
             //定义中文及自定义运算符号
             switch (sym) {
                 case "＋":
-                    return (numA * base + numB * base) / base;
-                    break;
+                    return (numA * base + numB * base) / base
+                    break
                 case "－":
-                    return (numA * base - numB * base) / base;
-                    break;
+                    return (numA * base - numB * base) / base
+                    break
                 case "×":
-                    return (numA * base * (numB * base)) / base ** 2;
-                    break;
+                    return (numA * base * (numB * base)) / base ** 2
+                    break
                 case "÷":
-                    return (numA * base) / (numB * base);
-                    break;
+                    return (numA * base) / (numB * base)
+                    break
                 //default:
             }
         }
         function evaluation(arr, s = 0, e = arr.length) {
-            let arr2 = arr.slice(s, e);
-            let symArr1 = arr2.filter((z) => z === "×" || z === "÷"); //回调函数filter()  定义运算优先级
-            let symArr2 = arr2.filter((z) => z === "＋" || z === "－");
+            let arr2 = arr.slice(s, e)
+            let symArr1 = arr2.filter(z => z === "×" || z === "÷") //回调函数filter()  定义运算优先级
+            let symArr2 = arr2.filter(z => z === "＋" || z === "－")
             while (1) {
-                let idx, base, sym, res;
-                let first = symArr1.shift() || symArr2.shift();
+                let idx, base, sym, res
+                let first = symArr1.shift() || symArr2.shift()
                 if (!first) {
-                    break;
+                    break
                 }
-                idx = arr2.indexOf(first);
-                sym = first;
-                base = floatBase(arr2[idx - 1], arr2[idx + 1]);
-                res = computed(arr2[idx - 1], arr2[idx + 1], sym, base);
-                arr2.splice(idx - 1, 3, res);
+                idx = arr2.indexOf(first)
+                sym = first
+                base = floatBase(arr2[idx - 1], arr2[idx + 1])
+                res = computed(arr2[idx - 1], arr2[idx + 1], sym, base)
+                arr2.splice(idx - 1, 3, res)
             }
-            return arr2.shift();
+            return arr2.shift()
         }
         btn[18].onclick = function () {
-            vwH.innerHTML = vw.innerHTML;
+            vwH.innerHTML = vw.innerHTML
             if (vw.innerHTML.indexOf("%") !== -1) {
                 //这个百分数结果并不能在下次运算中使用 除非退格删掉
-                vw.innerHTML = "error";
+                vw.innerHTML = "error"
             } else if (vw.innerHTML.indexOf("I") !== -1) {
                 //Infinity没删干净 强制刷新
-                location.reload();
+                location.reload()
             } else if (vw.innerHTML.indexOf("e") !== -1) {
                 //error没删干净 强制刷新
-                location.reload();
+                location.reload()
             } else if (vw.innerHTML.indexOf("N") !== -1) {
                 //NaN没删干净 强制刷新
-                location.reload();
+                location.reload()
             } else {
                 vw.innerHTML = vw.innerHTML
                     .replace(/\＋/g, ",＋,")
                     .replace(/\－/g, ",－,")
                     .replace(/\×/g, ",×,")
-                    .replace(/\÷/g, ",÷,");
-                vw.innerHTML = evaluation(vw.innerHTML.split(","));
+                    .replace(/\÷/g, ",÷,")
+                vw.innerHTML = evaluation(vw.innerHTML.split(","))
             }
-        };
-    };
+        }
+    }
 </script>
 <div class="frame">
     <div class="numberOutput">

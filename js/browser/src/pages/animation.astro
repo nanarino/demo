@@ -1,7 +1,7 @@
 <script>
     function getStyle(ele: HTMLElement): CSSStyleDeclaration {
         // @ts-ignore currentStyle是IE浏览器才有的
-        return ele.currentStyle || getComputedStyle(ele);
+        return ele.currentStyle || getComputedStyle(ele)
     }
 
     //window.requestAnimationFrame = window.requestAnimationFrame || function (cb) { return setTimeout(cb, 1000 / 60) }
@@ -9,9 +9,9 @@
 
     function toFloat(n: string | number) {
         if (typeof n === "number") {
-            return n;
+            return n
         } else {
-            return Number.parseFloat(n);
+            return Number.parseFloat(n)
         }
     }
 
@@ -21,36 +21,36 @@
         time: number = 500,
         cb?: () => void
     ) {
-        var startValue: Record<string, number> = {};
-        var changeValue: Record<string, number> = {};
-        var startTime = new Date().getTime();
-        var eleStart = getStyle(ele);
+        var startValue: Record<string, number> = {}
+        var changeValue: Record<string, number> = {}
+        var startTime = new Date().getTime()
+        var eleStart = getStyle(ele)
         for (var key in data) {
             startValue[key] = isNaN(toFloat(eleStart[key]))
                 ? 0
-                : toFloat(eleStart[key]);
-            changeValue[key] = toFloat(data[key]) - startValue[key];
+                : toFloat(eleStart[key])
+            changeValue[key] = toFloat(data[key]) - startValue[key]
         }
-        run();
-        let ani = 0;
+        run()
+        let ani = 0
         function run() {
-            var nowTime = new Date().getTime() - startTime;
-            var t1 = nowTime / time;
+            var nowTime = new Date().getTime() - startTime
+            var t1 = nowTime / time
             for (var key in changeValue) {
-                var val = t1 * changeValue[key] + startValue[key];
-                ele.style[key] = val + "pt";
+                var val = t1 * changeValue[key] + startValue[key]
+                ele.style[key] = val + "pt"
             }
             if (t1 >= 1) {
-                cancelAnimationFrame(ani);
-                cb && cb();
+                cancelAnimationFrame(ani)
+                cb && cb()
             } else {
-                ani = requestAnimationFrame(run);
+                ani = requestAnimationFrame(run)
             }
         }
     }
 
     // @ts-ignore
-    window.animation = animation;
+    window.animation = animation
 </script>
 
 <style>
@@ -64,8 +64,8 @@
 <div id="box1" class="box"></div>
 <script is:inline>
     window.onload = function () {
-        const run1 = () => animation(box1, { marginLeft: 300 }, 2000, run2);
-        const run2 = () => animation(box1, { marginLeft: 0 }, 2000, run1);
-        run1();
-    };
+        const run1 = () => animation(box1, { marginLeft: 300 }, 2000, run2)
+        const run2 = () => animation(box1, { marginLeft: 0 }, 2000, run1)
+        run1()
+    }
 </script>
