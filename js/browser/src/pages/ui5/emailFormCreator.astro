@@ -61,34 +61,7 @@
             margin: 8px 0 32px 0;
         }
     </style>
-    <script type="importmap">
-        {
-            "imports": {
-                "@ui5/webcomponents-icons/dist/AllIcons.js": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/AllIcons.js",
-                "@ui5/webcomponents/dist/Button.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Button.js",
-                "@ui5/webcomponents/dist/CheckBox.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/CheckBox.js",
-                "@ui5/webcomponents/dist/Dialog.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Dialog.js",
-                "@ui5/webcomponents/dist/Input.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Input.js",
-                "@ui5/webcomponents/dist/Label.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Label.js",
-                "@ui5/webcomponents/dist/Menu.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Menu.js",
-                "@ui5/webcomponents/dist/MenuItem.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/MenuItem.js",
-                "@ui5/webcomponents/dist/Option.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Option.js",
-                "@ui5/webcomponents/dist/Select.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Select.js",
-                "@ui5/webcomponents/dist/Toast.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Toast.js",
-                "list-slice": "https://ga.jspm.io/npm:list-slice@1.1.6/dist/index.js"
-            },
-            "scopes": {
-                "https://ga.jspm.io/": {
-                    "@ui5/webcomponents-base/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-base@1.9.1/dist/",
-                    "@ui5/webcomponents-icons/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/",
-                    "@ui5/webcomponents-theming/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js": "https://ga.jspm.io/npm:@ui5/webcomponents-theming@1.9.1/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js",
-                    "lit-html": "https://ga.jspm.io/npm:lit-html@2.5.0/development/lit-html.js",
-                    "lit-html/": "https://ga.jspm.io/npm:lit-html@2.5.0/development/"
-                }
-            }
-        }
-    </script>
-    <script type="module">
+    <script>
         import "@ui5/webcomponents/dist/Toast.js"
         import "@ui5/webcomponents-icons/dist/AllIcons.js"
         import "@ui5/webcomponents/dist/Button.js"
@@ -227,7 +200,7 @@
         id="hiddenToUseCopyIpt"
         style="pointer-events:none;opacity:0;position:absolute;"></textarea>
 
-    <script type="module">
+    <script is:inline type="module">
         const submitApi = `http://127.0.0.1:27016/submit/`
         //import { getitem, setitem } from 'list-slice'
         window.delitem = index => {
@@ -239,10 +212,10 @@
             switch (item.type) {
                 case "input":
                     inputIpt.value = item.label
-                    inputDialog.show()
+                    inputDialog.open = true
                     InputCloseBtn.onclick = function () {
                         item.label = inputIpt.value
-                        inputDialog.close()
+                        inputDialog.open = false
                         render()
                     }
                     break
@@ -255,22 +228,22 @@
                         node.dataset["index"] = index * 1 + 1
                         node.classList.add("form-item")
                         node.innerHTML = `
-                <ui5-label for="selectIpt_${index}">选项${index * 1 + 1}: </ui5-label>
-                <ui5-input id="selectIpt_${index}" class='selectOptIpt' value='${v}'></ui5-input>
-                <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
-              `
+                            <ui5-label for="selectIpt_${index}">选项${index * 1 + 1}: </ui5-label>
+                            <ui5-input id="selectIpt_${index}" class='selectOptIpt' value='${v}'></ui5-input>
+                            <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
+                        `
                         node.querySelector(".delOptBtn").onclick = function () {
                             node.parentNode.removeChild(node)
                         }
                         selectDialog.querySelector("form").appendChild(node)
                     })
-                    selectDialog.show()
+                    selectDialog.open = true
                     selectCloseBtn.onclick = function () {
                         item.label = selectIpt.value
                         item.options = [
                             ...selectDialog.querySelectorAll(`.selectOptIpt`),
                         ].map(ipt => ipt.value)
-                        selectDialog.close()
+                        selectDialog.open = false
                         ;[
                             ...selectDialog.querySelectorAll(`[data-index]`),
                         ].forEach(optDom =>
@@ -288,16 +261,16 @@
                         node.dataset["index"] = index * 1 + 1
                         node.classList.add("form-item")
                         node.innerHTML = `
-                <ui5-label for="checkboxIpt_${index}">选项${index * 1 + 1}: </ui5-label>
-                <ui5-input id="checkboxIpt_${index}" class='checkboxOptIpt' value='${v}'></ui5-input>
-                <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
-              `
+                            <ui5-label for="checkboxIpt_${index}">选项${index * 1 + 1}: </ui5-label>
+                            <ui5-input id="checkboxIpt_${index}" class='checkboxOptIpt' value='${v}'></ui5-input>
+                            <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
+                        `
                         node.querySelector(".delOptBtn").onclick = function () {
                             node.parentNode.removeChild(node)
                         }
                         checkboxDialog.querySelector("form").appendChild(node)
                     })
-                    checkboxDialog.show()
+                    checkboxDialog.open = true
                     checkboxCloseBtn.onclick = function () {
                         item.label = checkboxIpt.value
                         item.options = [
@@ -305,7 +278,7 @@
                                 `.checkboxOptIpt`
                             ),
                         ].map(ipt => ipt.value)
-                        checkboxDialog.close()
+                        checkboxDialog.open = false
                         ;[
                             ...checkboxDialog.querySelectorAll(`[data-index]`),
                         ].forEach(optDom =>
@@ -351,71 +324,71 @@
                 switch (item.type) {
                     case "input":
                         html += `
-              <div>
-                <div>
-                  <p>${item.label}</p>
-                  <div><ui5-input name="${index}"></ui5-input></div>
-                </div>
-                <div>
-                  <ui5-button design="Attention" icon="edit" onclick="editem(${index})"></ui5-button>
-                  <ui5-button design="Negative" icon="delete" onclick="delitem(${index})"></ui5-button>
-                </div>
-              </div>
-              `
+                            <div>
+                                <div>
+                                <p>${item.label}</p>
+                                <div><ui5-input name="${index}"></ui5-input></div>
+                                </div>
+                                <div>
+                                <ui5-button design="Attention" icon="edit" onclick="editem(${index})"></ui5-button>
+                                <ui5-button design="Negative" icon="delete" onclick="delitem(${index})"></ui5-button>
+                                </div>
+                            </div>
+                        `
                         break
                     case "select":
                         if (item.options.length === 0) return html
                         html += `
-              <div>
-                <div>
-                  <p>${item.label}</p>
-                  <div>
-                    <ui5-select name="${index}">
-                      ${
-                          item.options?.reduce(
-                              (h, v, i) =>
-                                  h +
-                                  `
-                        <ui5-option value="${i}">${v}</ui5-option>
-                      `,
-                              ``
-                          ) ?? ""
-                      }
-                    </ui5-select>
-                  </div>
-                </div>
-                <div>
-                  <ui5-button design="Attention" icon="edit" onclick="editem(${index})"></ui5-button>
-                  <ui5-button design="Negative" icon="delete" onclick="delitem(${index})"></ui5-button>
-                </div>
-              </div>
-              `
+                            <div>
+                                <div>
+                                <p>${item.label}</p>
+                                <div>
+                                    <ui5-select name="${index}">
+                                    ${
+                                        item.options?.reduce(
+                                            (h, v, i) =>
+                                                h +
+                                                `
+                                        <ui5-option value="${i}">${v}</ui5-option>
+                                    `,
+                                            ``
+                                        ) ?? ""
+                                    }
+                                    </ui5-select>
+                                </div>
+                                </div>
+                                <div>
+                                <ui5-button design="Attention" icon="edit" onclick="editem(${index})"></ui5-button>
+                                <ui5-button design="Negative" icon="delete" onclick="delitem(${index})"></ui5-button>
+                                </div>
+                            </div>
+                        `
                         break
                     case "checkbox":
                         if (item.options.length === 0) return html
                         html += `
-              <div>
-                <div>
-                  <p>${item.label}</p>
-                  <div>
-                    ${
-                        item.options?.reduce(
-                            (h, v, i) =>
-                                h +
-                                `
-                      <ui5-checkbox text="${v}" value="${i}" name="${index}"></ui5-checkbox>
-                    `,
-                            ``
-                        ) ?? ""
-                    }
-                  </div>
-                </div>
-                <div>
-                  <ui5-button design="Attention" icon="edit" onclick="editem(${index})"></ui5-button>
-                  <ui5-button design="Negative" icon="delete" onclick="delitem(${index})"></ui5-button>
-                </div>
-              </div>
-              `
+                            <div>
+                                <div>
+                                <p>${item.label}</p>
+                                <div>
+                                    ${
+                                        item.options?.reduce(
+                                            (h, v, i) =>
+                                                h +
+                                                `
+                                    <ui5-checkbox text="${v}" value="${i}" name="${index}"></ui5-checkbox>
+                                    `,
+                                            ``
+                                        ) ?? ""
+                                    }
+                                </div>
+                                </div>
+                                <div>
+                                <ui5-button design="Attention" icon="edit" onclick="editem(${index})"></ui5-button>
+                                <ui5-button design="Negative" icon="delete" onclick="delitem(${index})"></ui5-button>
+                                </div>
+                            </div>
+                        `
                     default:
                         break
                 }
@@ -438,7 +411,7 @@
             // 若有id 请求新增接口
             // 若没有id 请求修改接口
             // 解禁复制按钮
-            toast.show()
+            toast.open = true
             copyBtn.hasAttribute("disabled") &&
                 copyBtn.removeAttribute("disabled")
         }
@@ -447,100 +420,96 @@
         const hiddenToUseCopyIpt = document.getElementById("hiddenToUseCopyIpt")
         copyBtn.onclick = function () {
             hiddenToUseCopyIpt.value = `
-      <center>
-        <h1>${title}</h1>
-        <form action="${submitApi}" method="POST">
-          <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable"
-            style="border-collapse: collapse; width: 100%; max-width: 750px; margin: 0 auto; text-align:left; font-size:0;">
-            <tbody>
-              ${items.reduce((html, item, index) => {
-                  switch (item.type) {
-                      case "input":
-                          return (
-                              html +
-                              `
-              <tr>
-                <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
-                  <span>${item.label}</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
-                  <textarea name="${index}"></textarea>
-                </td>
-              </tr>
-                      `
-                          )
-                          break
-                      case "select":
-                          return (
-                              html +
-                              `
-              <tr>
-                <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
-                  <span>${item.label}</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
-                  <select name="${index}">
-                    ${
-                        item.options?.reduce(
-                            (h, v, i) =>
-                                h +
-                                `
-                      <option value="${i}">${v}</option>
-                    `,
-                            ``
-                        ) ?? ""
-                    }
-                  </select>
-                </td>
-              </tr>
-                      `
-                          )
-                          break
-                      case "checkbox":
-                          return (
-                              html +
-                              `
-              <tr>
-                <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
-                  <span>${item.label}</span>
-                </td>
-              </tr>
-              <tr>
-                <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
-                  <div style="font-size: 12px">
-                    ${
-                        item.options?.reduce(
-                            (h, v, i) =>
-                                h +
-                                `
-                      <input type="checkbox" value="${i}" name="${index}">${v}
-                    `,
-                            ``
-                        ) ?? ""
-                    }
-                  </div>
-                </td>
-              </tr>
-                      `
-                          )
-                          break
-                      default:
-                          return html
-                          break
-                  }
-              }, "")}
-            </tbody>
-          </table>
-          <div style="margin-top:24px;">
-            <input type="submit">
-          </div>
-        </form>
-      </center>
-      `
+                <center>
+                    <h1>${title}</h1>
+                    <form action="${submitApi}" method="POST">
+                    <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable"
+                        style="border-collapse: collapse; width: 100%; max-width: 750px; margin: 0 auto; text-align:left; font-size:0;">
+                        <tbody>
+                            ${items.reduce((html, item, index) => {
+                                switch (item.type) {
+                                    case "input":
+                                        return (
+                                            html +
+                                            `
+                                                <tr>
+                                                    <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
+                                                    <span>${item.label}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
+                                                    <textarea name="${index}"></textarea>
+                                                    </td>
+                                                </tr>
+                                            `
+                                        )
+                                    case "select":
+                                        return (
+                                            html +
+                                            `
+                                                <tr>
+                                                    <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
+                                                    <span>${item.label}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
+                                                    <select name="${index}">
+                                                        ${
+                                                            item.options?.reduce(
+                                                                (h, v, i) =>
+                                                                    h +
+                                                                    `
+                                                        <option value="${i}">${v}</option>
+                                                        `,
+                                                                ``
+                                                            ) ?? ""
+                                                        }
+                                                    </select>
+                                                    </td>
+                                                </tr>
+                                            `
+                                        )
+                                    case "checkbox":
+                                        return (
+                                            html +
+                                            `
+                                                <tr>
+                                                    <td style="padding-top: 16px; font-size: 16px; padding-bottom: 2px;">
+                                                    <span>${item.label}</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="padding-bottom: 8px; border-bottom: 2px solid #0854A0">
+                                                    <div style="font-size: 12px">
+                                                        ${
+                                                            item.options?.reduce(
+                                                                (h, v, i) =>
+                                                                    h +
+                                                                    `
+                                                        <input type="checkbox" value="${i}" name="${index}">${v}
+                                                        `,
+                                                                ``
+                                                            ) ?? ""
+                                                        }
+                                                    </div>
+                                                    </td>
+                                                </tr>
+                                            `
+                                        )
+                                    default:
+                                        return html
+                                }
+                            }, "")}
+                        </tbody>
+                    </table>
+                    <div style="margin-top:24px">
+                        <input type="submit">
+                    </div>
+                    </form>
+                </center>
+            `
             hiddenToUseCopyIpt.select()
             document.execCommand("copy")
         }
@@ -551,18 +520,18 @@
         const titleIpt = document.getElementById("titleIpt")
         editTitleBtn.onclick = function () {
             titleIpt.value = title
-            titleDialog.show()
+            titleDialog.open = true
         }
         const titleSubmitBtn = titleDialog.querySelector(`#titleSubmitBtn`)
         titleSubmitBtn.onclick = function () {
             titleDOM.innerText = title = titleIpt.value || "未命名问卷"
-            titleDialog.close()
+            titleDialog.open = false
             copyBtn.setAttribute("disabled", "disabled")
         }
         const titleCancelBtn = titleDialog.querySelector(`#titleCancelBtn`)
         titleCancelBtn.onclick = function () {
             titleIpt.value = title
-            titleDialog.close()
+            titleDialog.open = false
         }
 
         // 新增文本框模态框
@@ -585,10 +554,10 @@
             node.dataset["index"] = index * 1 + 1
             node.classList.add("form-item")
             node.innerHTML = `
-          <ui5-label for="selectIpt_${index}">选项${index * 1 + 1}: </ui5-label>
-          <ui5-input id="selectIpt_${index}" class='selectOptIpt'></ui5-input>
-          <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
-        `
+                <ui5-label for="selectIpt_${index}">选项${index * 1 + 1}: </ui5-label>
+                <ui5-input id="selectIpt_${index}" class='selectOptIpt'></ui5-input>
+                <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
+            `
             node.querySelector(".delOptBtn").onclick = function () {
                 node.parentNode.removeChild(node)
             }
@@ -611,10 +580,10 @@
             node.dataset["index"] = index * 1 + 1
             node.classList.add("form-item")
             node.innerHTML = `
-          <ui5-label for="checkboxIpt_${index}">选项${index * 1 + 1}: </ui5-label>
-          <ui5-input id="checkboxIpt_${index}" class='checkboxOptIpt'></ui5-input>
-          <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
-        `
+                <ui5-label for="checkboxIpt_${index}">选项${index * 1 + 1}: </ui5-label>
+                <ui5-input id="checkboxIpt_${index}" class='checkboxOptIpt'></ui5-input>
+                <ui5-button design="Negative" icon="delete" class='delOptBtn'></ui5-button>
+            `
             node.querySelector(".delOptBtn").onclick = function () {
                 node.parentNode.removeChild(node)
             }
@@ -625,26 +594,27 @@
         const addBtn = document.getElementById("addBtn")
         const addMenu = document.getElementById("addMenu")
         addBtn.onclick = function () {
-            addMenu.showAt(this)
+            addMenu.opener = this
+            addMenu.open = true
         }
         addMenu.addEventListener("item-click", function (e) {
             switch (e.detail.item.dataset["type"]) {
                 case "input":
                     inputIpt.value = ""
-                    inputDialog.show()
+                    inputDialog.open = true
                     InputCloseBtn.onclick = function () {
                         items.push({
                             type: "input",
                             label: inputIpt.value,
                         })
-                        inputDialog.close()
+                        inputDialog.open = false
                         render()
                     }
                     break
                 case "select":
                     selectIpt.value = ""
                     selectIpt_0.value = ""
-                    selectDialog.show()
+                    selectDialog.open = true
                     selectCloseBtn.onclick = function () {
                         //const formData = new FormData(selectDialog.querySelector(`form`))
                         //console.log(Object.fromEntries(formData.entries()));
@@ -657,7 +627,7 @@
                                 ),
                             ].map(ipt => ipt.value),
                         })
-                        selectDialog.close()
+                        selectDialog.open = false
                         ;[
                             ...selectDialog.querySelectorAll(`[data-index]`),
                         ].forEach(optDom =>
@@ -669,7 +639,7 @@
                 case "checkbox":
                     checkboxIpt.value = ""
                     checkboxIpt_0.value = ""
-                    checkboxDialog.show()
+                    checkboxDialog.open = true
                     checkboxCloseBtn.onclick = function () {
                         items.push({
                             type: "checkbox",
@@ -680,7 +650,7 @@
                                 ),
                             ].map(ipt => ipt.value),
                         })
-                        checkboxDialog.close()
+                        checkboxDialog.open = false
                         ;[
                             ...checkboxDialog.querySelectorAll(`[data-index]`),
                         ].forEach(optDom =>

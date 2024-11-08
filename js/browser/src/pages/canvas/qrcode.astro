@@ -31,19 +31,19 @@
 <img id="br" />
 <div id="sT"></div>
 <script is:inline>
-    //未封装渲染行为的二维码库https://github.com/kazuhikoarase/qrcode-generator/tree/master/js
+    // 未封装渲染行为的二维码库https://github.com/kazuhikoarase/qrcode-generator/tree/master/js
     const typeNumber = 4,
         errorCorrectionLevel = "L"
     const qrdata = qrcode(typeNumber, errorCorrectionLevel)
     /**
-     *  //若使用更简单的二维码库https://github.com/davidshimjs/qrcodejs
-    const width = qr.clientWidth
-    const qrcode = new QRCode(qr, {
-        width : parseFloat(width),
-        height : parseFloat(width)
-    })
+     *  若使用更简单的二维码库https://github.com/davidshimjs/qrcodejs
+        const width = qr.clientWidth
+        const qrcode = new QRCode(qr, {
+            width : parseFloat(width),
+            height : parseFloat(width)
+        })
         //window.onhashchange中sText && qrcode.makeCode(sText)
-    **/
+     */
     window.onhashchange = () => {
         const sText =
             window.location.hash &&
@@ -63,12 +63,13 @@
                 c.rect(0, 0, width, height)
                 c.fill()
                 /**
-            const px = c.getImageData(0, 0, width, height)
-            // 像素操作
-            c.putImageData(px, 0, 0)
-          **/
+                 * 
+                    const px = c.getImageData(0, 0, width, height)
+                    // 像素操作
+                    c.putImageData(px, 0, 0)
+                 */
             }
-        } //条形码库https://github.com/lindell/JsBarcode
+        } // 条形码库https://github.com/lindell/JsBarcode
         sText &&
             JsBarcode("#br", sText, { lineColor: "#0aa", displayValue: false })
         sT.innerHTML = sText || "input #hash"

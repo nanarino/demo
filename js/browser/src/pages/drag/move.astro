@@ -20,10 +20,10 @@
 <script is:inline>
     // 放开注释的代码即为有边界的拖拽
     window.onload = function () {
-        // let minX = 0
-        // let minY = 0
-        // let maxX = imgbox.clientWidth+minX-imgsorech.clientWidth
-        // let maxY = imgbox.clientHeight+minY-imgsorech.clientHeight
+        const minX = 0
+        const minY = 0
+        const maxX = imgbox.clientWidth + minX - imgsorech.clientWidth
+        const maxY = imgbox.clientHeight + minY - imgsorech.clientHeight
         imgsorech.onmousedown = function (eve) {
             let imaX = eve.clientX
             let imaY = eve.clientY

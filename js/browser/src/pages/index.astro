@@ -16,6 +16,8 @@ const getMenu = async (
     for (const fileName of await readDir(currentDir)) {
         if (fileName?.[0] === ".") continue
         const filePath = path.join(currentDir, fileName)
+        const isFile = (await stat(filePath)).isFile()
+        if (isFile && (fileName.slice(-6) !== ".astro")) continue
         children.push({
             path: path
                 .relative(rootDir, filePath)
@@ -23,9 +25,7 @@ const getMenu = async (
                 .join(path.posix.sep)
                 .replace(/index\.astro$/i, "")
                 .replace(/\.astro$/i, ""),
-            ...((await stat(filePath)).isFile()
-                ? null
-                : { children: await getMenu(filePath, rootDir) }),
+            ...(isFile ? null : { children: await getMenu(filePath, rootDir) }),
         })
     }
     return children

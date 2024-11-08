@@ -53,62 +53,24 @@
             font-size: 16px;
         }
     </style>
-    <script type="importmap">
-        {
-            "imports": {
-                "@ui5/webcomponents-icons/dist/AllIcons.js": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/AllIcons.js",
-                "@ui5/webcomponents/dist/Button.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Button.js",
-                "@ui5/webcomponents/dist/CheckBox.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/CheckBox.js",
-                "@ui5/webcomponents/dist/Dialog.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Dialog.js",
-                "@ui5/webcomponents/dist/Input.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Input.js",
-                "@ui5/webcomponents/dist/Label.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Label.js",
-                "@ui5/webcomponents/dist/Menu.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Menu.js",
-                "@ui5/webcomponents/dist/MenuItem.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/MenuItem.js",
-                "@ui5/webcomponents/dist/Option.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Option.js",
-                "@ui5/webcomponents/dist/RadioButton.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/RadioButton.js",
-                "@ui5/webcomponents/dist/RatingIndicator.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/RatingIndicator.js",
-                "@ui5/webcomponents/dist/Select.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Select.js",
-                "@ui5/webcomponents/dist/TextArea.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/TextArea.js",
-                "@ui5/webcomponents/dist/Toast.js": "https://ga.jspm.io/npm:@ui5/webcomponents@1.9.1/dist/Toast.js"
-            },
-            "scopes": {
-                "https://ga.jspm.io/": {
-                    "@ui5/webcomponents-base/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-base@1.9.1/dist/",
-                    "@ui5/webcomponents-icons/dist/": "https://ga.jspm.io/npm:@ui5/webcomponents-icons@1.9.1/dist/",
-                    "@ui5/webcomponents-theming/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js": "https://ga.jspm.io/npm:@ui5/webcomponents-theming@1.9.1/dist/generated/themes/sap_fiori_3/parameters-bundle.css.js",
-                    "lit-html": "https://ga.jspm.io/npm:lit-html@2.6.1/development/lit-html.js",
-                    "lit-html/": "https://ga.jspm.io/npm:lit-html@2.6.1/development/"
-                }
-            }
-        }
-    </script>
-    <script type="module">
-        /**
-         * https://generator.jspm.io/#jdCxDoIwEMZxBmffwlEIg4MboEsTjQnqA5T2gqfljtBrZPPVDZuDSbtefvcN/80qy9af7E6C4sBmVcBd8YbO8DAyAYnfomHyVZnv87Kw6KWonVPLLX/6P/5XNkGEKe4ODzCvhue4PKJ23MedojFInJ10By7OzkAhTSmBIS4vo2BKl1Zb5NSIrRakXpFFo4Wn+MMVHJiESDeYpZ5AJ0jWfhn8Ah6Gf1ZWAg
-         */
+    <script>
         import "@ui5/webcomponents/dist/Toast.js"
         import "@ui5/webcomponents-icons/dist/AllIcons.js"
         import "@ui5/webcomponents/dist/Button.js"
-        //import "@ui5/webcomponents/dist/Menu.js"
-        //import "@ui5/webcomponents/dist/MenuItem.js"
-        //import "@ui5/webcomponents/dist/Dialog.js"
         import "@ui5/webcomponents/dist/Input.js"
         import "@ui5/webcomponents/dist/Label.js"
-        //import "@ui5/webcomponents/dist/Select.js"
-        //import "@ui5/webcomponents/dist/Option.js"
         import "@ui5/webcomponents/dist/CheckBox.js"
         import "@ui5/webcomponents/dist/TextArea.js"
         import "@ui5/webcomponents/dist/RadioButton.js"
         import "@ui5/webcomponents/dist/RatingIndicator.js"
     </script>
-</head>
-
+</head>                                     
 <body>
     <ui5-toast id="toast"></ui5-toast>
     <div style="display:flex; padding:16px;">
         <form onsubmit="return false">
             <div
-                style="height:290px;background-image:url('/questionnaire/static/src/img/logo.png');background-repeat:no-repeat;background-size:auto 100%;background-position:center center;"
+                style="height:290px;background-image:linear-gradient(84deg, #ff6aac,#f3a461,#acd995)"
             >
             </div>
             <div class="title">
@@ -398,164 +360,9 @@
             </div>
 
             <div style="margin:auto">
-                <ui5-button design="Emphasized" id="submit-btn">提交</ui5-button
-                >
+                <ui5-button design="Emphasized"> 提交 </ui5-button>
             </div>
             <br />
         </form>
     </div>
-    <script type="module">
-        const id = new URLSearchParams(location.search).get("id") || null
-        const reviewId =
-            new URLSearchParams(location.search).get("reviewId") || null
-        if (reviewId === null) {
-            for (const i of [2, 3]) {
-                document.getElementById(`input-q${i}-other`).onchange = e => {
-                    const ipt = document.getElementById(`input-q${i}-other-ref`)
-                    if (e.target.hasAttribute("checked")) {
-                        ipt.removeAttribute("disabled")
-                    } else {
-                        ipt.setAttribute("disabled", "disabled")
-                        ipt.value = ""
-                    }
-                }
-            }
-            document.getElementById("input-q1").onchange = function (e) {
-                e.cancelBubble = true
-                this.setAttribute("value", e.target.text)
-            }
-            const toast = document.getElementById("toast")
-            document.getElementById("submit-btn").onclick = async function (e) {
-                if (sessionStorage.getItem("customize_is_submit")) {
-                    toast.innerText = "已经提交过了"
-                    toast.show()
-                    this.setAttribute("disabled", "disabled")
-                    return
-                }
-                const entries = [
-                    [
-                        `整体满意度`,
-                        document.getElementById("input-q0").value ?? 0,
-                    ],
-                    [
-                        `是否提高了您的生产效率`,
-                        document
-                            .getElementById("input-q1")
-                            .getAttribute("value")
-                            ?.split("/")?.[0] ?? `有帮助，朗显提高了效率`,
-                    ],
-                    [
-                        `产品最满意的地方`,
-                        Array.from(
-                            document
-                                .getElementById("input-q2")
-                                .querySelectorAll("ui5-checkbox,ui5-input")
-                        )
-                            .map(
-                                d =>
-                                    d.checked ??
-                                    `\`${d.value.replace("`", "")}\``
-                            )
-                            .toString(),
-                    ],
-                    [
-                        `产品哪些地方还不够满意`,
-                        Array.from(
-                            document
-                                .getElementById("input-q3")
-                                .querySelectorAll("ui5-checkbox,ui5-input")
-                        )
-                            .map(
-                                d =>
-                                    d.checked ??
-                                    `\`${d.value.replace("`", "")}\``
-                            )
-                            .toString(),
-                    ],
-                    [
-                        `销售服务最满意的地方`,
-                        Array.from(
-                            document
-                                .getElementById("input-q4")
-                                .querySelectorAll("ui5-checkbox")
-                        )
-                            .map(d => d.checked)
-                            .toString(),
-                    ],
-                    [
-                        `服务不满意的地方`,
-                        Array.from(
-                            document
-                                .getElementById("input-q5")
-                                .querySelectorAll("ui5-checkbox")
-                        )
-                            .map(d => d.checked)
-                            .toString(),
-                    ],
-                    [
-                        `客户服务的综合评价`,
-                        document.getElementById("input-q6").value ?? 0,
-                    ],
-                    [`有什么想说的`, document.getElementById("input-q7").value],
-                ]
-                const body = new FormData()
-                for (const [k, v] of entries) {
-                    body.set(k, v)
-                }
-                try {
-                    const res = await fetch(
-                        `/web/v2/questionnaire/result?${new URLSearchParams(id ? { id } : {})}`,
-                        {
-                            method: "POST",
-                            body,
-                        }
-                    )
-                    const data = await res.json()
-                    if (data.ok) {
-                        sessionStorage.setItem("customize_is_submit", "1")
-                        toast.innerText = "提交成功"
-                        toast.show()
-                    } else {
-                        throw new Error("提交失败")
-                    }
-                } catch (error) {
-                    toast.innerText = "提交失败"
-                    toast.show()
-                }
-                return false
-            }
-        } else {
-            document.getElementById("submit-btn").style.display = "none"
-            ;[
-                ...document.querySelectorAll(
-                    "ui5-textarea, ui5-rating-indicator, ui5-checkbox, ui5-input, ui5-radio-button"
-                ),
-            ].forEach(d => d.setAttribute("readonly", "readonly"))
-            void (async function review() {
-                const res = await fetch(`/web/v2/questionnaire/q/${reviewId}`)
-                const data = await res.json()
-                document.getElementById("input-q0").value = 1 * data[0]
-                document
-                    .getElementById("input-q1")
-                    .querySelector(`[text^='${data[1]}']`)
-                    ?.setAttribute("checked", "checked")
-                for (const i of [2, 3, 4, 5]) {
-                    const _data = eval(`[${data[i]}]`)
-                    if (i < 4) {
-                        document.getElementById(`input-q${i}-other-ref`).value =
-                            _data.pop()
-                    }
-                    for (const aw of Object.entries(_data)) {
-                        if (aw[1])
-                            document
-                                .getElementById(`input-q${i}`)
-                                .querySelectorAll(`ui5-checkbox`)
-                                ?.[aw[0]]?.setAttribute("checked", "checked")
-                    }
-                }
-                document.getElementById("input-q6").value = 1 * data[6]
-                document.getElementById("input-q7").value = data[7]
-            })()
-        }
-    </script>
 </body>
