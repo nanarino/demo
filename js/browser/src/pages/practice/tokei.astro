@@ -1,3 +1,35 @@
+---
+import Layout from "src/layout.astro"
+---
+
+<Layout title="css時鐘">
+    <div id="piec">
+        <div id="hour-hand"></div>
+        <div id="minute-hand"></div>
+        <div id="second-hand"></div>
+    </div>
+    <div class="timeb"></div>
+    <div class="timeb"></div>
+    <div class="timeb"></div>
+    <script is:inline>
+        setInterval(() => {
+            const nowtime = new Date()
+            const timeb = document.getElementsByClassName("timeb")
+            const hour = document.getElementById("hour-hand")
+            const minute = document.getElementById("minute-hand")
+            const second = document.getElementById("second-hand")
+            timeb[0].innerHTML = nowtime.getHours().toString().padEnd(2, "0")
+            timeb[1].innerHTML = nowtime.getMinutes().toString().padEnd(2, "0")
+            timeb[2].innerHTML = nowtime.getSeconds().toString().padEnd(2, "0")
+            hour.style.cssText =
+                "transform:rotate(" + nowtime.getHours() / 12 + "turn);"
+            minute.style.cssText =
+                "transform:rotate(" + nowtime.getMinutes() / 60 + "turn);"
+            second.style.cssText =
+                "transform:rotate(" + nowtime.getSeconds() / 60 + "turn);"
+        }, 1000)
+    </script>
+</Layout>
 <style>
     * {
         padding: 0;
@@ -10,8 +42,7 @@
         line-height: 30px;
         margin: 5px;
         display: inline-block;
-        background-color: salmon;
-        color: navy;
+        color: brown;
         text-align: center;
         font-size: large;
     }
@@ -55,29 +86,3 @@
         transform-origin: 50% 80%;
     }
 </style>
-<div id="piec">
-    <div id="hour-hand"></div>
-    <div id="minute-hand"></div>
-    <div id="second-hand"></div>
-</div>
-<div class="timeb"></div>
-<div class="timeb"></div>
-<div class="timeb"></div>
-<script is:inline>
-    setInterval(() => {
-        const nowtime = new Date()
-        const timeb = document.getElementsByClassName("timeb")
-        const hour = document.getElementById("hour-hand")
-        const minute = document.getElementById("minute-hand")
-        const second = document.getElementById("second-hand")
-        timeb[0].innerHTML = nowtime.getHours().toString().padEnd(2, "0")
-        timeb[1].innerHTML = nowtime.getMinutes().toString().padEnd(2, "0")
-        timeb[2].innerHTML = nowtime.getSeconds().toString().padEnd(2, "0")
-        hour.style.cssText =
-            "transform:rotate(" + nowtime.getHours() / 12 + "turn);"
-        minute.style.cssText =
-            "transform:rotate(" + nowtime.getMinutes() / 60 + "turn);"
-        second.style.cssText =
-            "transform:rotate(" + nowtime.getSeconds() / 60 + "turn);"
-    }, 1000)
-</script>
