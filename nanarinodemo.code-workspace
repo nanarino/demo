@@ -7,10 +7,7 @@
 			"path": "ex"
 		},
 		{
-			"path": "js/browser"
-		},
-		{
-			"path": "js/node"
+			"path": "js"
 		},
 		{
 			"path": "py"
