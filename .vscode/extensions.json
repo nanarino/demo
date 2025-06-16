@@ -1,6 +1,10 @@
 {
     "recommendations": [
         "formulahendry.code-runner",
-        "ms-vscode.hexeditor"
+        "ms-vscode.hexeditor",
+        "narasimapandiyan.jetbrainsmono",
+        "pkief.material-icon-theme",
+        "esbenp.prettier-vscode",
+        "charliermarsh.ruff"
     ]
 }

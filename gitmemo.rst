@@ -22,6 +22,10 @@ git命令
     # 取消全局代理：
     git config --global --unset http.proxy
     git config --global --unset https.proxy
+    # 清除配置中纪录的用户名和密码，往後提交代码时会让重新输入账号密码
+    git config --system --unset credential.helper
+    # 使用後下次pull或push时会缓存输入的用户名和密码
+    git config --global credential.helper store
 
 
 
@@ -65,6 +69,15 @@ git命令
     git pull
     # 推送所有分支提交
     git push --all origin
+    # 強制推送master分支提交
+    git push origin master --force
+    # 暫存所有修改 附加描述
+    git stash save "114514"
+    # 強制放棄本地分支歷史 使用遠端的替換 適用於遠端存在rebase, 記得前後暫存修改
+    git fetch
+    git reset --hard origin/远程名
+    # 釋放暫存的修改
+    git stash pop
 
 
 回滚::
@@ -73,5 +86,11 @@ git命令
     git reflog
     # 回滚到某次记录后
     git reset --hard 编号
+    # 重寫之前三次的提交 將之後兩個改成f/s可以合併提交 rebase之後需要強制推送
+    git rebase -i HEAD~3
+    # 重寫之前所有的提交
+    git rebase -i --root
+    # 重寫某次提交之後的所有的提交
+    git rebase -i 114dec5ed1419a810e
     # 强制推送
     git push origin 远程名 --force

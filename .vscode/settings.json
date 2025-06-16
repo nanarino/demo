@@ -2,16 +2,6 @@
     // own global settings
     // 自用全局设置 并不是这个项目的设置
     "git.ignoreMissingGitWarning": true,
-    "workbench.editorAssociations": {
-        "*.ipynb": "jupyter-notebook"
-    },
-    // python
-    //"python.defaultInterpreterPath": "C:\\Users\\Administrator\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
-    //"python.analysis.typeCheckingMode": "strict",
-    "[python]": {
-        "editor.formatOnType": true,
-        "editor.tabSize": 4
-    },
     "notebook.cellToolbarLocation": {
         "default": "right",
         "jupyter-notebook": "left"
@@ -28,7 +18,7 @@
         "kotlinscript": "kotlinc -script",
         "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
         "dart": "dart",
-        "python": "py",
+        "python": "uv run",
 
         // jdk target 21
         "java": "cd $dir && javac --enable-preview -source 21 -Xlint:preview $fileName && java --enable-preview $fileNameWithoutExt",
@@ -43,16 +33,11 @@
     "stylusSupremacy.insertSemicolons": false, // 是否插入分号
     "stylusSupremacy.insertBraces": false, // 是否插入大括号
     "stylusSupremacy.insertNewLineAroundImports": true, // import之后是否换行
-    "stylusSupremacy.insertNewLineAroundBlocks": false, // 两个选择器中是否换行
+    "stylusSupremacy.insertNewLineAroundBlocks": true, // 两个选择器中是否换行
     "hexeditor.columnWidth": 16,
     "hexeditor.showDecodedText": true,
     "hexeditor.defaultEndianness": "little",
     "hexeditor.inspectorType": "aside",
-    "editor.accessibilitySupport": "off",
-    "editor.renderControlCharacters": true,
-    "editor.fontFamily": "'Fira Code', 'Microsoft Yahei UI'",
-    "editor.fontLigatures": true,
-    "editor.unicodeHighlight.nonBasicASCII": false,
     // Causes the debug view to automatically appear when a breakpoint is hit. This
     // setting is global and not configurable per-language.
     "debug.openDebug": "openOnDebugBreak",
@@ -90,16 +75,45 @@
         // strings. This setting will prevent that.
         "editor.wordBasedSuggestions": "off",
     },
-    "[html]": {
-        "editor.defaultFormatter": "vscode.html-language-features",
-        "editor.tabSize": 2
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.accessibilitySupport": "off",
+    "editor.renderControlCharacters": true,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true,
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "workbench.editorAssociations": {
+         "*.ipynb": "jupyter-notebook",
+        "{hexdiff}:/**/*.*": "hexEditor.hexedit",
+        "*.svg": "default"
+    },
+    "python.analysis.typeCheckingMode": "basic",
     // svelte
     "svelte.enable-ts-plugin": true,
     "[svelte]": {
-        "editor.tabSize": 2
-    },
-    "[vue]": {
         "editor.tabSize": 2
     }
 }
