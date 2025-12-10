@@ -9,7 +9,7 @@
     "dependencies": {
         "@ui5/webcomponents": "^2.6.2",
         "@ui5/webcomponents-icons": "^2.6.2",
-        "astro": "^5.7.0"
+        "astro": "^5.15.9"
     },
     "devDependencies": {
         "@types/node": "^22.10.7",
