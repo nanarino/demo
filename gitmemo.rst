@@ -26,7 +26,8 @@ git命令
     git config --system --unset credential.helper
     # 使用後下次pull或push时会缓存输入的用户名和密码
     git config --global credential.helper store
-
+    # 配置合并策略为ours 适用于合并忽略远程分支的环境变量和ci文件
+    git config --global merge.ours.driver true
 
 
 拉取::
